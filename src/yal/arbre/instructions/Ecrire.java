@@ -17,8 +17,10 @@ public class Ecrire extends Instruction {
 
     @Override
     public String toMIPS() {
-        String ecrire = "\t#ecrire "+exp+"\n";
-        ecrire += "\tli $v0, 1\n\tli $a0," +exp+"\n\tsyscall\n";
+        String ecrire = "\t#ecrire " + exp.toString();
+        ecrire += exp.toMIPS() + "\n";
+        ecrire += "\tmove $a0, $v0 # $a0 = $v0\n";
+        ecrire += "\tli $v0, 1" + "\n\tsyscall\n";
         return ecrire;
     }
 

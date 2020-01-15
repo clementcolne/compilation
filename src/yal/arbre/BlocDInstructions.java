@@ -39,7 +39,6 @@ public class BlocDInstructions extends ArbreAbstrait {
         }
         prog += "\nend:\n\t#Sortie de programme\n\tli $v0, 10\n\tsyscall\n";
         return prog;
-        //throw new UnsupportedOperationException("Not supported yet.");
     }
 
 }
