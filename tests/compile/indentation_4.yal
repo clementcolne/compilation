@@ -1,0 +1,4 @@
+programme prog debut {
+  // commentaire indenté
+  entier 3;
+}
