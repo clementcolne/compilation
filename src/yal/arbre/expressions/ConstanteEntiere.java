@@ -8,6 +8,7 @@ public class ConstanteEntiere extends Constante {
 
     @Override
     public String toMIPS() {
+        // test
         return "\n\tli $v0, " + toString() + "\t#toMips() de ConstanteEntière";
     }
 

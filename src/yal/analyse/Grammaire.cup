@@ -20,6 +20,7 @@ parser code {:
         lesTerminaux.put(new Integer(CodesLexicaux.DEBUT), "debut") ;
         lesTerminaux.put(new Integer(CodesLexicaux.FIN), "fin") ;
         lesTerminaux.put(new Integer(CodesLexicaux.POINTVIRGULE), ";") ;
+        lesTerminaux.put(new Integer(CodesLexicaux.COMMENTAIRE), ";") ;
 
         StringBuffer m = new StringBuffer() ;
 
@@ -56,7 +57,7 @@ parser code {:
    
 /* Terminals (tokens returned by the scanner).  */
 
-terminal Symbol    PROGRAMME, DEBUT, FIN, POINTVIRGULE, ECRIRE ;
+terminal Symbol    PROGRAMME, DEBUT, FIN, POINTVIRGULE, ECRIRE, COMMENTAIRE ;
 terminal String    IDF, CSTENTIERE ;
    
 /* Non terminals used in the grammar section.  */
