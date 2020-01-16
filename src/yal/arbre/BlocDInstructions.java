@@ -33,7 +33,8 @@ public class BlocDInstructions extends ArbreAbstrait {
     @Override
     public String toMIPS() {
         String prog = "";
-        prog = ".text\nmain:\n\n";
+        prog = ".data\n" +
+                "BackSlachN: .asciiz \"\\n\"\n.text\n\nmain:\n\n";
         for(ArbreAbstrait a : programme) {
             prog += a.toMIPS()+"\n";
         }

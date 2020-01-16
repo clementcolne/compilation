@@ -21,6 +21,10 @@ public class Ecrire extends Instruction {
         ecrire += exp.toMIPS() + "\n";
         ecrire += "\tmove $a0, $v0 # $a0 = $v0\n";
         ecrire += "\tli $v0, 1" + "\n\tsyscall\n";
+        ecrire += "\n\t#retour à la ligne";
+        ecrire += "\n\taddi $v0, $zero, 4 \n" +
+                "    la $a0, BackSlachN\n" +
+                "    syscall\n";
         return ecrire;
     }
 
