@@ -1,1 +1,1 @@
-programme prog debut { ecrire 4; // commentaire } fin
+programme prog debut ecrire 4; // commentaire fin

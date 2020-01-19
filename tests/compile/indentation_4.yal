@@ -1,4 +1,4 @@
-programme prog debut {
+programme prog debut
   // commentaire indenté
   entier 3;
-}
+fin
