@@ -57,7 +57,7 @@ parser code {:
 /* Terminals (tokens returned by the scanner).  */
 
 terminal Symbol    PROGRAMME, DEBUT, FIN, POINTVIRGULE, ECRIRE, LIRE;
-terminal String    IDF, CSTENTIERE, COMMENTAIRE ;
+terminal String    IDF, CSTENTIERE, COMMENTAIRE, ENTIER ;
    
 /* Non terminals used in the grammar section.  */
 
@@ -68,9 +68,18 @@ non terminal Expression EXP ;
  
 start with PROG ;
 
-PROG    ::=     PROGRAMME  IDF  DEBUT  LINST:li  FIN
+PROG    ::=     PROGRAMME  IDF  DEBUT  LDECL:ld LINST:li  FIN
                 {: RESULT = li ; :}
                 ;
+
+LDECL   ::=    LDECL:ld  DECL:d
+               {: ((BlocDInstructions)ld).ajouter(d) ;
+                   RESULT = ld ; :}
+               ;
+
+DECL    ::=    ENTIER IDF:i
+               {: RESULT = new DeclVar(ileft + 1, i) ; :}
+               ;
 
 LINST   ::=     LINST:li  INST:i
                 {: ((BlocDInstructions)li).ajouter(i) ;

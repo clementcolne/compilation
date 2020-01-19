@@ -33,6 +33,8 @@ import yal.exceptions.AnalyseLexicaleException;
 
 idf = [A-Za-z_][A-Za-z_0-9]*
 
+entier = [0-9]*
+
 csteE = [0-9]+
 
 finDeLigne = \r|\n
@@ -55,6 +57,8 @@ cmt = [/]{2}.*\n
 {csteE}      	       { return symbol(CodesLexicaux.CSTENTIERE, yytext()); }
 
 {idf}      	           { return symbol(CodesLexicaux.IDF, yytext()); }
+
+{entier}               { return symbol(CodesLexicaux.ENTIER, yytext()); }
 
 {espace}               { }
 

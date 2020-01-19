@@ -53,9 +53,9 @@ public class AnalyseurLexical implements java_cup.runtime.Scanner {
   private static final int [] ZZ_ACTION = zzUnpackAction();
 
   private static final String ZZ_ACTION_PACKED_0 =
-    "\1\0\1\1\1\2\1\3\1\4\1\1\4\2\1\5"+
-    "\1\2\1\0\5\2\1\6\3\2\1\7\4\2\1\10"+
-    "\2\2\1\11\1\2\1\12\2\2\1\13";
+    "\1\1\1\2\1\3\1\4\1\5\1\2\4\3\1\6"+
+    "\1\3\1\0\5\3\1\7\3\3\1\10\4\3\1\11"+
+    "\2\3\1\12\1\3\1\13\2\3\1\14";
 
   private static int [] zzUnpackAction() {
     int [] result = new int[36];
@@ -179,7 +179,7 @@ public class AnalyseurLexical implements java_cup.runtime.Scanner {
   private static final int [] ZZ_ATTRIBUTE = zzUnpackAttribute();
 
   private static final String ZZ_ATTRIBUTE_PACKED_0 =
-    "\1\0\1\11\2\1\1\11\5\1\1\11\1\1\1\0"+
+    "\1\1\1\11\2\1\1\11\5\1\1\11\1\1\1\0"+
     "\5\1\1\11\21\1";
 
   private static int [] zzUnpackAttribute() {
@@ -656,49 +656,53 @@ public class AnalyseurLexical implements java_cup.runtime.Scanner {
       else {
         switch (zzAction < 0 ? zzAction : ZZ_ACTION[zzAction]) {
           case 1: 
-            { throw new AnalyseLexicaleException(yyline, yycolumn, yytext()) ;
-            }
-          case 12: break;
-          case 2: 
-            { return symbol(CodesLexicaux.IDF, yytext());
+            { return symbol(CodesLexicaux.ENTIER, yytext());
             }
           case 13: break;
-          case 3: 
-            { return symbol(CodesLexicaux.CSTENTIERE, yytext());
+          case 2: 
+            { throw new AnalyseLexicaleException(yyline, yycolumn, yytext()) ;
             }
           case 14: break;
-          case 4: 
-            { 
+          case 3: 
+            { return symbol(CodesLexicaux.IDF, yytext());
             }
           case 15: break;
-          case 5: 
-            { return symbol(CodesLexicaux.POINTVIRGULE);
+          case 4: 
+            { return symbol(CodesLexicaux.CSTENTIERE, yytext());
             }
           case 16: break;
-          case 6: 
-            { return symbol(CodesLexicaux.COMMENTAIRE);
+          case 5: 
+            { 
             }
           case 17: break;
-          case 7: 
-            { return symbol(CodesLexicaux.FIN);
+          case 6: 
+            { return symbol(CodesLexicaux.POINTVIRGULE);
             }
           case 18: break;
-          case 8: 
-            { return symbol(CodesLexicaux.LIRE);
+          case 7: 
+            { return symbol(CodesLexicaux.COMMENTAIRE);
             }
           case 19: break;
-          case 9: 
-            { return symbol(CodesLexicaux.DEBUT);
+          case 8: 
+            { return symbol(CodesLexicaux.FIN);
             }
           case 20: break;
-          case 10: 
-            { return symbol(CodesLexicaux.ECRIRE);
+          case 9: 
+            { return symbol(CodesLexicaux.LIRE);
             }
           case 21: break;
-          case 11: 
-            { return symbol(CodesLexicaux.PROGRAMME);
+          case 10: 
+            { return symbol(CodesLexicaux.DEBUT);
             }
           case 22: break;
+          case 11: 
+            { return symbol(CodesLexicaux.ECRIRE);
+            }
+          case 23: break;
+          case 12: 
+            { return symbol(CodesLexicaux.PROGRAMME);
+            }
+          case 24: break;
           default:
             zzScanError(ZZ_NO_MATCH);
         }
