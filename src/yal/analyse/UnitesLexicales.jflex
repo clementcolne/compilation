@@ -38,6 +38,8 @@ csteE = [0-9]+
 finDeLigne = \r|\n
 espace = {finDeLigne}  | [ \t\f]
 
+cmt = [/]{2}.*\n
+
 %%
 
 "programme"            { return symbol(CodesLexicaux.PROGRAMME); }
@@ -48,12 +50,14 @@ espace = {finDeLigne}  | [ \t\f]
 
 ";"                    { return symbol(CodesLexicaux.POINTVIRGULE); }
 
-"//"                   { return symbol(CodesLexicaux.COMMENTAIRE); }
+"lire"                 { return symbol(CodesLexicaux.LIRE); }
 
 {csteE}      	       { return symbol(CodesLexicaux.CSTENTIERE, yytext()); }
 
 {idf}      	           { return symbol(CodesLexicaux.IDF, yytext()); }
 
 {espace}               { }
+
+{cmt}                  { return symbol(CodesLexicaux.COMMENTAIRE); }
 .                      { throw new AnalyseLexicaleException(yyline, yycolumn, yytext()) ; }
 

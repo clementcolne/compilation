@@ -20,7 +20,6 @@ parser code {:
         lesTerminaux.put(new Integer(CodesLexicaux.DEBUT), "debut") ;
         lesTerminaux.put(new Integer(CodesLexicaux.FIN), "fin") ;
         lesTerminaux.put(new Integer(CodesLexicaux.POINTVIRGULE), ";") ;
-        lesTerminaux.put(new Integer(CodesLexicaux.COMMENTAIRE), ";") ;
 
         StringBuffer m = new StringBuffer() ;
 
@@ -57,12 +56,12 @@ parser code {:
    
 /* Terminals (tokens returned by the scanner).  */
 
-terminal Symbol    PROGRAMME, DEBUT, FIN, POINTVIRGULE, ECRIRE, COMMENTAIRE ;
-terminal String    IDF, CSTENTIERE ;
+terminal Symbol    PROGRAMME, DEBUT, FIN, POINTVIRGULE, ECRIRE, LIRE;
+terminal String    IDF, CSTENTIERE, COMMENTAIRE ;
    
 /* Non terminals used in the grammar section.  */
 
-non terminal ArbreAbstrait PROG, LINST, INST ;
+non terminal ArbreAbstrait PROG, LINST, INST, LDECL, DECL ;
 non terminal Expression EXP ;
 
 /* ----------------------------Grammar Section-------------------- */
@@ -85,6 +84,12 @@ LINST   ::=     LINST:li  INST:i
 
 INST    ::=     ECRIRE EXP:e POINTVIRGULE
                 {: RESULT = new Ecrire(e, eleft + 1) ; :}
+       |
+                COMMENTAIRE:o
+                {: RESULT = null; :}
+       |
+                LIRE EXP:e POINTVIRGULE
+                {: RESULT = new Lire(e, eleft + 1) ; :}
                 ;
     
 EXP    ::=     CSTENTIERE:c
