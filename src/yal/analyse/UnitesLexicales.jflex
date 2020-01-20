@@ -40,7 +40,7 @@ csteE = [0-9]+
 finDeLigne = \r|\n
 espace = {finDeLigne}  | [ \t\f]
 
-cmt = [/]{2}.*\n
+cmt = \/\/.*\n
 
 %%
 
@@ -62,6 +62,6 @@ cmt = [/]{2}.*\n
 
 {espace}               { }
 
-{cmt}                  { return symbol(CodesLexicaux.COMMENTAIRE); }
+{cmt}                  { }
 .                      { throw new AnalyseLexicaleException(yyline, yycolumn, yytext()) ; }
 
