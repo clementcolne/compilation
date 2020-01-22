@@ -33,14 +33,10 @@ import yal.exceptions.AnalyseLexicaleException;
 
 idf = [A-Za-z_][A-Za-z_0-9]*
 
-entier = [0-9]*
-
 csteE = [0-9]+
-
+commentaire = [/].*{finDeLigne}
 finDeLigne = \r|\n
 espace = {finDeLigne}  | [ \t\f]
-
-cmt = \/\/.*\n
 
 %%
 
@@ -52,16 +48,12 @@ cmt = \/\/.*\n
 
 ";"                    { return symbol(CodesLexicaux.POINTVIRGULE); }
 
-"lire"                 { return symbol(CodesLexicaux.LIRE); }
-
 {csteE}      	       { return symbol(CodesLexicaux.CSTENTIERE, yytext()); }
 
 {idf}      	           { return symbol(CodesLexicaux.IDF, yytext()); }
 
-{entier}               { return symbol(CodesLexicaux.ENTIER, yytext()); }
+{commentaire}          { }
 
 {espace}               { }
-
-{cmt}                  { }
 .                      { throw new AnalyseLexicaleException(yyline, yycolumn, yytext()) ; }
 
