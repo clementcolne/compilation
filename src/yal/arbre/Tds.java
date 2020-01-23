@@ -1,5 +1,6 @@
 package yal.arbre;
 
+import yal.exceptions.AnalyseException;
 import java.util.HashMap;
 
 public class Tds {
@@ -29,11 +30,12 @@ public class Tds {
      */
     public void ajouter(Entree e, Symbole s) throws Exception {
         if(!variables.containsKey(e)) {
+            // la variable est déclarée pour la première fois
             s.setDeplacement(cpt*(-4));
             variables.put(e, s);
             cpt++;
         }else{
-            throw new Exception("ERREUR SEMANTIQUE : noLigne : déclaration multiple de variables");
+            throw new Exception("ERREUR SEMANTIQUE : nolig : déclaration multiple de variables");
         }
     }
 
