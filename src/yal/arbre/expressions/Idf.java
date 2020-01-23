@@ -6,7 +6,6 @@ import yal.exceptions.AnalyseSemantiqueException;
 
 public class Idf extends Expression{
 
-    private String nom;
     private int noLig;
 
     public Idf(String nom, int n){
@@ -29,7 +28,9 @@ public class Idf extends Expression{
         return null;
     }
 
+    @Override
     public String getNom() {
         return nom;
     }
+
 }

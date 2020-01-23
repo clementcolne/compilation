@@ -65,7 +65,7 @@ public class Tds {
     }
 
     public int getDeplacement(String e) {
-        int res = 0;
+        int res = -1;
         for(Map.Entry<Entree, Symbole> k : variables.entrySet()) {
             if(k.getKey().getNom().equals(e)) {
                 res = k.getValue().getDeplacement();

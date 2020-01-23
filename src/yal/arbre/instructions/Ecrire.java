@@ -1,5 +1,6 @@
 package yal.arbre.instructions;
 
+import yal.arbre.Tds;
 import yal.arbre.expressions.Expression;
 
 public class Ecrire extends Instruction {
@@ -13,18 +14,24 @@ public class Ecrire extends Instruction {
 
     @Override
     public void verifier() {
+        exp.verifier();
     }
 
     @Override
     public String toMIPS() {
+        int deplacement = Tds.getInstance().getDeplacement(exp.getNom());
         String ecrire = "\t#ecrire " + exp.toString();
         ecrire += exp.toMIPS() + "\n";
-        ecrire += "\tmove $a0, $v0 # $a0 = $v0\n";
+        if(deplacement >= 0) {
+            ecrire += "\tlw $a0, " + deplacement + "($s7)\n";
+        }else{
+            ecrire += "\tmove $a0, $v0\n";
+        }
         ecrire += "\tli $v0, 1" + "\n\tsyscall\n";
         ecrire += "\n\t#retour à la ligne";
-        ecrire += "\n\taddi $v0, $zero, 4 \n" +
-                "    la $a0, BackSlachN\n" +
-                "    syscall\n";
+        ecrire += "\n\tli $v0, 4 \n" +
+                  "\tla $a0, BackSlachN\n" +
+                  "\tsyscall\n";
         return ecrire;
     }
 
