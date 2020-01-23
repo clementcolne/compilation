@@ -1,6 +1,5 @@
 package yal.arbre;
 
-import yal.exceptions.AnalyseException;
 import java.util.HashMap;
 
 public class Tds {
@@ -35,7 +34,7 @@ public class Tds {
             variables.put(e, s);
             cpt++;
         }else{
-            throw new Exception("ERREUR SEMANTIQUE : nolig : déclaration multiple de variables");
+            throw new Exception();
         }
     }
 
@@ -44,8 +43,10 @@ public class Tds {
      * @param e Entree
      * @return le symbole correspondant à l'entrée dans la hashmap des variables
      */
-    public Symbole identifier(Entree e) {
-        return variables.get(e);
+    public Symbole identifier(Entree e) throws Exception {
+
+            return variables.get(e);
+
     }
 
     /**

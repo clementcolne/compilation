@@ -1,5 +1,9 @@
 package yal.arbre.expressions;
 
+import yal.arbre.Entree;
+import yal.arbre.Tds;
+import yal.exceptions.AnalyseSemantiqueException;
+
 public class Idf extends Expression{
 
     private String nom;
@@ -11,7 +15,12 @@ public class Idf extends Expression{
         this.noLig = n;
     }
     @Override
-    public void verifier() {
+    public void verifier(){
+        try{
+            Tds.getInstance().identifier(new Entree(nom));
+        }catch (Exception e){
+            throw new AnalyseSemantiqueException(noLig, ": déclaration multiple de variables");
+        }
 
     }
 

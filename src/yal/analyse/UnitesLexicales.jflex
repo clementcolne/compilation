@@ -37,6 +37,7 @@ csteE = [0-9]+
 commentaire = [/].*{finDeLigne}
 finDeLigne = \r|\n
 espace = {finDeLigne}  | [ \t\f]
+egal = [=]
 
 %%
 
@@ -55,6 +56,8 @@ espace = {finDeLigne}  | [ \t\f]
 {csteE}      	       { return symbol(CodesLexicaux.CSTENTIERE, yytext()); }
 
 {idf}      	           { return symbol(CodesLexicaux.IDF, yytext()); }
+
+"="                    { return symbol(CodesLexicaux.EGAL, yytext()); }
 
 {commentaire}          { }
 

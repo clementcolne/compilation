@@ -1,13 +1,14 @@
 package yal;
 
-import java.io.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import yal.analyse.AnalyseurLexical;
 import yal.analyse.AnalyseurSyntaxique;
 import yal.arbre.ArbreAbstrait;
 import yal.exceptions.AnalyseException;
+import yal.exceptions.AnalyseSemantiqueException;
+
+import java.io.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Yal {
     
@@ -16,8 +17,12 @@ public class Yal {
             AnalyseurSyntaxique analyseur = new AnalyseurSyntaxique(new AnalyseurLexical(new FileReader(nomFichier)));
             ArbreAbstrait arbre = (ArbreAbstrait) analyseur.parse().value;
 
-            arbre.verifier() ;
-            System.out.println("COMPILATION OK") ;
+            try {
+                arbre.verifier();
+                System.out.println("COMPILATION OK") ;
+            }catch (AnalyseSemantiqueException e) {
+                System.out.println(e.getMessage());
+            }
 
             String nomSortie = nomFichier.replaceAll("[.]yal", ".mips") ;
             PrintWriter flot = new PrintWriter(new BufferedWriter(new FileWriter(nomSortie))) ;

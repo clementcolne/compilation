@@ -1,19 +1,19 @@
 package yal.arbre.instructions;
 
-import yal.arbre.expressions.Expression;
+import yal.arbre.expressions.Idf;
 
 public class Lire extends Instruction {
 
-    protected Expression expr ;
+    protected Idf idf ;
 
-    public Lire(Expression e, int n){
+    public Lire(Idf i, int n){
         super(n);
-        expr = e;
+        idf = i;
     }
 
     @Override
     public void verifier() {
-        expr.verifier();
+        idf.verifier();
     }
 
     @Override
