@@ -4,11 +4,11 @@ import yal.arbre.expressions.Expression;
 
 public class Lire extends Instruction {
 
-    protected Expression exp ;
+    protected Expression expr ;
 
     public Lire(Expression e, int n){
         super(n);
-        exp = e;
+        expr = e;
     }
 
     @Override

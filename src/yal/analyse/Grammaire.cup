@@ -56,20 +56,37 @@ parser code {:
    
 /* Terminals (tokens returned by the scanner).  */
 
-terminal Symbol    PROGRAMME, DEBUT, FIN, POINTVIRGULE, ECRIRE ;
+terminal Symbol    PROGRAMME, DEBUT, FIN, POINTVIRGULE, ECRIRE, LIRE, ENTIER ;
 terminal String    IDF, CSTENTIERE ;
    
 /* Non terminals used in the grammar section.  */
 
-non terminal ArbreAbstrait PROG, LINST, INST ;
+non terminal ArbreAbstrait PROG, LINST, INST, LDECL, DECL ;
 non terminal Expression EXP ;
 
 /* ----------------------------Grammar Section-------------------- */
  
 start with PROG ;
 
-PROG    ::=     PROGRAMME  IDF  DEBUT  LINST:li  FIN
+PROG    ::=     PROGRAMME  IDF  DEBUT  LDECL:ld LINST:li  FIN
                 {: RESULT = li ; :}
+        |
+               PROGRAMME  IDF  DEBUT LINST:li  FIN
+               {: RESULT = li ; :}
+               ;
+
+LDECL   ::=     LDECL:ld  DECL:d
+                {: ((BlocDInstructions)ld).ajouter(d) ;
+                   RESULT = ld ; :}
+        |
+                DECL:d
+                {: BlocDInstructions b = new BlocDInstructions(dleft + 1) ;
+                b.ajouter(d) ;
+                RESULT = b ; :}
+                ;
+
+DECL    ::=     ENTIER IDF:i POINTVIRGULE
+                {: Tds.getInstance().ajouter(new Entree(i), new Symbole("entier")) ; :}
                 ;
 
 LINST   ::=     LINST:li  INST:i
@@ -84,8 +101,14 @@ LINST   ::=     LINST:li  INST:i
 
 INST    ::=     ECRIRE EXP:e POINTVIRGULE
                 {: RESULT = new Ecrire(e, eleft + 1) ; :}
+        |
+                LIRE EXP:e POINTVIRGULE
+                {: RESULT = new Lire(e, eleft + 1) ; :}
                 ;
     
 EXP    ::=     CSTENTIERE:c
-                {: RESULT = new ConstanteEntiere(c, cleft + 1) ; :}
-                ;
+               {: RESULT = new ConstanteEntiere(c, cleft + 1) ; :}
+        |
+               IDF:i
+               {: RESULT = new Idf(i, ileft + 1 ) ; :}
+               ;
