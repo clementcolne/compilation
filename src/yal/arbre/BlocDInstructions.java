@@ -35,6 +35,8 @@ public class BlocDInstructions extends ArbreAbstrait {
         String prog = "";
         prog = ".data\n" +
                 "BackSlachN: .asciiz \"\\n\"\n.text\n\nmain:\n\n";
+        prog += "\t#allocation mémoire pour les variables\n\tmove $s7, $sp\n" +
+                "\tadd $sp, $sp, " + Tds.getInstance().getTailleZoneVariable() + "\n\n";
         for(ArbreAbstrait a : programme) {
             prog += a.toMIPS()+"\n";
         }

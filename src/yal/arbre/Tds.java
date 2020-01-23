@@ -1,6 +1,7 @@
 package yal.arbre;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class Tds {
 
@@ -44,9 +45,7 @@ public class Tds {
      * @return le symbole correspondant à l'entrée dans la hashmap des variables
      */
     public Symbole identifier(Entree e) throws Exception {
-
-            return variables.get(e);
-
+        return variables.get(e);
     }
 
     /**
@@ -63,5 +62,15 @@ public class Tds {
      */
     public int getNbVariables() {
         return cpt;
+    }
+
+    public int getDeplacement(String e) {
+        int res = 0;
+        for(Map.Entry<Entree, Symbole> k : variables.entrySet()) {
+            if(k.getKey().getNom().equals(e)) {
+                res = k.getValue().getDeplacement();
+            }
+        }
+        return res;
     }
 }
