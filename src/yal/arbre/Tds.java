@@ -1,5 +1,8 @@
 package yal.arbre;
 
+import yal.arbre.expressions.Idf;
+import yal.exceptions.AnalyseSemantiqueException;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -7,6 +10,7 @@ public class Tds {
 
     public HashMap<Entree, Symbole> variables;
     public int cpt;
+    public int cptErreur;
 
     private static Tds tds = new Tds();
 
@@ -20,6 +24,7 @@ public class Tds {
     private Tds() {
         cpt = 0;
         variables = new HashMap<Entree, Symbole>();
+        cptErreur = 0;
     }
 
     /**
@@ -28,14 +33,22 @@ public class Tds {
      * @param s Symbole
      * @throws Exception Lève une exception si l'entrée e est déjà présente dans la hashmap des variables
      */
-    public void ajouter(Entree e, Symbole s) throws Exception {
-        if(!variables.containsKey(e)) {
-            // la variable est déclarée pour la première fois
+    public void ajouter(Idf e, Symbole s) throws AnalyseSemantiqueException {
+        Symbole symb = new Symbole("",0);
+        for(Map.Entry<Entree, Symbole> k : variables.entrySet()) {
+            if(k.getKey().getNom().equals(e.getNom())) {
+                symb = k.getValue();
+            }
+        }
+        if(symb.getType() != "entier") {  // on n'a pas trouvé la variable -> elle n'est pas déclarée
             s.setDeplacement(cpt*(-4));
-            variables.put(e, s);
+            variables.put(new Entree(e.getNom()), s);
             cpt++;
         }else{
-            throw new Exception();
+            int noLig = e.getNoLigne();
+            cptErreur ++;
+            AnalyseSemantiqueException a = new AnalyseSemantiqueException(noLig,": multiple déclarations de la variable");
+            System.out.println(a.getMessage());
         }
     }
 
@@ -44,8 +57,18 @@ public class Tds {
      * @param e Entree
      * @return le symbole correspondant à l'entrée dans la hashmap des variables
      */
-    public Symbole identifier(Entree e) throws Exception {
-        return variables.get(e);
+    public Symbole identifier(String e) throws Exception {
+        Symbole s = new Symbole("",0);
+        for(Map.Entry<Entree, Symbole> k : variables.entrySet()) {
+            if(k.getKey().getNom().equals(e)) {
+                s = k.getValue();
+            }
+        }
+        if (s.getType() == "entier") {
+            return new Symbole(s.getType(), s.getNoLig());
+        }else{
+            throw new Exception();
+        }
     }
 
     /**
@@ -72,5 +95,13 @@ public class Tds {
             }
         }
         return res;
+    }
+
+    public int getCptErreur() {
+        return cptErreur;
+    }
+
+    public void ajoutErreur(){
+        cptErreur ++ ;
     }
 }

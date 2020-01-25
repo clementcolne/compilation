@@ -1,12 +1,12 @@
 package yal.arbre.expressions;
 
-import yal.arbre.Entree;
 import yal.arbre.Tds;
 import yal.exceptions.AnalyseSemantiqueException;
 
 public class Idf extends Expression{
 
     private int noLig;
+    private String nom;
 
     public Idf(String nom, int n){
         super(n);
@@ -14,13 +14,14 @@ public class Idf extends Expression{
         this.noLig = n;
     }
     @Override
-    public void verifier(){
-        try{
-            Tds.getInstance().identifier(new Entree(nom));
+    public void verifier() throws AnalyseSemantiqueException{
+        try {
+            Tds.getInstance().identifier(nom);
         }catch (Exception e){
-            throw new AnalyseSemantiqueException(noLig, ": déclaration multiple de variables");
+            Tds.getInstance().ajoutErreur();
+            AnalyseSemantiqueException a = new AnalyseSemantiqueException(noLigne, ": variable non déclarée");
+            System.out.println(a.getMessage());
         }
-
     }
 
     @Override

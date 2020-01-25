@@ -1,5 +1,7 @@
 package yal.arbre;
 
+import yal.exceptions.AnalyseSemantiqueException;
+
 import java.util.ArrayList;
 
 /**
@@ -28,6 +30,13 @@ public class BlocDInstructions extends ArbreAbstrait {
 
     @Override
     public void verifier() {
+        try {
+            for (ArbreAbstrait a : programme) {
+                a.verifier();
+            }
+        }catch(AnalyseSemantiqueException e){
+            throw new AnalyseSemantiqueException(0,"");
+        }
     }
     
     @Override

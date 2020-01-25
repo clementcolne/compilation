@@ -24,7 +24,6 @@ public class Affect extends Expression {
     public String toMIPS() {
         String res = partieD.toMIPS();
         res += "\tsw $v0, " + Tds.getInstance().getDeplacement(partieG.getNom()) + "($s7)\n";
-        System.out.println(res);
         return res;
     }
 
