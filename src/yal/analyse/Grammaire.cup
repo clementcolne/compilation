@@ -86,7 +86,7 @@ LDECL   ::=     LDECL:ld  DECL:d
                 ;
 
 DECL    ::=     ENTIER IDF:i POINTVIRGULE
-                {: Tds.getInstance().ajouter(new Idf(i, ileft + 1), new Symbole("entier",ileft + 1)) ; :}
+                {: Tds.getInstance().ajouter(new Entree(i, ileft + 1), new Symbole("entier")) ; :}
                 ;
 
 LINST   ::=     LINST:li  INST:i

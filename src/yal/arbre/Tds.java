@@ -1,6 +1,5 @@
 package yal.arbre;
 
-import yal.arbre.expressions.Idf;
 import yal.exceptions.AnalyseSemantiqueException;
 
 import java.util.HashMap;
@@ -33,8 +32,8 @@ public class Tds {
      * @param s Symbole
      * @throws Exception Lève une exception si l'entrée e est déjà présente dans la hashmap des variables
      */
-    public void ajouter(Idf e, Symbole s) throws AnalyseSemantiqueException {
-        Symbole symb = new Symbole("",0);
+    public void ajouter(Entree e, Symbole s) throws AnalyseSemantiqueException {
+        Symbole symb = new Symbole("");
         for(Map.Entry<Entree, Symbole> k : variables.entrySet()) {
             if(k.getKey().getNom().equals(e.getNom())) {
                 symb = k.getValue();
@@ -42,12 +41,12 @@ public class Tds {
         }
         if(symb.getType() != "entier") {  // on n'a pas trouvé la variable -> elle n'est pas déclarée
             s.setDeplacement(cpt*(-4));
-            variables.put(new Entree(e.getNom()), s);
+            variables.put(new Entree(e.getNom(),e.getNoLig()), s);
             cpt++;
         }else{
-            int noLig = e.getNoLigne();
+            int noLig = e.getNoLig();
             cptErreur ++;
-            AnalyseSemantiqueException a = new AnalyseSemantiqueException(noLig,": multiple déclarations de la variable");
+            AnalyseSemantiqueException a = new AnalyseSemantiqueException(noLig,": multiples déclarations de la variable");
             System.out.println(a.getMessage());
         }
     }
@@ -58,14 +57,14 @@ public class Tds {
      * @return le symbole correspondant à l'entrée dans la hashmap des variables
      */
     public Symbole identifier(String e) throws Exception {
-        Symbole s = new Symbole("",0);
+        Symbole s = new Symbole("");
         for(Map.Entry<Entree, Symbole> k : variables.entrySet()) {
             if(k.getKey().getNom().equals(e)) {
                 s = k.getValue();
             }
         }
         if (s.getType() == "entier") {
-            return new Symbole(s.getType(), s.getNoLig());
+            return new Symbole(s.getType());
         }else{
             throw new Exception();
         }

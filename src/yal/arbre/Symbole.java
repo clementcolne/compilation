@@ -4,15 +4,13 @@ public class Symbole {
 
     private String type;
     private int deplacement;
-    private int noLig;
 
     /**
      * Constructeur d'un symbole défini par son type et son déplacement
      * @param type String qui décrit le type du Symbole
      */
-    public Symbole(String type, int n) {
+    public Symbole(String type) {
         this.type = type;
-        this.noLig = n;
         this.deplacement = 0;
     }
 
@@ -36,7 +34,4 @@ public class Symbole {
         return type;
     }
 
-    public int getNoLig() {
-        return noLig;
-    }
 }

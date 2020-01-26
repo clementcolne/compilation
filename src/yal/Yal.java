@@ -21,15 +21,20 @@ public class Yal {
             arbre.verifier();
             if(Tds.getInstance().getCptErreur() == 0) {
                 System.out.println("COMPILATION OK");
+                String nomSortie = nomFichier.replaceAll("[.]yal", ".mips") ;
+                PrintWriter flot = new PrintWriter(new BufferedWriter(new FileWriter(nomSortie))) ;
+                flot.println(arbre.toMIPS());
+                flot.close() ;
             }else{
-                System.out.println("COMPILATION AVEC "+  Tds.getInstance().getCptErreur() +" ERREUR(S)");
+                if(Tds.getInstance().getCptErreur() == 0) {
+                    System.out.println("COMPILATION AVEC " + Tds.getInstance().getCptErreur() + " ERREUR");
+                }else{
+                    System.out.println("COMPILATION AVEC " + Tds.getInstance().getCptErreur() + " ERREURS");
+                }
             }
 
 
-            String nomSortie = nomFichier.replaceAll("[.]yal", ".mips") ;
-            PrintWriter flot = new PrintWriter(new BufferedWriter(new FileWriter(nomSortie))) ;
-            flot.println(arbre.toMIPS());
-            flot.close() ;
+
         }
         catch (FileNotFoundException ex) {
             System.err.println("Fichier " + nomFichier + " inexistant") ;
