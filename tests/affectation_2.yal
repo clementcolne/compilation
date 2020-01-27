@@ -1,0 +1,6 @@
+programme prog debut
+entier a;
+entier b;
+ecrire a;
+ecrire b;
+fin

@@ -1,3 +1,4 @@
 programme prog debut
-
+entier a;
+ecrire a;
 fin
