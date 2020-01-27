@@ -15,20 +15,35 @@ public class BlocDInstructions extends ArbreAbstrait {
     
     protected ArrayList<ArbreAbstrait> programme ;
 
+    /**
+     * Constructeur d'un bloc d'instruction
+     * @param n int
+     */
     public BlocDInstructions(int n) {
         super(n) ;
         programme = new ArrayList<>() ;
     }
-    
+
+    /**
+     * Ajoute un arbre abstrait
+     * @param a ArbreAbstrait
+     */
     public void ajouter(ArbreAbstrait a) {
         programme.add(a) ;
     }
-    
+
+    /**
+     * Renvoie le bloc d'instruction
+     * @return String
+     */
     @Override
     public String toString() {
         return programme.toString() ;
     }
 
+    /**
+     * Vérifie s'il n'y a pas d'erreurs sémantiques
+     */
     @Override
     public void verifier() {
         try {
@@ -39,7 +54,11 @@ public class BlocDInstructions extends ArbreAbstrait {
             throw new AnalyseSemantiqueException(0,"");
         }
     }
-    
+
+    /**
+     * Renvoie le code Mips
+     * @return String
+     */
     @Override
     public String toMIPS() {
         String prog = "";

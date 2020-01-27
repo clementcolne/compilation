@@ -7,16 +7,28 @@ public class Lire extends Instruction {
 
     protected Idf idf ;
 
+    /**
+     * Constructeur de Lire
+     * @param i Idf
+     * @param n int
+     */
     public Lire(Idf i, int n){
         super(n);
         idf = i;
     }
 
+    /**
+     * Vérifie s'il n'y a pas d'erreurs sémantiques
+     */
     @Override
     public void verifier() {
         idf.verifier();
     }
 
+    /**
+     * Renvoie le code Mips
+     * @return String
+     */
     @Override
     public String toMIPS() {
         String result = "\t# lecture  entier (syscall 5)\n" +

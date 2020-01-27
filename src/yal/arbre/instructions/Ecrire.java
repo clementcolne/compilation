@@ -7,16 +7,28 @@ public class Ecrire extends Instruction {
 
     protected Expression exp ;
 
+    /**
+     * Constructeur de Ecrire
+     * @param e Expression
+     * @param n int
+     */
     public Ecrire (Expression e, int n) {
         super(n) ;
         exp = e ;
     }
 
+    /**
+     * Vérifie s'il n'y a pas d'erreurs sémantiques
+     */
     @Override
     public void verifier() {
         exp.verifier();
     }
 
+    /**
+     * Renvoie le code Mips
+     * @return String
+     */
     @Override
     public String toMIPS() {
         int deplacement = Tds.getInstance().getDeplacement(exp.getNom());

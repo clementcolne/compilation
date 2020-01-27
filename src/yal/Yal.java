@@ -26,13 +26,13 @@ public class Yal {
                 flot.println(arbre.toMIPS());
                 flot.close() ;
             }else{
-                if(Tds.getInstance().getCptErreur() == 1) {
+              //  if(Tds.getInstance().getCptErreur() == 1) {
                     Tds.getInstance().afficherErreurs();
-                    System.out.println(Tds.getInstance().getCptErreur() + " ERREUR");
+                /*    System.out.println(Tds.getInstance().getCptErreur() + " ERREUR");
                 }else{
                     Tds.getInstance().afficherErreurs();
                     System.out.println(Tds.getInstance().getCptErreur() + " ERREURS");
-                }
+                }*/
             }
 
 
