@@ -28,10 +28,10 @@ public class Yal {
             }else{
                 if(Tds.getInstance().getCptErreur() == 1) {
                     Tds.getInstance().afficherErreurs();
-                    System.out.println("COMPILATION AVEC " + Tds.getInstance().getCptErreur() + " ERREUR");
+                    System.out.println(Tds.getInstance().getCptErreur() + " ERREUR");
                 }else{
                     Tds.getInstance().afficherErreurs();
-                    System.out.println("COMPILATION AVEC " + Tds.getInstance().getCptErreur() + " ERREURS");
+                    System.out.println(Tds.getInstance().getCptErreur() + " ERREURS");
                 }
             }
 

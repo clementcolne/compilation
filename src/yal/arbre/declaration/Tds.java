@@ -47,7 +47,7 @@ public class Tds {
             variables.put(new Entree(e.getNom()), s);
             cpt++;
         }else{
-            int noLig = symb.getNoLig();
+            int noLig = s.getNoLig();
             cptErreur ++;
             AnalyseSemantiqueException a = new AnalyseSemantiqueException(noLig,": multiples déclarations de la variable");
             erreurs.add(a.getMessage());
@@ -89,6 +89,11 @@ public class Tds {
         return cpt;
     }
 
+    /**
+     * Renvoie le deplacement de la variable voulue
+     * @param e nom de la variable
+     * @return int le déplacement
+     */
     public int getDeplacement(String e) {
         int res = -1;
         for(Map.Entry<Entree, Symbole> k : variables.entrySet()) {
@@ -99,21 +104,40 @@ public class Tds {
         return res;
     }
 
+    /**
+     * Renvoie le nombre d'erreurs sémantiques trouvées
+     * @return int
+     */
     public int getCptErreur() {
         return cptErreur;
     }
 
+    /**
+     * Ajoute 1 au compteur des erreurs sémantiques
+     */
     public void ajoutErreur(){
         cptErreur ++ ;
     }
 
+    /**
+     * Ajoute le message de l'exception de l'erreur sémantique à la liste des messages des erreurs
+     * @param e String
+     */
     public void add(String e){
         erreurs.add(e);
     }
 
+    /**
+     * Affiche tous les messages des erreurs sémantiques
+     */
     public void afficherErreurs(){
         for(String e: erreurs){
             System.out.println(e);
         }
+    }
+
+    public void reset(){
+        variables.clear();
+        erreurs.clear();
     }
 }
