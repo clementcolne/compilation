@@ -32,6 +32,10 @@ public class Symbole {
         return deplacement;
     }
 
+    /**
+     * Renvoie le type du symbole
+     * @return string
+     */
     public String getType() {
         return type;
     }

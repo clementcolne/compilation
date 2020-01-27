@@ -47,7 +47,7 @@ public class Tds {
             variables.put(new Entree(e.getNom()), s);
             cpt++;
         }else{
-            int noLig = symb.getNoLig();
+            int noLig = s.getNoLig();
             cptErreur ++;
             AnalyseSemantiqueException a = new AnalyseSemantiqueException(noLig,": multiples déclarations de la variable");
             erreurs.add(a.getMessage());
@@ -89,6 +89,11 @@ public class Tds {
         return cpt;
     }
 
+    /**
+     * Renvoie le deplacement de la variable voulue
+     * @param e nom de la variable
+     * @return int le déplacement
+     */
     public int getDeplacement(String e) {
         int res = -1;
         for(Map.Entry<Entree, Symbole> k : variables.entrySet()) {
