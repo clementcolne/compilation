@@ -34,7 +34,6 @@
             <arg line="-symbols CodesLexicaux -parser AnalyseurSyntaxique ${src}/Grammaire.cup"/>
             <classpath>
                 <pathelement path="${java.class.path}:C:\Users\marli\Documents\Fac\S6\jar\jflex-1.6.1\lib\java-cup-11a.jar"/>
-
             </classpath>
         </java>
         <move file="AnalyseurSyntaxique.java" tofile="${src}/AnalyseurSyntaxique.java"/>

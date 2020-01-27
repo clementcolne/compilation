@@ -27,36 +27,9 @@ class TdsTest {
     }
 
     @Test
-    void identifier() throws Exception{
-        Symbole sy = Tds.getInstance().identifier(e.getNom());
-        assertEquals(sy.getType(),s.getType());
-    }
-
-    @Test
-    void getTailleZoneVariable() {
-    }
-
-    @Test
-    void getNbVariables() {
-    }
-
-    @Test
-    void getDeplacement() {
-    }
-
-    @Test
-    void getCptErreur() {
-    }
-
-    @Test
     void ajoutErreur() {
+        Tds.getInstance().ajoutErreur();
+        assertEquals(1, Tds.getInstance().getCptErreur());
     }
 
-    @Test
-    void add() {
-    }
-
-    @Test
-    void afficherErreurs() {
-    }
 }
