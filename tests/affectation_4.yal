@@ -1,0 +1,8 @@
+programme prog debut
+entier a;
+entier b;
+a = 3;
+b = 17;
+ecrire a;
+ecrire b;
+fin
