@@ -1,0 +1,4 @@
+programme prog1 debut
+  ecrire 5;
+  // est un programme
+fin

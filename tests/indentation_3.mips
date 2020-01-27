@@ -1,0 +1,27 @@
+.data
+BackSlachN: .asciiz "\n"
+.text
+
+main:
+
+	#allocation mémoire pour les variables
+	move $s7, $sp
+	add $sp, $sp, 0
+
+	#ecrire 3	li $v0, 3	#toMips() de ConstanteEntière
+
+	move $a0, $v0
+	li $v0, 1
+	syscall
+
+	#retour à la ligne
+	li $v0, 4 
+	la $a0, BackSlachN
+	syscall
+
+
+end:
+	#Sortie de programme
+	li $v0, 10
+	syscall
+
