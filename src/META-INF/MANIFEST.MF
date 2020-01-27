@@ -1,3 +1,7 @@
 Manifest-Version: 1.0
 Main-Class: yal.Yal
+Class-Path: java-cup-11a.jar junit-jupiter-5.4.2.jar junit-jupiter-api-5
+ .4.2.jar apiguardian-api-1.0.0.jar opentest4j-1.1.1.jar junit-platform-
+ commons-1.4.2.jar junit-jupiter-params-5.4.2.jar junit-jupiter-engine-5
+ .4.2.jar junit-platform-engine-1.4.2.jar jflex-1.6.1.jar
 
