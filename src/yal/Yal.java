@@ -3,7 +3,7 @@ package yal;
 import yal.analyse.AnalyseurLexical;
 import yal.analyse.AnalyseurSyntaxique;
 import yal.arbre.ArbreAbstrait;
-import yal.arbre.Tds;
+import yal.arbre.declaration.Tds;
 import yal.exceptions.AnalyseException;
 
 import java.io.*;
@@ -26,9 +26,11 @@ public class Yal {
                 flot.println(arbre.toMIPS());
                 flot.close() ;
             }else{
-                if(Tds.getInstance().getCptErreur() == 0) {
+                if(Tds.getInstance().getCptErreur() == 1) {
+                    Tds.getInstance().afficherErreurs();
                     System.out.println("COMPILATION AVEC " + Tds.getInstance().getCptErreur() + " ERREUR");
                 }else{
+                    Tds.getInstance().afficherErreurs();
                     System.out.println("COMPILATION AVEC " + Tds.getInstance().getCptErreur() + " ERREURS");
                 }
             }

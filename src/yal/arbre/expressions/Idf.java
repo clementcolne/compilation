@@ -1,6 +1,6 @@
 package yal.arbre.expressions;
 
-import yal.arbre.Tds;
+import yal.arbre.declaration.Tds;
 import yal.exceptions.AnalyseSemantiqueException;
 
 public class Idf extends Expression{
@@ -20,7 +20,7 @@ public class Idf extends Expression{
         }catch (Exception e){
             Tds.getInstance().ajoutErreur();
             AnalyseSemantiqueException a = new AnalyseSemantiqueException(noLigne, ": variable non déclarée");
-            System.out.println(a.getMessage());
+            Tds.getInstance().add(a.getMessage());
         }
     }
 

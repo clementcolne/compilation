@@ -1,6 +1,6 @@
 package yal.arbre.instructions;
 
-import yal.arbre.Tds;
+import yal.arbre.declaration.Tds;
 import yal.arbre.expressions.Expression;
 import yal.arbre.expressions.Idf;
 

@@ -1,5 +1,6 @@
 package yal.arbre;
 
+import yal.arbre.declaration.Tds;
 import yal.exceptions.AnalyseSemantiqueException;
 
 import java.util.ArrayList;
