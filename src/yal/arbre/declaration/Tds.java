@@ -66,7 +66,7 @@ public class Tds {
                 s = k.getValue();
             }
         }
-        if (s.getType() == "entier") {
+        if (s.getType().equals("entier")) {
             return new Symbole(s.getType(), s.getNoLig());
         }else{
             throw new Exception();
@@ -127,17 +127,27 @@ public class Tds {
         erreurs.add(e);
     }
 
-    /**
-     * Affiche tous les messages des erreurs sémantiques
-     */
-    public void afficherErreurs(){
-        for(String e: erreurs){
-            System.out.println(e);
-        }
-    }
 
+    /**
+     * Remet à 0 le singleton
+     */
     public void reset(){
         variables.clear();
         erreurs.clear();
+    }
+
+    /**
+     *
+     */
+    public String afficheErreursSemantiques(){
+        if(erreurs.size() > 0) {
+            String s = erreurs.get(0) + "\n";
+            for (int i=1; i<erreurs.size();i++) {
+                s += erreurs.get(i) + "\n";
+            }
+            return s;
+        }else{
+            return "";
+        }
     }
 }

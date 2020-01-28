@@ -2,6 +2,7 @@ package yal.arbre;
 
 import yal.arbre.declaration.Tds;
 import yal.exceptions.AnalyseSemantiqueException;
+import yal.exceptions.SemantiqueException;
 
 import java.util.ArrayList;
 
@@ -45,13 +46,18 @@ public class BlocDInstructions extends ArbreAbstrait {
      * Vérifie s'il n'y a pas d'erreurs sémantiques
      */
     @Override
-    public void verifier() {
-        try {
-            for (ArbreAbstrait a : programme) {
-                a.verifier();
+    public void verifier() throws SemantiqueException{
+
+            try {
+                for (ArbreAbstrait a : programme) {
+                    a.verifier();
+                }
+            } catch (AnalyseSemantiqueException e) {
+                //throw new AnalyseSemantiqueException(0, "");
             }
-        }catch(AnalyseSemantiqueException e){
-            throw new AnalyseSemantiqueException(0,"");
+        if(Tds.getInstance().getCptErreur() > 0) {
+
+            throw new SemantiqueException(Tds.getInstance().afficheErreursSemantiques());
         }
     }
 

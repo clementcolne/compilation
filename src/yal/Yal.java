@@ -3,7 +3,6 @@ package yal;
 import yal.analyse.AnalyseurLexical;
 import yal.analyse.AnalyseurSyntaxique;
 import yal.arbre.ArbreAbstrait;
-import yal.arbre.declaration.Tds;
 import yal.exceptions.AnalyseException;
 
 import java.io.*;
@@ -19,23 +18,13 @@ public class Yal {
 
 
             arbre.verifier();
-            if(Tds.getInstance().getCptErreur() == 0) {
-                System.out.println("COMPILATION OK");
-                String nomSortie = nomFichier.replaceAll("[.]yal", ".mips") ;
-                PrintWriter flot = new PrintWriter(new BufferedWriter(new FileWriter(nomSortie))) ;
-                flot.println(arbre.toMIPS());
-                flot.close() ;
-            }else{
-              //  if(Tds.getInstance().getCptErreur() == 1) {
-                    Tds.getInstance().afficherErreurs();
-                /*    System.out.println(Tds.getInstance().getCptErreur() + " ERREUR");
-                }else{
-                    Tds.getInstance().afficherErreurs();
-                    System.out.println(Tds.getInstance().getCptErreur() + " ERREURS");
-                }*/
-            }
+            System.out.println("COMPILATION OK");
 
 
+            String nomSortie = nomFichier.replaceAll("[.]yal", ".mips") ;
+            PrintWriter flot = new PrintWriter(new BufferedWriter(new FileWriter(nomSortie))) ;
+            flot.println(arbre.toMIPS());
+            flot.close() ;
 
         }
         catch (FileNotFoundException ex) {

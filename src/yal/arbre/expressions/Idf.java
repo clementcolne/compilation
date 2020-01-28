@@ -5,7 +5,7 @@ import yal.exceptions.AnalyseSemantiqueException;
 
 public class Idf extends Expression{
 
-    private int noLig;
+    //private int noLig;
     private String nom;
 
     /**
@@ -16,7 +16,7 @@ public class Idf extends Expression{
     public Idf(String nom, int n){
         super(n);
         this.nom = nom;
-        this.noLig = n;
+        this.noLigne = n;
     }
 
     /**
