@@ -37,7 +37,6 @@ csteE = [0-9]+
 commentaire = [/].*{finDeLigne}
 finDeLigne = \r|\n
 espace = {finDeLigne}  | [ \t\f]
-egal = [=]
 
 %%
 
