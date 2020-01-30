@@ -1,14 +1,11 @@
-package tests;
+package yal.tests;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import yal.arbre.declaration.Symbole;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class SymboleTest {
 
-    // Que des setter ou des getter donc pas de tests
+    // Que des setter ou des getter donc pas de yal.tests
 
     Symbole s;
 

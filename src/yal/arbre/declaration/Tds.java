@@ -37,12 +37,14 @@ public class Tds {
      */
     public void ajouter(Entree e, Symbole s) throws AnalyseSemantiqueException {
         Symbole symb = new Symbole("",-1);
+        boolean dedans = false;
         for(Map.Entry<Entree, Symbole> k : variables.entrySet()) {
             if(k.getKey().getNom().equals(e.getNom())) {
                 symb = k.getValue();
+                dedans = true;
             }
         }
-        if(symb.getType() != "entier") {  // on n'a pas trouvé la variable -> elle n'est pas déclarée
+        if(!dedans) {  // on n'a pas trouvé la variable -> elle n'est pas déclarée
             s.setDeplacement(cpt*(-4));
             variables.put(new Entree(e.getNom()), s);
             cpt++;
@@ -61,12 +63,14 @@ public class Tds {
      */
     public Symbole identifier(String e) throws Exception {
         Symbole s = new Symbole("",-1);
+        boolean dedans = false;
         for(Map.Entry<Entree, Symbole> k : variables.entrySet()) {
             if(k.getKey().getNom().equals(e)) {
                 s = k.getValue();
+                dedans = true;
             }
         }
-        if (s.getType().equals("entier")) {
+        if (dedans) {
             return new Symbole(s.getType(), s.getNoLig());
         }else{
             throw new Exception();
@@ -112,18 +116,13 @@ public class Tds {
         return cptErreur;
     }
 
-    /**
-     * Ajoute 1 au compteur des erreurs sémantiques
-     */
-    public void ajoutErreur(){
-        cptErreur ++ ;
-    }
 
     /**
      * Ajoute le message de l'exception de l'erreur sémantique à la liste des messages des erreurs
      * @param e String
      */
     public void add(String e){
+        cptErreur ++ ;
         erreurs.add(e);
     }
 

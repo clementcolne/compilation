@@ -28,7 +28,6 @@ public class Idf extends Expression{
         try {
             Tds.getInstance().identifier(nom);
         }catch (Exception e){
-            Tds.getInstance().ajoutErreur();
             AnalyseSemantiqueException a = new AnalyseSemantiqueException(noLigne, ": variable non déclarée");
             Tds.getInstance().add(a.getMessage());
         }

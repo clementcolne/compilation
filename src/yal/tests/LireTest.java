@@ -1,9 +1,7 @@
-package tests;
+package yal.tests;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import yal.arbre.BlocDInstructions;
-import yal.arbre.declaration.Tds;
 import yal.arbre.expressions.Idf;
 import yal.arbre.instructions.Lire;
 

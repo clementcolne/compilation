@@ -1,4 +1,4 @@
-package tests;
+package yal.tests;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
