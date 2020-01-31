@@ -56,7 +56,23 @@ espace = {finDeLigne}  | [ \t\f]
 
 {idf}      	           { return symbol(CodesLexicaux.IDF, yytext()); }
 
-"="                    { return symbol(CodesLexicaux.EGAL, yytext()); }
+"="                    { return symbol(CodesLexicaux.EGAL); }
+
+"/"                    { return symbol(CodesLexicaux.OPERCALC); }
+"*"                    { return symbol(CodesLexicaux.OPERCALC); }
+"+"                    { return symbol(CodesLexicaux.OPERCALC); }
+"-"                    { return symbol(CodesLexicaux.OPERCALC); }
+
+">"                    { return symbol(CodesLexicaux.OPERBOOLEB); }
+"<"                    { return symbol(CodesLexicaux.OPERBOOLEB); }
+
+"=="                   { return symbol(CodesLexicaux.OPERBOOLRB); }
+"!="                   { return symbol(CodesLexicaux.OPERBOOLRB); }
+
+"et"                   { return symbol(CodesLexicaux.OPERBOOLBB); }
+"ou"                   { return symbol(CodesLexicaux.OPERBOOLBB); }
+
+
 
 {commentaire}          { }
 

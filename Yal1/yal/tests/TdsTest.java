@@ -1,4 +1,4 @@
-package yal.tests;
+package tests;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -32,4 +32,7 @@ class TdsTest {
         assertEquals(1, Tds.getInstance().getCptErreur());
     }
 
+    @Test
+    void afficherErreurs() {
+    }
 }

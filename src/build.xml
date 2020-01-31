@@ -33,7 +33,7 @@
         <java classname="java_cup.Main" fork="yes" failonerror="yes">
             <arg line="-symbols CodesLexicaux -parser AnalyseurSyntaxique ${src}/Grammaire.cup"/>
             <classpath>
-                <pathelement path="${java.class.path}:C:\Users\marli\Documents\Fac\S6\jar\jflex-1.6.1\lib\java-cup-11a.jar"/>
+                <pathelement path="${java.class.path}:/home/profil/vauchair1u/Espace-de-depot/compilation/java-cup-11a.jar"/>
 
             </classpath>
         </java>
@@ -61,7 +61,7 @@
         <java classname="jflex.Main" fork="yes" failonerror="yes">
             <arg line="${src}/UnitesLexicales.jflex"/>
             <classpath>
-                <pathelement path="${java.class.path}:C:\Users\marli\Documents\Fac\S6\jar\jflex-1.6.1\lib\jflex-1.6.1.jar"/>
+                <pathelement path="${java.class.path}:/home/profil/vauchair1u/Espace-de-depot/compilation/jflex-1.6.1.jar"/>
             </classpath>
         </java>
     </target>

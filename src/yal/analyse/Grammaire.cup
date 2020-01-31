@@ -56,13 +56,21 @@ parser code {:
    
 /* Terminals (tokens returned by the scanner).  */
 
-terminal Symbol    PROGRAMME, DEBUT, FIN, POINTVIRGULE, ECRIRE, LIRE, ENTIER, EGAL ;
-terminal String    IDF, CSTENTIERE;
+terminal Symbol    PROGRAMME, DEBUT, FIN, POINTVIRGULE, ECRIRE, LIRE, ENTIER, EGAL;
+terminal String    IDF, CSTENTIERE, OPERCALC, OPERBOOLEB, OPERBOOLBB, OPERBOOLRB ;
+
    
 /* Non terminals used in the grammar section.  */
 
 non terminal ArbreAbstrait PROG, LINST, INST, LDECL, DECL ;
 non terminal Expression EXP ;
+
+
+/* Precedence */
+precedence left OPERCALC;
+precedence left OPERBOOLEB;
+precedence left OPERBOOLBB;
+precedence left OPERBOOLRB;
 
 /* ----------------------------Grammar Section-------------------- */
  
@@ -114,4 +122,16 @@ EXP    ::=     CSTENTIERE:c
         |
                IDF:i
                {: RESULT = new Idf(i, ileft + 1 ) ; :}
+        |
+               EXP:g OPERCALC:o EXP:d
+               {: RESULT = new ExpressionACalculer(g,d,o,gleft + 1) ; :}
+        |
+               EXP:g OPERBOOLEB:o EXP:d
+               {: RESULT = new ExpressionACalculer(g,d,o,gleft + 1) ; :}
+        |
+               EXP:g OPERBOOLBB:o EXP:d
+               {: RESULT = new ExpressionACalculer(g,d,o,gleft + 1) ; :}
+        |
+               EXP:g OPERBOOLRB:o EXP:d
+               {: RESULT = new ExpressionACalculer(g,d,o,gleft + 1) ; :}
                ;
