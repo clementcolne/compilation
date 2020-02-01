@@ -3,8 +3,9 @@ package yal.arbre.instructions;
 import yal.arbre.declaration.Tds;
 import yal.arbre.expressions.Expression;
 import yal.arbre.expressions.Idf;
+import yal.exceptions.AnalyseSemantiqueException;
 
-public class Affect extends Expression {
+public class Affect extends Instruction {
 
     protected Expression partieD ;
     protected Idf partieG ;
@@ -25,9 +26,14 @@ public class Affect extends Expression {
      * Vérifie s'il n'y a pas d'erreurs sémantiques
      */
     @Override
-    public void verifier() {
-        partieD.verifier();
-        partieG.verifier();
+    public void verifier(){
+        if(!partieD.isBool() && !partieG.isBool()) {
+            partieD.verifier();
+            partieG.verifier();
+        }else{
+            AnalyseSemantiqueException a = new AnalyseSemantiqueException(noLigne, ": le type attendu est un entier");
+            Tds.getInstance().add(a.getMessage());
+        }
     }
 
     /**
@@ -39,14 +45,5 @@ public class Affect extends Expression {
         String res = partieD.toMIPS();
         res += "\tsw $v0, " + Tds.getInstance().getDeplacement(partieG.getNom()) + "($s7)\n";
         return res;
-    }
-
-    /**
-     * Renvoie l'affectation
-     * @return String
-     */
-    @Override
-    public String getNom() {
-        return null;
     }
 }

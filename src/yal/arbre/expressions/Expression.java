@@ -20,4 +20,8 @@ public abstract class Expression extends ArbreAbstrait {
      */
     public abstract String getNom();
 
+    public boolean isBool(){
+        return false;
+    }
+
 }

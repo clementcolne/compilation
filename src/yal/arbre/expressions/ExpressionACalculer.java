@@ -1,5 +1,8 @@
 package yal.arbre.expressions;
 
+import yal.arbre.declaration.Tds;
+import yal.exceptions.AnalyseSemantiqueException;
+
 public class ExpressionACalculer extends Expression{
 
     private Expression expGauche;
@@ -20,7 +23,13 @@ public class ExpressionACalculer extends Expression{
 
     @Override
     public void verifier() {
-
+        if(!expDroite.isBool() && !expGauche.isBool()) {
+            expDroite.verifier();
+            expGauche.verifier();
+        }else{
+            AnalyseSemantiqueException a = new AnalyseSemantiqueException(noLigne, ": le type attendu est un entier");
+            Tds.getInstance().add(a.getMessage());
+        }
     }
 
     @Override
