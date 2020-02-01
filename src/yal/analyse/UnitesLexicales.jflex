@@ -32,9 +32,8 @@ import yal.exceptions.AnalyseLexicaleException;
 %}
 
 idf = [A-Za-z_][A-Za-z_0-9]*
-
 csteE = [0-9]+
-commentaire = [/].*{finDeLigne}
+commentaire = [/]{2}.*{finDeLigne}
 finDeLigne = \r|\n
 espace = {finDeLigne}  | [ \t\f]
 

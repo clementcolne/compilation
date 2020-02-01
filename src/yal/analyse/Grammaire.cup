@@ -4,6 +4,7 @@ import java.util.*;
 import yal.arbre.* ;
 import yal.arbre.expressions.* ;
 import yal.arbre.instructions.* ;
+import yal.arbre.declaration.* ;
 import yal.exceptions.AnalyseSyntaxiqueException;
 
 import java_cup.runtime.*;
