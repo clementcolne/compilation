@@ -49,11 +49,10 @@ espace = {finDeLigne}  | [ \t\f]
 
 "lire"                 { return symbol(CodesLexicaux.LIRE); }
 
+"et"                   { return symbol(CodesLexicaux.OPERBOOLBB); }
+"ou"                   { return symbol(CodesLexicaux.OPERBOOLBB); }
+
 ";"                    { return symbol(CodesLexicaux.POINTVIRGULE); }
-
-{csteE}      	       { return symbol(CodesLexicaux.CSTENTIERE, yytext()); }
-
-{idf}      	           { return symbol(CodesLexicaux.IDF, yytext()); }
 
 "="                    { return symbol(CodesLexicaux.EGAL); }
 
@@ -68,8 +67,10 @@ espace = {finDeLigne}  | [ \t\f]
 "=="                   { return symbol(CodesLexicaux.OPERBOOLRB); }
 "!="                   { return symbol(CodesLexicaux.OPERBOOLRB); }
 
-"et"                   { return symbol(CodesLexicaux.OPERBOOLBB); }
-"ou"                   { return symbol(CodesLexicaux.OPERBOOLBB); }
+{csteE}      	       { return symbol(CodesLexicaux.CSTENTIERE, yytext()); }
+
+{idf}      	           { return symbol(CodesLexicaux.IDF, yytext()); }
+
 
 
 

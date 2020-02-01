@@ -11,7 +11,7 @@ public class ExpressionResultatBooleen extends ExpressionBool {
      *
      * @param n int
      */
-    protected ExpressionResultatBooleen(Expression e1, Expression e2, String o, int n) {
+    public ExpressionResultatBooleen(Expression e1, Expression e2, String o, int n) {
         super(n);
         expGauche = e1;
         expDroite = e2;

@@ -128,11 +128,11 @@ EXP    ::=     CSTENTIERE:c
                {: RESULT = new ExpressionACalculer(g,d,o,gleft + 1) ; :}
         |
                EXP:g OPERBOOLEB:o EXP:d
-               {: RESULT = new ExpressionACalculer(g,d,o,gleft + 1) ; :}
+               {: RESULT = new ExpressionBoolEntierBooleen(g,d,o,gleft + 1) ; :}
         |
                EXP:g OPERBOOLBB:o EXP:d
-               {: RESULT = new ExpressionACalculer(g,d,o,gleft + 1) ; :}
+               {: RESULT = new ExpressionBoolBooleenBooleen(g,d,o,gleft + 1) ; :}
         |
                EXP:g OPERBOOLRB:o EXP:d
-               {: RESULT = new ExpressionACalculer(g,d,o,gleft + 1) ; :}
+               {: RESULT = new ExpressionResultatBooleen(g,d,o,gleft + 1) ; :}
                ;
