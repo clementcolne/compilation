@@ -57,7 +57,7 @@ parser code {:
    
 /* Terminals (tokens returned by the scanner).  */
 
-terminal Symbol    PROGRAMME, DEBUT, FIN, POINTVIRGULE, ECRIRE, LIRE, ENTIER, EGAL;
+terminal Symbol    PROGRAMME, DEBUT, FIN, POINTVIRGULE, ECRIRE, LIRE, ENTIER, EGAL, SI, ALORS, SINON, FINSI, TANTQUE, REPETER, FINTANTQUE;
 terminal String    IDF, CSTENTIERE, OPERCALC, OPERBOOLEB, OPERBOOLBB, OPERBOOLRB ;
 
    
@@ -116,6 +116,16 @@ INST    ::=     ECRIRE EXP:e POINTVIRGULE
         |
                 IDF:i EGAL EXP:e POINTVIRGULE
                 {: RESULT = new Affect(e,new Idf(i, ileft + 1), eleft + 1) ; :}
+        |
+                TANTQUE EXP:e REPETER LINST:li FINTANTQUE
+        |
+                SI EXP:e ALORS LINST:li FINSI
+        |
+                SI EXP:e ALORS FINSI
+        |
+                SI EXP:e ALORS LINST:li1 SINON LINST:li2 FINSI
+        |
+                SI EXP:e ALORS LINST:li SINON LINST:li2 FINSI
                 ;
     
 EXP    ::=     CSTENTIERE:c

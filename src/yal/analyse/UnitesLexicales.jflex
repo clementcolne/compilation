@@ -43,6 +43,15 @@ espace = {finDeLigne}  | [ \t\f]
 "debut"                { return symbol(CodesLexicaux.DEBUT); }
 "fin"              	   { return symbol(CodesLexicaux.FIN); }
 
+"tantque"              { return symbol(CodesLexicaux.TANTQUE); }
+"repeter"              { return symbol(CodesLexicaux.REPETER); }
+"fintantque"           { return symbol(CodesLexicaux.FINTANTQUE); }
+
+"si"                   { return symbol(CodesLexicaux.SI); }
+"alors"                { return symbol(CodesLexicaux.ALORS); }
+"sinon"                { return symbol(CodesLexicaux.SINON); }
+"finsi"                { return symbol(CodesLexicaux.FINSI); }
+
 "ecrire"               { return symbol(CodesLexicaux.ECRIRE); }
 
 "entier"               { return symbol(CodesLexicaux.ENTIER); }
@@ -71,11 +80,11 @@ espace = {finDeLigne}  | [ \t\f]
 
 {idf}      	           { return symbol(CodesLexicaux.IDF, yytext()); }
 
-
-
-
 {commentaire}          { }
 
 {espace}               { }
+
 .                      { throw new AnalyseLexicaleException(yyline, yycolumn, yytext()) ; }
+
+
 
