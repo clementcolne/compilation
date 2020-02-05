@@ -65,10 +65,10 @@ espace = {finDeLigne}  | [ \t\f]
 
 "="                    { return symbol(CodesLexicaux.EGAL); }
 
-"/"                    { return symbol(CodesLexicaux.OPERCALC); }
-"*"                    { return symbol(CodesLexicaux.OPERCALC); }
-"+"                    { return symbol(CodesLexicaux.OPERCALC); }
-"-"                    { return symbol(CodesLexicaux.OPERCALC); }
+"/"                    { return symbol(CodesLexicaux.OPERCALCP); }
+"*"                    { return symbol(CodesLexicaux.OPERCALCP); }
+"+"                    { return symbol(CodesLexicaux.OPERCALCNP); }
+"-"                    { return symbol(CodesLexicaux.OPERCALCNP); }
 
 ">"                    { return symbol(CodesLexicaux.OPERBOOLEB); }
 "<"                    { return symbol(CodesLexicaux.OPERBOOLEB); }

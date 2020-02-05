@@ -58,7 +58,7 @@ parser code {:
 /* Terminals (tokens returned by the scanner).  */
 
 terminal Symbol    PROGRAMME, DEBUT, FIN, POINTVIRGULE, ECRIRE, LIRE, ENTIER, EGAL, SI, ALORS, SINON, FINSI, TANTQUE, REPETER, FINTANTQUE;
-terminal String    IDF, CSTENTIERE, OPERCALC, OPERBOOLEB, OPERBOOLBB, OPERBOOLRB ;
+terminal String    IDF, CSTENTIERE, OPERCALCP, OPERCALCNP, OPERBOOLEB, OPERBOOLBB, OPERBOOLRB ;
 
    
 /* Non terminals used in the grammar section.  */
@@ -68,7 +68,8 @@ non terminal Expression EXP ;
 
 
 /* Precedence */
-precedence left OPERCALC;
+precedence left OPERCALCP;
+precedence left OPERCALCNP;
 precedence left OPERBOOLEB;
 precedence left OPERBOOLBB;
 precedence left OPERBOOLRB;
@@ -118,14 +119,16 @@ INST    ::=     ECRIRE EXP:e POINTVIRGULE
                 {: RESULT = new Affect(e,new Idf(i, ileft + 1), eleft + 1) ; :}
         |
                 TANTQUE EXP:e REPETER LINST:li FINTANTQUE
-        |
+                {: :}
+       |
                 SI EXP:e ALORS LINST:li FINSI
-        |
-                SI EXP:e ALORS FINSI
-        |
-                SI EXP:e ALORS LINST:li1 SINON LINST:li2 FINSI
-        |
-                SI EXP:e ALORS LINST:li SINON LINST:li2 FINSI
+                {: :}
+                | SI EXP:e ALORS LINST:li SINON LINST:li2 FINSI
+                {: :}
+                | SI EXP:e ALORS SINON LINST:li FINSI
+                                {: :}
+                | SI EXP:e ALORS FINSI
+                {: System.out.println("OK"); :}
                 ;
     
 EXP    ::=     CSTENTIERE:c
@@ -134,7 +137,10 @@ EXP    ::=     CSTENTIERE:c
                IDF:i
                {: RESULT = new Idf(i, ileft + 1 ) ; :}
         |
-               EXP:g OPERCALC:o EXP:d
+               EXP:g OPERCALCP:o EXP:d
+               {: RESULT = new ExpressionACalculer(g,d,o,gleft + 1) ; :}
+        |
+               EXP:g OPERCALCNP:o EXP:d
                {: RESULT = new ExpressionACalculer(g,d,o,gleft + 1) ; :}
         |
                EXP:g OPERBOOLEB:o EXP:d
