@@ -9,7 +9,7 @@ import java.io.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class Yal {
+public class  Yal {
     
     public Yal(String nomFichier) {
         try {

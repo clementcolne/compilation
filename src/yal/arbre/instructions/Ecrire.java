@@ -31,17 +31,12 @@ public class Ecrire extends Instruction {
      */
     @Override
     public String toMIPS() {
-        int deplacement = Tds.getInstance().getDeplacement(exp.getNom());
-        String ecrire = "\t#ecrire " + exp.getNom();
+        String ecrire = "\t#ecrire " + exp.getNom() + "\n";
         ecrire += exp.toMIPS() + "\n";
-        if(deplacement >= 0) {
-            ecrire += "\tlw $a0, " + deplacement + "($s7)\n";
-        }else{
-            ecrire += "\tmove $a0, $v0\n";
-        }
-        ecrire += "\tli $v0, 1" + "\n\tsyscall\n";
-        ecrire += "\n\t#retour à la ligne";
-        ecrire += "\n\tli $v0, 4 \n" +
+        ecrire += "\tmove $a0, $v0\n"; // $v0 dans $a0
+        ecrire += "\tli $v0, 1" + "\n\tsyscall\n\n";
+        ecrire += "\t#retour à la ligne\n";
+        ecrire += "\tli $v0, 4 \n" +
                   "\tla $a0, BackSlachN\n" +
                   "\tsyscall\n";
         return ecrire;

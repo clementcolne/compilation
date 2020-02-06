@@ -24,6 +24,10 @@ public abstract class Expression extends ArbreAbstrait {
         return false;
     }
 
+    public boolean isConstante(){
+        return false;
+    }
+
     /**
      * retourne le nom de l'expression
      * @return String

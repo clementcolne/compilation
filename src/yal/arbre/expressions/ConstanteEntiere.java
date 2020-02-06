@@ -17,7 +17,12 @@ public class ConstanteEntiere extends Constante {
      */
     @Override
     public String toMIPS() {
-        return "\tli $v0, " + toString() + "\t#toMips() de ConstanteEntière\n";
+        return "\tli $v0, " + toString();
+    }
+
+    @Override
+    public boolean isConstante() {
+        return true;
     }
 
     /**
