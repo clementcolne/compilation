@@ -32,7 +32,7 @@ public class Ecrire extends Instruction {
     @Override
     public String toMIPS() {
         int deplacement = Tds.getInstance().getDeplacement(exp.getNom());
-        String ecrire = "\t#ecrire " + exp.toString();
+        String ecrire = "\t#ecrire " + exp.getNom();
         ecrire += exp.toMIPS() + "\n";
         if(deplacement >= 0) {
             ecrire += "\tlw $a0, " + deplacement + "($s7)\n";

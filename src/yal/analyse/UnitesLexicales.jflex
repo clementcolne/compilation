@@ -58,6 +58,10 @@ espace = {finDeLigne}  | [ \t\f]
 
 "lire"                 { return symbol(CodesLexicaux.LIRE); }
 
+"non"                  { return symbol(CodesLexicaux.NON); }
+
+
+
 "et"                   { return symbol(CodesLexicaux.OPERBOOLBB); }
 "ou"                   { return symbol(CodesLexicaux.OPERBOOLBB); }
 
@@ -68,7 +72,7 @@ espace = {finDeLigne}  | [ \t\f]
 "/"                    { return symbol(CodesLexicaux.OPERCALCP); }
 "*"                    { return symbol(CodesLexicaux.OPERCALCP); }
 "+"                    { return symbol(CodesLexicaux.OPERCALCNP); }
-"-"                    { return symbol(CodesLexicaux.OPERCALCNP); }
+"-"                    { return symbol(CodesLexicaux.MOINS); }
 
 ">"                    { return symbol(CodesLexicaux.OPERBOOLEB); }
 "<"                    { return symbol(CodesLexicaux.OPERBOOLEB); }

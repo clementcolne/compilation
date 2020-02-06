@@ -5,9 +5,6 @@ import yal.exceptions.AnalyseSemantiqueException;
 
 public class Idf extends Expression{
 
-    //private int noLig;
-    private String nom;
-
     /**
      * Constructeur de l'Idf
      * @param nom String
@@ -39,7 +36,7 @@ public class Idf extends Expression{
      */
     @Override
     public String toMIPS() {
-        return null;
+        return "";
     }
 
     /**

@@ -57,8 +57,8 @@ parser code {:
    
 /* Terminals (tokens returned by the scanner).  */
 
-terminal Symbol    PROGRAMME, DEBUT, FIN, POINTVIRGULE, ECRIRE, LIRE, ENTIER, EGAL, SI, ALORS, SINON, FINSI, TANTQUE, REPETER, FINTANTQUE;
-terminal String    IDF, CSTENTIERE, OPERCALCP, OPERCALCNP, OPERBOOLEB, OPERBOOLBB, OPERBOOLRB ;
+terminal Symbol    PROGRAMME, DEBUT, FIN, POINTVIRGULE, ECRIRE, LIRE, ENTIER, EGAL, SI, ALORS, SINON, FINSI, TANTQUE, REPETER, FINTANTQUE, NON;
+terminal String    IDF, CSTENTIERE, OPERCALCP, OPERCALCNP, MOINS, OPERBOOLEB, OPERBOOLBB, OPERBOOLRB ;
 
    
 /* Non terminals used in the grammar section.  */
@@ -70,6 +70,7 @@ non terminal Expression EXP ;
 /* Precedence */
 precedence left OPERCALCP;
 precedence left OPERCALCNP;
+precedence left MOINS;
 precedence left OPERBOOLEB;
 precedence left OPERBOOLBB;
 precedence left OPERBOOLRB;
@@ -146,6 +147,9 @@ EXP    ::=     CSTENTIERE:c
                EXP:g OPERCALCNP:o EXP:d
                {: RESULT = new ExpressionACalculer(g,d,o,gleft + 1) ; :}
         |
+               EXP:g MOINS:o EXP:d
+               {: RESULT = new ExpressionACalculer(g,d,o,gleft + 1) ; :}
+        |
                EXP:g OPERBOOLEB:o EXP:d
                {: RESULT = new ExpressionBoolEntierBooleen(g,d,o,gleft + 1) ; :}
         |
@@ -154,4 +158,10 @@ EXP    ::=     CSTENTIERE:c
         |
                EXP:g OPERBOOLRB:o EXP:d
                {: RESULT = new ExpressionResultatBooleen(g,d,o,gleft + 1) ; :}
-               ;
+        |
+               MOINS EXP:e
+               {: RESULT = new ExpressionInverse(e,eleft + 1) ; :}
+        |
+              NON EXP:e
+              {: RESULT = new NonExpression(e,eleft + 1) ; :}
+              ;

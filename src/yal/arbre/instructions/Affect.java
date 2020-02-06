@@ -42,7 +42,8 @@ public class Affect extends Instruction {
      */
     @Override
     public String toMIPS() {
-        String res = partieD.toMIPS();
+        String res = "\t# "+partieG.getNom()+" = "+partieD.getNom()+"\n";
+        res += partieD.toMIPS();
         res += "\tsw $v0, " + Tds.getInstance().getDeplacement(partieG.getNom()) + "($s7)\n";
         return res;
     }

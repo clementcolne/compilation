@@ -26,6 +26,6 @@ public class ConstanteEntiere extends Constante {
      */
     @Override
     public String getNom() {
-        return null;
+        return cste;
     }
 }

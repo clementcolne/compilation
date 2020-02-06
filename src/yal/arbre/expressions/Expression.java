@@ -24,4 +24,12 @@ public abstract class Expression extends ArbreAbstrait {
         return false;
     }
 
+    /**
+     * retourne le nom de l'expression
+     * @return String
+     */
+    public String toString(){
+        return nom;
+    }
+
 }
