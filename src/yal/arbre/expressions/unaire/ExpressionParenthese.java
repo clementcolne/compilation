@@ -1,4 +1,6 @@
-package yal.arbre.expressions;
+package yal.arbre.expressions.unaire;
+
+import yal.arbre.expressions.Expression;
 
 public class ExpressionParenthese extends Expression {
 

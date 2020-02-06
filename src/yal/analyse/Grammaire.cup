@@ -57,8 +57,8 @@ parser code {:
    
 /* Terminals (tokens returned by the scanner).  */
 
-terminal Symbol    PROGRAMME, DEBUT, FIN, POINTVIRGULE, ECRIRE, LIRE, ENTIER, EGAL, SI, ALORS, SINON, FINSI, TANTQUE, REPETER, FINTANTQUE, NON, PAROUVRANTE, PARFERMANTE;
-terminal String    IDF, CSTENTIERE, OPERCALCP, OPERCALCNP, MOINS, OPERBOOLEB, OPERBOOLBB, OPERBOOLRB ;
+terminal Symbol    PROGRAMME, DEBUT, FIN, POINTVIRGULE, ECRIRE, LIRE, ENTIER, EGAL, SI, ALORS, SINON, FINSI, TANTQUE, REPETER, FINTANTQUE, NON, ET, EGALITE, DIFFERENCE, INF,SUP,PLUS,MOINS,DIVISE,MULT,OU, PAR_OUVRANTE, PAR_FERMANTE;
+terminal String    IDF, CSTENTIERE;
 
    
 /* Non terminals used in the grammar section.  */
@@ -68,14 +68,14 @@ non terminal Expression EXP ;
 
 
 /* Precedence */
-precedence right PAROUVRANTE;
-precedence left PARFERMANTE;
-precedence left OPERCALCP;
-precedence left OPERCALCNP;
-precedence left MOINS;
-precedence left OPERBOOLEB;
-precedence left OPERBOOLBB;
-precedence left OPERBOOLRB;
+precedence left OU;
+precedence left ET;
+precedence left EGALITE, DIFFERENCE;
+precedence left INF, SUP;
+precedence left MOINS, PLUS;
+precedence left MULT,DIVISE;
+precedence left NON;
+precedence left PAR_OUVRANTE, PAR_FERMANTE;
 
 /* ----------------------------Grammar Section-------------------- */
  
@@ -143,23 +143,35 @@ EXP    ::=     CSTENTIERE:c
                IDF:i
                {: RESULT = new Idf(i, ileft + 1 ) ; :}
         |
-               EXP:g OPERCALCP:o EXP:d
-               {: RESULT = new ExpressionACalculer(g,d,o,gleft + 1) ; :}
+               EXP:g MULT EXP:d
+               {: RESULT = new Multiplication(g,d,gleft + 1) ; :}
         |
-               EXP:g OPERCALCNP:o EXP:d
-               {: RESULT = new ExpressionACalculer(g,d,o,gleft + 1) ; :}
+               EXP:g DIVISE EXP:d
+               {: RESULT = new Division(g,d,gleft + 1) ; :}
         |
-               EXP:g MOINS:o EXP:d
-               {: RESULT = new ExpressionACalculer(g,d,o,gleft + 1) ; :}
+               EXP:g PLUS EXP:d
+               {: RESULT = new Addition(g,d,gleft + 1) ; :}
         |
-               EXP:g OPERBOOLEB:o EXP:d
-               {: RESULT = new ExpressionBoolEntierBooleen(g,d,o,gleft + 1) ; :}
+               EXP:g MOINS EXP:d
+               {: RESULT = new Soustraction(g,d,gleft + 1) ; :}
         |
-               EXP:g OPERBOOLBB:o EXP:d
-               {: RESULT = new ExpressionBoolBooleenBooleen(g,d,o,gleft + 1) ; :}
+               EXP:g INF EXP:d
+               {: RESULT = new Inferieur(g,d,gleft + 1) ; :}
         |
-               EXP:g OPERBOOLRB:o EXP:d
-               {: RESULT = new ExpressionResultatBooleen(g,d,o,gleft + 1) ; :}
+               EXP:g SUP EXP:d
+               {: RESULT = new Superieur(g,d,gleft + 1) ; :}
+        |
+               EXP:g EGALITE EXP:d
+               {: RESULT = new Egalite(g,d,gleft + 1) ; :}
+        |
+               EXP:g DIFFERENCE EXP:d
+               {: RESULT = new Difference(g,d,gleft + 1) ; :}
+        |
+               EXP:g ET EXP:d
+               {: RESULT = new BoolEt(g,d,gleft + 1) ; :}
+        |
+               EXP:g OU EXP:d
+               {: RESULT = new BoolOu(g,d,gleft + 1) ; :}
         |
                MOINS EXP:e
                {: RESULT = new ExpressionInverse(e,eleft + 1) ; :}
@@ -167,6 +179,6 @@ EXP    ::=     CSTENTIERE:c
               NON EXP:e
               {: RESULT = new NonExpression(e,eleft + 1) ; :}
         |
-              PAROUVRANTE EXP:e PARFERMANTE
+              PAR_OUVRANTE EXP:e PAR_FERMANTE
               {: RESULT = new ExpressionParenthese(e,eleft + 1) ; :}
               ;

@@ -62,26 +62,26 @@ espace = {finDeLigne}  | [ \t\f]
 
 
 
-"et"                   { return symbol(CodesLexicaux.OPERBOOLBB); }
-"ou"                   { return symbol(CodesLexicaux.OPERBOOLBB); }
+"et"                   { return symbol(CodesLexicaux.ET); }
+"ou"                   { return symbol(CodesLexicaux.OU); }
 
 ";"                    { return symbol(CodesLexicaux.POINTVIRGULE); }
 
 "="                    { return symbol(CodesLexicaux.EGAL); }
 
-"/"                    { return symbol(CodesLexicaux.OPERCALCP); }
-"*"                    { return symbol(CodesLexicaux.OPERCALCP); }
-"+"                    { return symbol(CodesLexicaux.OPERCALCNP); }
+"/"                    { return symbol(CodesLexicaux.DIVISE); }
+"*"                    { return symbol(CodesLexicaux.MULT); }
+"+"                    { return symbol(CodesLexicaux.PLUS); }
 "-"                    { return symbol(CodesLexicaux.MOINS); }
 
-">"                    { return symbol(CodesLexicaux.OPERBOOLEB); }
-"<"                    { return symbol(CodesLexicaux.OPERBOOLEB); }
+">"                    { return symbol(CodesLexicaux.SUP); }
+"<"                    { return symbol(CodesLexicaux.INF); }
 
-"=="                   { return symbol(CodesLexicaux.OPERBOOLRB); }
-"!="                   { return symbol(CodesLexicaux.OPERBOOLRB); }
+"=="                   { return symbol(CodesLexicaux.EGALITE); }
+"!="                   { return symbol(CodesLexicaux.DIFFERENCE); }
 
-"("                    { return symbol(CodesLexicaux.PAROUVRANTE); }
-")"                    { return symbol(CodesLexicaux.PARFERMANTE); }
+"("                    { return symbol(CodesLexicaux.PAR_OUVRANTE); }
+")"                    { return symbol(CodesLexicaux.PAR_FERMANTE); }
 
 {csteE}      	       { return symbol(CodesLexicaux.CSTENTIERE, yytext()); }
 

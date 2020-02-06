@@ -1,6 +1,7 @@
-package yal.arbre.expressions;
+package yal.arbre.expressions.unaire;
 
 import yal.arbre.declaration.Tds;
+import yal.arbre.expressions.Expression;
 import yal.exceptions.AnalyseSemantiqueException;
 
 public class ExpressionInverse extends Expression {

@@ -1,19 +1,21 @@
-package yal.arbre.expressions;
+package yal.arbre.expressions.binaire.expEntier;
 
 import yal.arbre.declaration.Tds;
+import yal.arbre.expressions.Expression;
 import yal.exceptions.AnalyseSemantiqueException;
 
-public class ExpressionBoolEntierBooleen extends ExpressionBool {
+public abstract class ExpressionEntier extends Expression {
 
-    private Expression expGauche;
-    private Expression expDroite;
-    private String oper;
+    protected Expression expDroite;
+    protected Expression expGauche;
 
-    public ExpressionBoolEntierBooleen(Expression e1, Expression e2, String o, int n){
+    /**
+     * Constructeur d'une expression
+     *
+     * @param n int
+     */
+    protected ExpressionEntier(int n) {
         super(n);
-        expGauche = e1;
-        expDroite = e2;
-        oper = o;
     }
 
     @Override
@@ -35,10 +37,5 @@ public class ExpressionBoolEntierBooleen extends ExpressionBool {
     @Override
     public String toMIPS() {
         return null;
-    }
-
-    @Override
-    public boolean isBool() {
-        return true;
     }
 }

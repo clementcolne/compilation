@@ -1,30 +1,33 @@
-package yal.arbre.expressions;
+package yal.arbre.expressions.binaire.expBool;
 
 import yal.arbre.declaration.Tds;
+import yal.arbre.expressions.Expression;
 import yal.exceptions.AnalyseSemantiqueException;
 
-public class NonExpression extends Expression {
+public abstract class ExpressionBool extends Expression {
 
-    private Expression e;
+    protected Expression expGauche;
+    protected Expression expDroite;
 
     /**
-     * Constructeur d'une expression
+     * Constructeur d'une expression booléenne
      *
      * @param n int
      */
-    public NonExpression(Expression e,int n) {
+    protected ExpressionBool(int n) {
         super(n);
     }
 
     @Override
     public String getNom() {
-        return nom;
+        return null;
     }
 
     @Override
     public void verifier() {
-        if(e.isBool()){
-            e.verifier();
+        if(expDroite.isBool() && expGauche.isBool()) {
+            expDroite.verifier();
+            expGauche.verifier();
         }else{
             AnalyseSemantiqueException a = new AnalyseSemantiqueException(noLigne, ": le type attendu est un booléen");
             Tds.getInstance().add(a.getMessage());
@@ -35,4 +38,6 @@ public class NonExpression extends Expression {
     public String toMIPS() {
         return null;
     }
+
+
 }
