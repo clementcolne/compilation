@@ -57,7 +57,7 @@ parser code {:
    
 /* Terminals (tokens returned by the scanner).  */
 
-terminal Symbol    PROGRAMME, DEBUT, FIN, POINTVIRGULE, ECRIRE, LIRE, ENTIER, EGAL, SI, ALORS, SINON, FINSI, TANTQUE, REPETER, FINTANTQUE, NON;
+terminal Symbol    PROGRAMME, DEBUT, FIN, POINTVIRGULE, ECRIRE, LIRE, ENTIER, EGAL, SI, ALORS, SINON, FINSI, TANTQUE, REPETER, FINTANTQUE, NON, PAROUVRANTE, PARFERMANTE;
 terminal String    IDF, CSTENTIERE, OPERCALCP, OPERCALCNP, MOINS, OPERBOOLEB, OPERBOOLBB, OPERBOOLRB ;
 
    
@@ -68,6 +68,8 @@ non terminal Expression EXP ;
 
 
 /* Precedence */
+precedence right PAROUVRANTE;
+precedence left PARFERMANTE;
 precedence left OPERCALCP;
 precedence left OPERCALCNP;
 precedence left MOINS;
@@ -123,13 +125,13 @@ INST    ::=     ECRIRE EXP:e POINTVIRGULE
                 {: :}
        |
                 SI EXP:e ALORS LINST:li FINSI
-                {: RESULT = new Condition(e,eleft+1); :}
+                {: RESULT = new Condition(e,eleft+1,li); :}
        |
                 SI EXP:e ALORS LINST:li SINON LINST:li2 FINSI
                 {: RESULT = new Condition(e,eleft+1); :}
        |
                 SI EXP:e ALORS SINON LINST:li FINSI
-                {: RESULT = new Condition(e,eleft+1); :}
+                {: RESULT = new Condition(e,eleft+1,li); :}
        |
                 SI EXP:e ALORS FINSI
                 {: RESULT = new Condition(e,eleft+1); :}
@@ -164,4 +166,7 @@ EXP    ::=     CSTENTIERE:c
         |
               NON EXP:e
               {: RESULT = new NonExpression(e,eleft + 1) ; :}
+        |
+              PAROUVRANTE EXP:e PARFERMANTE
+              {: RESULT = new ExpressionParenthese(e,eleft + 1) ; :}
               ;

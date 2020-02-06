@@ -30,6 +30,7 @@ public class ExpressionACalculer extends Expression{
             AnalyseSemantiqueException a = new AnalyseSemantiqueException(noLigne, ": le type attendu est un entier");
             Tds.getInstance().add(a.getMessage());
         }
+        // vérifier si division par 0
     }
 
     @Override

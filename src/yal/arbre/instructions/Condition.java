@@ -1,11 +1,12 @@
 package yal.arbre.instructions;
 
+import yal.arbre.BlocDInstructions;
 import yal.arbre.expressions.Expression;
 import yal.arbre.expressions.Idf;
 
 public class Condition extends Instruction {
 
-    public Condition(Expression exp, Idf i, int n){
+    public Condition(Expression exp, int n, BlocDInstructions b){
         super(n);
     }
 

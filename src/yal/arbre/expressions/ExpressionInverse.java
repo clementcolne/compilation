@@ -1,10 +1,14 @@
 package yal.arbre.expressions;
 
+import yal.arbre.declaration.Tds;
+import yal.exceptions.AnalyseSemantiqueException;
+
 public class ExpressionInverse extends Expression {
 
-    public ExpressionInverse(String e, int n){
+    private Expression e;
+
+    public ExpressionInverse(Expression e, int n){
         super(n);
-        nom = e;
     }
 
     @Override
@@ -14,7 +18,12 @@ public class ExpressionInverse extends Expression {
 
     @Override
     public void verifier() {
-
+        if(!e.isBool()){
+            e.verifier();
+        }else{
+            AnalyseSemantiqueException a = new AnalyseSemantiqueException(noLigne, ": le type attendu est un entier");
+            Tds.getInstance().add(a.getMessage());
+        }
     }
 
     @Override

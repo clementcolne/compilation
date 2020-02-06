@@ -80,6 +80,9 @@ espace = {finDeLigne}  | [ \t\f]
 "=="                   { return symbol(CodesLexicaux.OPERBOOLRB); }
 "!="                   { return symbol(CodesLexicaux.OPERBOOLRB); }
 
+"("                    { return symbol(CodesLexicaux.PAROUVRANTE); }
+")"                    { return symbol(CodesLexicaux.PARFERMANTE); }
+
 {csteE}      	       { return symbol(CodesLexicaux.CSTENTIERE, yytext()); }
 
 {idf}      	           { return symbol(CodesLexicaux.IDF, yytext()); }
