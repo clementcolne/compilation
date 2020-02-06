@@ -14,8 +14,10 @@ public class Egalite extends Expression {
      *
      * @param n int
      */
-    protected Egalite(int n) {
+    public Egalite(Expression e1, Expression e2, int n) {
         super(n);
+        expDroite = e2;
+        expGauche = e1;
     }
 
     @Override

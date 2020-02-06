@@ -3,6 +3,10 @@
 import java.util.*;
 import yal.arbre.* ;
 import yal.arbre.expressions.* ;
+import yal.arbre.expressions.binaire.* ;
+import yal.arbre.expressions.binaire.expBool.* ;
+import yal.arbre.expressions.binaire.expEntier.* ;
+import yal.arbre.expressions.unaire.* ;
 import yal.arbre.instructions.* ;
 import yal.arbre.declaration.* ;
 import yal.exceptions.AnalyseSyntaxiqueException;

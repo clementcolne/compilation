@@ -6,16 +6,18 @@ import yal.exceptions.AnalyseSemantiqueException;
 
 public class Difference extends Expression {
 
-    private Expression expDroite;
     private Expression expGauche;
+    private Expression expDroite;
 
     /**
      * Constructeur d'une expression
      *
      * @param n int
      */
-    public Difference(int n) {
+    public Difference(Expression e1, Expression e2, int n) {
         super(n);
+        expDroite = e2;
+        expGauche = e1;
     }
 
     @Override

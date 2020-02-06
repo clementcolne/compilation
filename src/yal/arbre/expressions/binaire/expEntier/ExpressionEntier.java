@@ -14,8 +14,10 @@ public abstract class ExpressionEntier extends Expression {
      *
      * @param n int
      */
-    protected ExpressionEntier(int n) {
+    protected ExpressionEntier(Expression e1, Expression e2, int n) {
         super(n);
+        expDroite = e2;
+        expGauche = e1;
     }
 
     @Override
