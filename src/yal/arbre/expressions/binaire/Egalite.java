@@ -40,4 +40,9 @@ public class Egalite extends Expression {
     public String toMIPS() {
         return null;
     }
+
+    @Override
+    public boolean isBool() {
+        return true;
+    }
 }

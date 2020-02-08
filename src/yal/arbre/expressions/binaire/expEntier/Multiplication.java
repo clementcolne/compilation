@@ -16,22 +16,25 @@ public class Multiplication extends ExpressionEntier{
 
     @Override
     public String getNom() {
-        return null;
+        return expGauche.getNom()+" * "+expDroite.getNom();
     }
 
-    @Override
-    public void verifier() {
-
-    }
 
     @Override
     public String toMIPS() {
         String res = "";
         res += expGauche.toMIPS() + "\n";
-        res += "\tmove $t8, $v0\n";
+        res += "\t# Empiler $v0\n";
+        res += "\tsw $v0,($sp)\n";
+        res += "\tadd $sp,$sp,-4\n";
+        //res += "\tmove $t8, $v0\n";
         res += expDroite.toMIPS() + "\n";
-        res += "\tmul $v0, $t8, $v0\n";
+        res += "\t# Dépiler $v0\n";
+        res += "\tadd $sp,$sp,4\n";
+        res += "\tlw $t8,($sp)\n";
 
+        res += "\tmul $v0, $t8, $v0\n";
+        res += "\tmflo $v0\n";
         return res;
     }
 }

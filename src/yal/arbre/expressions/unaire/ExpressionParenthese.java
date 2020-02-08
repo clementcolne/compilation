@@ -4,7 +4,7 @@ import yal.arbre.expressions.Expression;
 
 public class ExpressionParenthese extends Expression {
 
-    private Expression e;
+    private Expression exp;
 
     /**
      * Constructeur d'une expression
@@ -13,6 +13,7 @@ public class ExpressionParenthese extends Expression {
      */
     public ExpressionParenthese(Expression e,int n) {
         super(n);
+        exp = e;
     }
 
     @Override
@@ -22,11 +23,16 @@ public class ExpressionParenthese extends Expression {
 
     @Override
     public void verifier() {
-
+        exp.verifier();
     }
 
     @Override
     public String toMIPS() {
-        return null;
+        return exp.toMIPS();
+    }
+
+    @Override
+    public boolean isBool() {
+        return exp.isBool();
     }
 }
