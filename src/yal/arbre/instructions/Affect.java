@@ -43,11 +43,10 @@ public class Affect extends Instruction {
     @Override
     public String toMIPS() {
         String res = "\t#" + partieG.getNom() + "=" + partieD.getNom() + "\n";
-        res += partieD.toMIPS() + "\n";
+        res += partieD.toMIPS();
         if(partieD.isConstante()) {
             res += "\tsw $v0, " + Tds.getInstance().getDeplacement(partieG.getNom()) + "($s7)\n";
         }else{
-            //res += "\tlw $v0, " + Tds.getInstance().getDeplacement(partieD.getNom()) + "($s7)\n";
             res += "\tsw $v0, " + Tds.getInstance().getDeplacement(partieG.getNom()) + "($s7)\n";
         }
         return res;
