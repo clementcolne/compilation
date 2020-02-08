@@ -161,9 +161,7 @@ public class Tds {
         }
     }
 
-    public void setIdfCondition() {
-        idfCondition ++;
-    }
+
 
     public void setIdfBoucle() {
         idfBoucle ++;
@@ -174,6 +172,7 @@ public class Tds {
      * @return int
      */
     public int getIdfCondition() {
+        idfCondition ++;
         return idfCondition;
     }
 

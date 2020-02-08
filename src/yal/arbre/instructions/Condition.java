@@ -18,7 +18,6 @@ public class Condition extends Instruction {
         arbre1 = b1;
         arbre2 = b2;
         etq = Tds.getInstance().getIdfCondition();
-        Tds.getInstance().setIdfCondition();
     }
 
     public Condition(Expression e, int n, ArbreAbstrait b){
@@ -44,7 +43,7 @@ public class Condition extends Instruction {
 
     @Override
     public String toMIPS() {
-        String res = exp.toMIPS();
+        String res = "\t# Condition\n"+exp.toMIPS();
         switch (exp.getOper()){
             case "==":
                 res += "\tbeq $v0,$t8,si"+etq+"\n";
