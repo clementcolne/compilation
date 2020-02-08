@@ -22,7 +22,16 @@ public class Egalite extends Expression {
 
     @Override
     public String getNom() {
-        return null;
+        return expGauche.getNom()+" == "+expDroite.getNom();
+    }
+
+    /**
+     * renvoie l'opérateur de l'expression
+     * @return String
+     */
+    @Override
+    public String getOper(){
+        return "==";
     }
 
     @Override
@@ -37,8 +46,18 @@ public class Egalite extends Expression {
     }
 
     @Override
-    public String toMIPS() {
-        return null;
+    public String toMIPS() {    // TODO trouver un moyen de factoriser
+        String res = expGauche.toMIPS() + "\n";
+        res += "\t# Empiler $v0\n";
+        res += "\tsw $v0,($sp)\n";
+        res += "\tadd $sp,$sp,-4\n";
+
+        res += expDroite.toMIPS() + "\n";
+        res += "\t# Dépiler $v0\n";
+        res += "\tadd $sp,$sp,4\n";
+        res += "\tlw $t8,($sp)\n";
+
+        return res;
     }
 
     @Override

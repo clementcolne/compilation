@@ -132,10 +132,10 @@ INST    ::=     ECRIRE EXP:e POINTVIRGULE
                 {: RESULT = new Condition(e,eleft+1,li); :}
        |
                 SI EXP:e ALORS LINST:li SINON LINST:li2 FINSI
-                {: RESULT = new Condition(e,eleft+1); :}
+                {: RESULT = new Condition(e,eleft+1,li,li2); :}
        |
                 SI EXP:e ALORS SINON LINST:li FINSI
-                {: RESULT = new Condition(e,eleft+1,li); :}
+                {: RESULT = new Condition(e,eleft+1,null,li); :}
        |
                 SI EXP:e ALORS FINSI
                 {: RESULT = new Condition(e,eleft+1); :}

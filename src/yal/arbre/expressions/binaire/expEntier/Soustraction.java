@@ -19,9 +19,13 @@ public class Soustraction extends ExpressionEntier{
         return expGauche.getNom()+" - "+expDroite.getNom();
     }
 
+    /**
+     * Renvoie le résultat entier de l'expression pour vérifier si c'est une division par 0
+     * @return int
+     */
     @Override
-    public void verifier() {
-
+    public int getNombre(){
+        return expGauche.getNombre() - expDroite.getNombre();
     }
 
     @Override

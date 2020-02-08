@@ -29,11 +29,25 @@ public abstract class Expression extends ArbreAbstrait {
     }
 
     /**
+     * renvoie l'opérateur de l'expression
+     * @return String
+     */
+    public String getOper(){return "";}
+
+    /**
      * retourne le nom de l'expression
      * @return String
      */
     public String toString(){
         return nom;
+    }
+
+    /**
+     * Renvoie le résultat entier de l'expression pour vérifier si c'est une division par 0
+     * @return int
+     */
+    public int getNombre(){
+        return 0;
     }
 
 }

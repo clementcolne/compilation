@@ -36,6 +36,14 @@ public abstract class ExpressionEntier extends Expression {
         }
     }
 
+    /**
+     * Renvoie le résultat entier de l'expression pour vérifier si c'est une division par 0
+     * @return int
+     */
+    public int getNombre(){
+        return 0;
+    }
+
     @Override
     public String toMIPS() {
         return null;

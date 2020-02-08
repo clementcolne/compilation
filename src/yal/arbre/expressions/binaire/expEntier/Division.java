@@ -1,6 +1,8 @@
 package yal.arbre.expressions.binaire.expEntier;
 
+import yal.arbre.declaration.Tds;
 import yal.arbre.expressions.Expression;
+import yal.exceptions.AnalyseSemantiqueException;
 
 public class Division extends ExpressionEntier{
     /**
@@ -19,9 +21,22 @@ public class Division extends ExpressionEntier{
         return expGauche.getNom()+" / "+expDroite.getNom();
     }
 
+    /**
+     * Renvoie le résultat entier de l'expression pour vérifier si c'est une division par 0
+     * @return int
+     */
+    @Override
+    public int getNombre(){
+        return expGauche.getNombre() / expDroite.getNombre();
+    }
+
     @Override
     public void verifier() {
-
+        super.verifier();
+        if(expDroite.getNombre()==0){
+            AnalyseSemantiqueException a = new AnalyseSemantiqueException(noLigne, ": division par 0");
+            Tds.getInstance().add(a.getMessage());
+        }
     }
 
     @Override

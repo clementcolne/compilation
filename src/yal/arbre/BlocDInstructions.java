@@ -56,7 +56,6 @@ public class BlocDInstructions extends ArbreAbstrait {
                 //throw new AnalyseSemantiqueException(0, "");
             }
         if(Tds.getInstance().getCptErreur() > 0) {
-
             throw new SemantiqueException(Tds.getInstance().afficheErreursSemantiques());
         }
     }
@@ -67,16 +66,23 @@ public class BlocDInstructions extends ArbreAbstrait {
      */
     @Override
     public String toMIPS() {
-        String prog = "";
-        prog = ".data\n" +
-                "BackSlachN: .asciiz \"\\n\"\n.text\n\nmain:\n\n";
-        prog += "\t#allocation mémoire pour les variables\n\tmove $s7, $sp\n" +
-                "\tadd $sp, $sp, " + Tds.getInstance().getTailleZoneVariable() + "\n\n";
-        for(ArbreAbstrait a : programme) {
-            prog += a.toMIPS()+"\n";
+        if(!Tds.getInstance().getCptProg()) {
+            String prog = ".data\n" +
+                    "BackSlachN: .asciiz \"\\n\"\n.text\n\nmain:\n\n";
+            prog += "\t#allocation mémoire pour les variables\n\tmove $s7, $sp\n" +
+                    "\tadd $sp, $sp, " + Tds.getInstance().getTailleZoneVariable() + "\n\n";
+            for (ArbreAbstrait a : programme) {
+                prog += a.toMIPS() + "\n";
+            }
+            prog += "\nend:\n\t#Sortie de programme\n\tli $v0, 10\n\tsyscall\n";
+            return prog;
+        }else{
+            String prog = "";
+            for (ArbreAbstrait a : programme) {
+                prog += a.toMIPS() + "\n";
+            }
+            return prog;
         }
-        prog += "\nend:\n\t#Sortie de programme\n\tli $v0, 10\n\tsyscall\n";
-        return prog;
     }
 
 }

@@ -12,6 +12,9 @@ public class Tds {
     public ArrayList<String> erreurs;
     public int cpt;
     public int cptErreur;
+    public int idfCondition;
+    public int idfBoucle;
+    public boolean cptProg;
 
     private static Tds tds = new Tds();
 
@@ -23,10 +26,13 @@ public class Tds {
      * Constructeur de Tds
      */
     private Tds() {
-        cpt = 0;
         variables = new HashMap<Entree, Symbole>();
-        cptErreur = 0;
         erreurs = new ArrayList<>();
+        cptErreur = 0;
+        cpt = 0;
+        idfBoucle = 0;
+        idfCondition = 0;
+        cptProg = false;
     }
 
     /**
@@ -135,8 +141,13 @@ public class Tds {
         erreurs.clear();
     }
 
+
+    public void setCptProg(){
+        cptProg = true;
+    }
+
     /**
-     *
+     * Affiche les erreurs sémantiques
      */
     public String afficheErreursSemantiques(){
         if(erreurs.size() > 0) {
@@ -149,4 +160,37 @@ public class Tds {
             return "";
         }
     }
+
+    public void setIdfCondition() {
+        idfCondition ++;
+    }
+
+    public void setIdfBoucle() {
+        idfBoucle ++;
+    }
+
+    /**
+     * renvoie un identifiant unique pour l'étiquette de la condition
+     * @return int
+     */
+    public int getIdfCondition() {
+        return idfCondition;
+    }
+
+    /**
+     * renvoie un identifiant unique pour l'étiquette de la boucle
+     * @return int
+     */
+    public int getIdfBoucle() {
+        return idfBoucle;
+    }
+
+    /**
+     * Renvoie combien de bloc d'instruction on a
+     * @return int
+     */
+    public boolean getCptProg() {
+        return cptProg;
+    }
+
 }

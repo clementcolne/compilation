@@ -16,15 +16,20 @@ public class Addition extends ExpressionEntier {
         return expGauche.getNom()+" + "+expDroite.getNom();
     }
 
-    @Override
-    public void verifier() {
 
+
+    /**
+     * Renvoie le résultat entier de l'expression pour vérifier si c'est une division par 0
+     * @return int
+     */
+    @Override
+    public int getNombre(){
+        return expGauche.getNombre() + expDroite.getNombre();
     }
 
     @Override
     public String toMIPS() {
-        String res = "";
-        res += expGauche.toMIPS() + "\n";
+        String res = expGauche.toMIPS() + "\n";
         res += "\t# Empiler $v0\n";
         res += "\tsw $v0,($sp)\n";
         res += "\tadd $sp,$sp,-4\n";
