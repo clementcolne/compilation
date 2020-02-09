@@ -12,8 +12,7 @@ public class Tds {
     public ArrayList<String> erreurs;
     public int cpt;
     public int cptErreur;
-    public int idfCondition;
-    public int idfBoucle;
+    public int idfEtiquette;
     public boolean cptProg;
 
     private static Tds tds = new Tds();
@@ -30,9 +29,9 @@ public class Tds {
         erreurs = new ArrayList<>();
         cptErreur = 0;
         cpt = 0;
-        idfBoucle = 0;
-        idfCondition = 0;
+        idfEtiquette = 0;
         cptProg = false;
+
     }
 
     /**
@@ -163,26 +162,16 @@ public class Tds {
 
 
 
-    public void setIdfBoucle() {
-        idfBoucle ++;
-    }
 
     /**
      * renvoie un identifiant unique pour l'étiquette de la condition
      * @return int
      */
-    public int getIdfCondition() {
-        idfCondition ++;
-        return idfCondition;
+    public int getIdfEtiquette() {
+        idfEtiquette++;
+        return idfEtiquette;
     }
 
-    /**
-     * renvoie un identifiant unique pour l'étiquette de la boucle
-     * @return int
-     */
-    public int getIdfBoucle() {
-        return idfBoucle;
-    }
 
     /**
      * Renvoie combien de bloc d'instruction on a

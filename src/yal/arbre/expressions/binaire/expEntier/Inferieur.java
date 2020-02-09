@@ -5,6 +5,9 @@ import yal.arbre.expressions.Expression;
 import yal.exceptions.AnalyseSemantiqueException;
 
 public class Inferieur extends ExpressionEntier{
+
+    private int etq;
+
     /**
      * Constructeur d'une expression
      *
@@ -14,6 +17,7 @@ public class Inferieur extends ExpressionEntier{
      */
     public Inferieur(Expression e1, Expression e2, int n) {
         super(e1, e2, n);
+        etq = Tds.getInstance().getIdfEtiquette();
     }
 
     /**
@@ -52,6 +56,16 @@ public class Inferieur extends ExpressionEntier{
         res += "\t# Dépiler $v0\n";
         res += "\tadd $sp,$sp,4\n";
         res += "\tlw $t8,($sp)\n";
+
+        // Gauche en t8, droite en v0
+        res += "\t# Affectation de la valeur booléenne\n";
+        res += "\tblt $v0,$t8,si"+etq+"\n";
+        res += "\tla $v0, Vrai\n";
+        res += "\tjal suite"+etq+"\n";
+        res += "si"+etq+":\n";
+        res += "\tla $v0, Faux\n";
+        res += "\tjal suite"+etq+"\n";
+        res += "suite"+etq+":\n";
 
         return res;
     }

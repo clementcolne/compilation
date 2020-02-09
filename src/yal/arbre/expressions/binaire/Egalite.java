@@ -8,6 +8,7 @@ public class Egalite extends Expression {
 
     private Expression expDroite;
     private Expression expGauche;
+    private int etq;
 
     /**
      * Constructeur d'une expression
@@ -18,6 +19,7 @@ public class Egalite extends Expression {
         super(n);
         expDroite = e2;
         expGauche = e1;
+        etq = Tds.getInstance().getIdfEtiquette();
     }
 
     @Override
@@ -46,7 +48,7 @@ public class Egalite extends Expression {
     }
 
     @Override
-    public String toMIPS() {    // TODO trouver un moyen de factoriser
+    public String toMIPS() {
         String res = expGauche.toMIPS() + "\n";
         res += "\t# Empiler $v0\n";
         res += "\tsw $v0,($sp)\n";
@@ -56,6 +58,15 @@ public class Egalite extends Expression {
         res += "\t# Dépiler $v0\n";
         res += "\tadd $sp,$sp,4\n";
         res += "\tlw $t8,($sp)\n";
+
+        res += "\t# Affectation de la valeur booléenne\n";
+        res += "\tbeq $v0,$t8,si"+etq+"\n";
+        res += "\tla $v0, Faux\n";
+        res += "\tjal suite"+etq+"\n";
+        res += "si"+etq+":\n";
+        res += "\tla $v0, Vrai\n";
+        res += "\tjal suite"+etq+"\n";
+        res += "suite"+etq+":\n";
 
         return res;
     }
