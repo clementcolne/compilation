@@ -17,7 +17,6 @@ public class Inferieur extends ExpressionEntier{
      */
     public Inferieur(Expression e1, Expression e2, int n) {
         super(e1, e2, n);
-        etq = Tds.getInstance().getIdfEtiquette();
     }
 
     /**
@@ -46,7 +45,8 @@ public class Inferieur extends ExpressionEntier{
     }
 
     @Override
-    public String toMIPS() {    // TODO trouver un moyen de factoriser
+    public String toMIPS() {
+        etq = Tds.getInstance().getIdfEtiquette();
         String res = expGauche.toMIPS() + "\n";
         res += "\t# Empiler $v0\n";
         res += "\tsw $v0,($sp)\n";

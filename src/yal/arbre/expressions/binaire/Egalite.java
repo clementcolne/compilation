@@ -19,7 +19,6 @@ public class Egalite extends Expression {
         super(n);
         expDroite = e2;
         expGauche = e1;
-        etq = Tds.getInstance().getIdfEtiquette();
     }
 
     @Override
@@ -49,6 +48,7 @@ public class Egalite extends Expression {
 
     @Override
     public String toMIPS() {
+        etq = Tds.getInstance().getIdfEtiquette();
         String res = expGauche.toMIPS() + "\n";
         res += "\t# Empiler $v0\n";
         res += "\tsw $v0,($sp)\n";

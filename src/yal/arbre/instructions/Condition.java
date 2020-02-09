@@ -17,7 +17,6 @@ public class Condition extends Instruction {
         exp = e;
         arbre1 = b1;
         arbre2 = b2;
-        etq = Tds.getInstance().getIdfEtiquette();
     }
 
     public Condition(Expression e, int n, ArbreAbstrait b){
@@ -43,14 +42,15 @@ public class Condition extends Instruction {
 
     @Override
     public String toMIPS() {
+        etq = Tds.getInstance().getIdfEtiquette();
         String res = "\t# Condition\n"+exp.toMIPS()+"\n";
         res += "\tla $t8, Vrai\n";
         res += "\tbeq $v0,$t8,si"+etq+"\n";   // teste si la condition est vraie
         if(arbre2 != null){
             Tds.getInstance().setCptProg();
             res += arbre2.toMIPS()+"\n";
-            res += "\tjal suite"+etq+"\n";
         }
+        res += "\tjal suite"+etq+"\n";
         res += "si"+etq+":\n";
         if(arbre1 != null){
             Tds.getInstance().setCptProg();

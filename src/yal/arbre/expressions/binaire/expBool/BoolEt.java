@@ -33,4 +33,9 @@ public class BoolEt extends ExpressionBool{
 
         return res;
     }
+
+    @Override
+    public boolean isBool() {
+        return true;
+    }
 }

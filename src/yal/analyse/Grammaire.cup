@@ -126,7 +126,7 @@ INST    ::=     ECRIRE EXP:e POINTVIRGULE
                 {: RESULT = new Affect(e,new Idf(i, ileft + 1), eleft + 1) ; :}
         |
                 TANTQUE EXP:e REPETER LINST:li FINTANTQUE
-                {: :}
+                {: RESULT = new Boucle(e,li,eleft + 1) ; :}
        |
                 SI EXP:e ALORS LINST:li FINSI
                 {: RESULT = new Condition(e,eleft+1,li); :}
