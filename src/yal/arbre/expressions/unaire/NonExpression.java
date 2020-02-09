@@ -6,7 +6,8 @@ import yal.exceptions.AnalyseSemantiqueException;
 
 public class NonExpression extends Expression {
 
-    private Expression e;
+    private Expression exp;
+    private int etq;
 
     /**
      * Constructeur d'une expression
@@ -15,17 +16,19 @@ public class NonExpression extends Expression {
      */
     public NonExpression(Expression e,int n) {
         super(n);
+        exp = e;
+        etq = Tds.getInstance().getIdfEtiquette();
     }
 
     @Override
     public String getNom() {
-        return nom;
+        return "non "+exp.getNom();
     }
 
     @Override
     public void verifier() {
-        if(e.isBool()){
-            e.verifier();
+        if(exp.isBool()){
+            exp.verifier();
         }else{
             AnalyseSemantiqueException a = new AnalyseSemantiqueException(noLigne, ": le type attendu est un booléen");
             Tds.getInstance().add(a.getMessage());
@@ -34,6 +37,21 @@ public class NonExpression extends Expression {
 
     @Override
     public String toMIPS() {
-        return null;
+        String res = "\t# Non"+exp.getNom()+"\n"+exp.toMIPS()+"\n";
+        res += "\tla $t8, Vrai\n";
+        res += "\tbeq $v0,$t8,si"+etq+"\n";   // teste si la condition est vraie
+        res += "\tla $v0, Vrai\n";
+        res += "\tjal suite"+etq+"\n";
+
+        res += "si"+etq+":\n";
+        res += "\tla $v0, Faux\n";
+        res += "\tjal suite"+etq+"\n";
+        res += "suite"+etq+":\n";
+        return res;
+    }
+
+    @Override
+    public boolean isBool() {
+        return true;
     }
 }
