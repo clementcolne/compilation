@@ -10,20 +10,26 @@ public class Inferieur extends ExpressionEntier{
 
     /**
      * Constructeur d'une expression
-     *
-     * @param e1
-     * @param e2
+     * @param e1 expression gauche
+     * @param e2 expression droite
      * @param n  int
      */
     public Inferieur(Expression e1, Expression e2, int n) {
         super(e1, e2, n);
     }
 
+    /**
+     * Retourne le nom de l'expression inférieur
+     * @return le nom de l'expression inférieur
+     */
     @Override
     public String getNom() {
         return expGauche.getNom()+" < "+expDroite.getNom();
     }
 
+    /**
+     * Vérifie les 2 expressions (gauche et droite) de l'expression
+     */
     @Override
     public void verifier() {
         if(!expDroite.isBool() && !expGauche.isBool()) {
@@ -35,6 +41,10 @@ public class Inferieur extends ExpressionEntier{
         }
     }
 
+    /**
+     * Retourne le code mips de l'expression
+     * @return le code mips de l'expression
+     */
     @Override
     public String toMIPS() {
         etq = Tds.getInstance().getIdfEtiquette();
@@ -50,7 +60,7 @@ public class Inferieur extends ExpressionEntier{
 
         // Gauche en t8, droite en v0
         res += "\t# Affectation de la valeur booléenne\n";
-        res += "\tblt $v0,$t8,si"+etq+"\n";
+        res += "\tble $v0,$t8,si"+etq+"\n";
         res += "\tla $v0, Vrai\n";
         res += "\tjal suite"+etq+"\n";
         res += "si"+etq+":\n";
@@ -61,6 +71,10 @@ public class Inferieur extends ExpressionEntier{
         return res;
     }
 
+    /**
+     * Retourne vrai
+     * @return vrai
+     */
     @Override
     public boolean isBool() {
         return true;

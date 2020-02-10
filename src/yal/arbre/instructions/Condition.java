@@ -12,6 +12,13 @@ public class Condition extends Instruction {
     private ArbreAbstrait arbre2;
     private int etq;
 
+    /**
+     * Constructeur d'une condition
+     * @param e expression
+     * @param n int
+     * @param b1 arbre 1
+     * @param b2 arbre 2
+     */
     public Condition(Expression e, int n, ArbreAbstrait b1, ArbreAbstrait b2){
         super(n);
         exp = e;
@@ -19,16 +26,30 @@ public class Condition extends Instruction {
         arbre2 = b2;
     }
 
+    /**
+     * Constructeur d'une condition
+     * @param e expression
+     * @param n int
+     * @param b arbre
+     */
     public Condition(Expression e, int n, ArbreAbstrait b){
         super(n);
         exp = e;
         arbre1 = b;
     }
 
+    /**
+     * Constructeur d'une condition
+     * @param e expression
+     * @param n int
+     */
     public Condition(Expression e, int n){
         super(n);
     }
 
+    /**
+     * Vérifie l'expression de la condition
+     */
     @Override
     public void verifier() {
         if(exp.isBool()) {
@@ -40,6 +61,10 @@ public class Condition extends Instruction {
 
     }
 
+    /**
+     * Retourne le code mips de la condition
+     * @return le code mips de la condition
+     */
     @Override
     public String toMIPS() {
         etq = Tds.getInstance().getIdfEtiquette();

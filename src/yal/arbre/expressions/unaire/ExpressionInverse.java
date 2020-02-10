@@ -8,16 +8,28 @@ public class ExpressionInverse extends Expression {
 
     private Expression exp;
 
+    /**
+     * Constructeur d'une ExpressionInverse
+     * @param e expression
+     * @param n int
+     */
     public ExpressionInverse(Expression e, int n){
         super(n);
         exp = e;
     }
 
+    /**
+     * Retourne le nom de l'expression inverse
+     * @return le nom de l'expression inverse
+     */
     @Override
     public String getNom() {
         return "- "+exp.getNom();
     }
 
+    /**
+     * Vérifie l'expression de l'expression inverse
+     */
     @Override
     public void verifier() {
         if(!exp.isBool()){
@@ -28,6 +40,10 @@ public class ExpressionInverse extends Expression {
         }
     }
 
+    /**
+     * Retourne le code mips de l'expression inverse
+     * @return le code mips de l'expression inverse
+     */
     @Override
     public String toMIPS() {
         String res = "";

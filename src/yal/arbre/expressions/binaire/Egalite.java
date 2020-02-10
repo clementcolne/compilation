@@ -12,7 +12,6 @@ public class Egalite extends Expression {
 
     /**
      * Constructeur d'une expression
-     *
      * @param n int
      */
     public Egalite(Expression e1, Expression e2, int n) {
@@ -21,12 +20,18 @@ public class Egalite extends Expression {
         expGauche = e1;
     }
 
+    /**
+     * Retourne le nom de l'expression égalité
+     * @return le nom de l'expression égalité
+     */
     @Override
     public String getNom() {
         return expGauche.getNom()+" == "+expDroite.getNom();
     }
 
-
+    /**
+     * Vérifie les expressions (gauche et droite) de l'expression égalité
+     */
     @Override
     public void verifier() {
         if((!expDroite.isBool() && !expGauche.isBool()) || (expDroite.isBool() && expGauche.isBool())) {
@@ -38,6 +43,10 @@ public class Egalite extends Expression {
         }
     }
 
+    /**
+     * Retourne le code mips de l'expression égalité
+     * @return le code mips de l'expression égalité
+     */
     @Override
     public String toMIPS() {
         etq = Tds.getInstance().getIdfEtiquette();
@@ -63,6 +72,10 @@ public class Egalite extends Expression {
         return res;
     }
 
+    /**
+     * Retourne vrai
+     * @return vrai
+     */
     @Override
     public boolean isBool() {
         return true;

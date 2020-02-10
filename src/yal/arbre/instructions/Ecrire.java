@@ -25,8 +25,8 @@ public class Ecrire extends Instruction {
     }
 
     /**
-     * Renvoie le code Mips
-     * @return String
+     * Retourne le code mips d'écrire
+     * @return le code mips d'écrire
      */
     @Override
     public String toMIPS() {

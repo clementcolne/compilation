@@ -13,7 +13,6 @@ public class Boucle extends Instruction{
 
     /**
      * Constructeur d'une instruction
-     *
      * @param n int
      */
     public Boucle(Expression e, ArbreAbstrait a,int n) {
@@ -22,6 +21,9 @@ public class Boucle extends Instruction{
         exp = e;
     }
 
+    /**
+     * Vérifie l'expression de la boucle
+     */
     @Override
     public void verifier() {
         if(exp.isBool()){
@@ -32,6 +34,10 @@ public class Boucle extends Instruction{
         }
     }
 
+    /**
+     * Retourne le code mips de la boucle
+     * @return le code mips de la boucle
+     */
     @Override
     public String toMIPS() {
         etq = Tds.getInstance().getIdfEtiquette();

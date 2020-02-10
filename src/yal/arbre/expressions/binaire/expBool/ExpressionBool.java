@@ -11,7 +11,6 @@ public abstract class ExpressionBool extends Expression {
 
     /**
      * Constructeur d'une expression booléenne
-     *
      * @param n int
      */
     protected ExpressionBool(Expression e1, Expression e2, int n) {
@@ -20,11 +19,18 @@ public abstract class ExpressionBool extends Expression {
         expGauche = e1;
     }
 
+    /**
+     * Retourne le nom de l'expression booléenne
+     * @return le nom de l'expression booléenne
+     */
     @Override
     public String getNom() {
         return null;
     }
 
+    /**
+     * Vérifie les 2 expressions de l'expression booléenne
+     */
     @Override
     public void verifier() {
         if(expDroite.isBool() && expGauche.isBool()) {
@@ -36,6 +42,10 @@ public abstract class ExpressionBool extends Expression {
         }
     }
 
+    /**
+     * Retourne le code mips selon l'expression booléenne
+     * @return
+     */
     @Override
     public String toMIPS() {
         return null;

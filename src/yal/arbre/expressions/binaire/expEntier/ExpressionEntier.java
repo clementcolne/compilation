@@ -11,7 +11,6 @@ public abstract class ExpressionEntier extends Expression {
 
     /**
      * Constructeur d'une expression
-     *
      * @param n int
      */
     protected ExpressionEntier(Expression e1, Expression e2, int n) {
@@ -20,11 +19,18 @@ public abstract class ExpressionEntier extends Expression {
         expGauche = e1;
     }
 
+    /**
+     * Retourne le nom de l'expression
+     * @return le nom de l'expression
+     */
     @Override
     public String getNom() {
         return null;
     }
 
+    /**
+     * Vérifie les 2 expressions (gauche et droite) de l'expression
+     */
     @Override
     public void verifier() {
         if(!expDroite.isBool() && !expGauche.isBool()) {
@@ -44,6 +50,10 @@ public abstract class ExpressionEntier extends Expression {
         return 0;
     }
 
+    /**
+     * Retourne le code mips de l'expression
+     * @return le code mips de l'expression
+     */
     @Override
     public String toMIPS() {
         return null;

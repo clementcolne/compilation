@@ -26,8 +26,8 @@ public class Lire extends Instruction {
     }
 
     /**
-     * Renvoie le code Mips
-     * @return String
+     * Retourne le code mips de lire
+     * @return le code mips de lire
      */
     @Override
     public String toMIPS() {

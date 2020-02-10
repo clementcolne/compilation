@@ -11,12 +11,14 @@ public class Addition extends ExpressionEntier {
         super(e1,e2,n);
     }
 
+    /**
+     * Retourne le nom de l'addition
+     * @return le nom de l'addition
+     */
     @Override
     public String getNom() {
         return expGauche.getNom()+" + "+expDroite.getNom();
     }
-
-
 
     /**
      * Renvoie le résultat entier de l'expression pour vérifier si c'est une division par 0
@@ -27,13 +29,16 @@ public class Addition extends ExpressionEntier {
         return expGauche.getNombre() + expDroite.getNombre();
     }
 
+    /**
+     * Retourne le code mips de l'addition
+     * @return le code mips de l'addition
+     */
     @Override
     public String toMIPS() {
         String res = expGauche.toMIPS() + "\n";
         res += "\t# Empiler $v0\n";
         res += "\tsw $v0,($sp)\n";
         res += "\tadd $sp,$sp,-4\n";
-        //res += "\tmove $t8, $v0\n";
         res += expDroite.toMIPS() + "\n";
         res += "\t# Dépiler $v0\n";
         res += "\tadd $sp,$sp,4\n";

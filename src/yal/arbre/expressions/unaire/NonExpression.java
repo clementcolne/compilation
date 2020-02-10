@@ -11,7 +11,6 @@ public class NonExpression extends Expression {
 
     /**
      * Constructeur d'une expression
-     *
      * @param n int
      */
     public NonExpression(Expression e,int n) {
@@ -19,11 +18,18 @@ public class NonExpression extends Expression {
         exp = e;
     }
 
+    /**
+     * Retourne le nom de l'expression non
+     * @return le nom de l'expression non
+     */
     @Override
     public String getNom() {
         return "non "+exp.getNom();
     }
 
+    /**
+     * Vérifie l'expression
+     */
     @Override
     public void verifier() {
         if(exp.isBool()){
@@ -34,6 +40,10 @@ public class NonExpression extends Expression {
         }
     }
 
+    /**
+     * Retourne le code mips de l'expression non
+     * @return le code mips de l'expression non
+     */
     @Override
     public String toMIPS() {
         etq = Tds.getInstance().getIdfEtiquette();
@@ -50,6 +60,10 @@ public class NonExpression extends Expression {
         return res;
     }
 
+    /**
+     * Retourne vrai
+     * @return vrai
+     */
     @Override
     public boolean isBool() {
         return true;

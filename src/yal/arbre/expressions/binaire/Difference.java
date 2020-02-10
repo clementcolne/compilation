@@ -12,7 +12,6 @@ public class Difference extends Expression {
 
     /**
      * Constructeur d'une expression
-     *
      * @param n int
      */
     public Difference(Expression e1, Expression e2, int n) {
@@ -21,11 +20,18 @@ public class Difference extends Expression {
         expGauche = e1;
     }
 
+    /**
+     * Retourne le nom de l'expression différence
+     * @return le nom de l'expression différence
+     */
     @Override
     public String getNom() {
         return expGauche.getNom()+" != "+expDroite.getNom();
     }
 
+    /**
+     * Vérifie les expressions (gauche et droite) de l'expression différence
+     */
     @Override
     public void verifier() {
         if((!expDroite.isBool() && !expGauche.isBool()) || (expDroite.isBool() && expGauche.isBool())) {
@@ -37,6 +43,10 @@ public class Difference extends Expression {
         }
     }
 
+    /**
+     * Retourne le code mips de l'expression différence
+     * @return le code mips de l'expression différence
+     */
     @Override
     public String toMIPS() {
         etq = Tds.getInstance().getIdfEtiquette();
@@ -62,6 +72,10 @@ public class Difference extends Expression {
         return res;
     }
 
+    /**
+     * Retourne vrai
+     * @return vrai
+     */
     @Override
     public boolean isBool() {
         return true;

@@ -6,17 +6,24 @@ import yal.arbre.expressions.Expression;
 public class BoolOu extends ExpressionBool{
     /**
      * Constructeur d'une expression booléenne
-     *
      * @param n int
      */
     public BoolOu(Expression e1, Expression e2, int n) {
         super(e1,e2,n);
     }
 
+    /**
+     * Retourne le nom de l'expression booléenne
+     * @return le nom de l'expression booléenne
+     */
     public String getNom() {
-        return expGauche.getNom()+" et "+expDroite.getNom();
+        return expGauche.getNom()+" ou "+expDroite.getNom();
     }
 
+    /**
+     * Retourne le code toMIPS de l'expression booléenne
+     * @return le code toMIPS de l'expression booléenne
+     */
     @Override
     public String toMIPS() {
         int etq1 = Tds.getInstance().getIdfEtiquette();
@@ -29,7 +36,6 @@ public class BoolOu extends ExpressionBool{
 
         res += expDroite.toMIPS() + "\n";
         res += "\tla $t8, Faux\n";
-
 
         res += "\tbeq $v0, $t8, si"+etq1+"\n";
         res += "\tla $v0, Vrai\n";
@@ -50,6 +56,10 @@ public class BoolOu extends ExpressionBool{
         return res;
     }
 
+    /**
+     * Retourne vrai
+     * @return vrai
+     */
     @Override
     public boolean isBool() {
         return true;

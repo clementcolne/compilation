@@ -14,9 +14,7 @@ public class Tds {
     public int cptErreur;
     public int idfEtiquette;
     public boolean cptProg;
-
     private static Tds tds = new Tds();
-
     public static Tds getInstance() {
         return tds;
     }
@@ -31,7 +29,6 @@ public class Tds {
         cpt = 0;
         idfEtiquette = 0;
         cptProg = false;
-
     }
 
     /**
@@ -41,11 +38,9 @@ public class Tds {
      * @throws Exception Lève une exception si l'entrée e est déjà présente dans la hashmap des variables
      */
     public void ajouter(Entree e, Symbole s) throws AnalyseSemantiqueException {
-        Symbole symb = new Symbole("",-1);
         boolean dedans = false;
         for(Map.Entry<Entree, Symbole> k : variables.entrySet()) {
             if(k.getKey().getNom().equals(e.getNom())) {
-                symb = k.getValue();
                 dedans = true;
             }
         }
@@ -75,7 +70,7 @@ public class Tds {
                 dedans = true;
             }
         }
-        if (dedans) {
+        if(dedans) {
             return new Symbole(s.getType(), s.getNoLig());
         }else{
             throw new Exception();
@@ -121,7 +116,6 @@ public class Tds {
         return cptErreur;
     }
 
-
     /**
      * Ajoute le message de l'exception de l'erreur sémantique à la liste des messages des erreurs
      * @param e String
@@ -131,7 +125,6 @@ public class Tds {
         erreurs.add(e);
     }
 
-
     /**
      * Remet à 0 le singleton
      */
@@ -139,7 +132,6 @@ public class Tds {
         variables.clear();
         erreurs.clear();
     }
-
 
     public void setCptProg(){
         cptProg = true;
@@ -160,9 +152,6 @@ public class Tds {
         }
     }
 
-
-
-
     /**
      * renvoie un identifiant unique pour l'étiquette de la condition
      * @return int
@@ -171,7 +160,6 @@ public class Tds {
         idfEtiquette++;
         return idfEtiquette;
     }
-
 
     /**
      * Renvoie combien de bloc d'instruction on a

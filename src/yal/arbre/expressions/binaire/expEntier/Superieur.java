@@ -9,21 +9,26 @@ public class Superieur extends ExpressionEntier{
     private int etq;
     /**
      * Constructeur d'une expression
-     *
-     * @param e1
-     * @param e2
+     * @param e1 expression gauche
+     * @param e2 expression droite
      * @param n  int
      */
     public Superieur(Expression e1, Expression e2, int n) {
         super(e1, e2, n);
     }
 
-
+    /**
+     * Retourne le nom de l'expression supérieur à
+     * @return le nom de l'expression supérieur à
+     */
     @Override
     public String getNom() {
         return expGauche.getNom()+" > "+expDroite.getNom();
     }
 
+    /**
+     * Vérifie les 2 expressions (gauche et droite) de la comparaison
+     */
     @Override
     public void verifier() {
         if(!expDroite.isBool() && !expGauche.isBool()) {
@@ -35,6 +40,10 @@ public class Superieur extends ExpressionEntier{
         }
     }
 
+    /**
+     * Retourne le code mips de l'expression supérieur à
+     * @return le code mips de l'expression supérieur à
+     */
     @Override
     public String toMIPS() {
         etq = Tds.getInstance().getIdfEtiquette();
@@ -50,7 +59,7 @@ public class Superieur extends ExpressionEntier{
 
         // Gauche en t8, droite en v0
         res += "\t# Affectation de la valeur booléenne\n";
-        res += "\tbgt $v0,$t8,si"+etq+"\n";
+        res += "\tbge $v0,$t8,si"+etq+"\n";
         res += "\tla $v0, Vrai\n";
         res += "\tjal suite"+etq+"\n";
         res += "si"+etq+":\n";
@@ -61,6 +70,10 @@ public class Superieur extends ExpressionEntier{
         return res;
     }
 
+    /**
+     * Retourne vrai
+     * @return vrai
+     */
     @Override
     public boolean isBool() {
         return true;

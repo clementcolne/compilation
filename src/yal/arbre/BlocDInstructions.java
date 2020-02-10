@@ -53,7 +53,7 @@ public class BlocDInstructions extends ArbreAbstrait {
                     a.verifier();
                 }
             } catch (AnalyseSemantiqueException e) {
-                //throw new AnalyseSemantiqueException(0, "");
+
             }
         if(Tds.getInstance().getCptErreur() > 0) {
             throw new SemantiqueException(Tds.getInstance().afficheErreursSemantiques());

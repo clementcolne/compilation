@@ -30,6 +30,10 @@ public abstract class Constante extends Expression {
         return cste ;
     }
 
+    /**
+     * Retourne faux
+     * @return faux
+     */
     public boolean isBool(){
         return false;
     }

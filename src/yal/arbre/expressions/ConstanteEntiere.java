@@ -20,12 +20,14 @@ public class ConstanteEntiere extends Constante {
         return "\tli $v0, " + toString();
     }
 
+    /**
+     * Retourne vrai
+     * @return vrai
+     */
     @Override
     public boolean isConstante() {
         return true;
     }
-
-
 
     /**
      * Renvoie le résultat entier de l'expression pour vérifier si c'est une division par 0
