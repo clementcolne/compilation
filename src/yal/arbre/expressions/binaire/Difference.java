@@ -37,15 +37,6 @@ public class Difference extends Expression {
         }
     }
 
-    /**
-     * renvoie l'opérateur de l'expression
-     * @return String
-     */
-    @Override
-    public String getOper(){
-        return "!=";
-    }
-
     @Override
     public String toMIPS() {
         etq = Tds.getInstance().getIdfEtiquette();

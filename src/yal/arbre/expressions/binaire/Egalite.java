@@ -26,14 +26,6 @@ public class Egalite extends Expression {
         return expGauche.getNom()+" == "+expDroite.getNom();
     }
 
-    /**
-     * renvoie l'opérateur de l'expression
-     * @return String
-     */
-    @Override
-    public String getOper(){
-        return "==";
-    }
 
     @Override
     public void verifier() {

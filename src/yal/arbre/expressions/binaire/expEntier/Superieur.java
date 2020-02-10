@@ -18,14 +18,6 @@ public class Superieur extends ExpressionEntier{
         super(e1, e2, n);
     }
 
-    /**
-     * renvoie l'opérateur de l'expression
-     * @return String
-     */
-    @Override
-    public String getOper(){
-        return ">";
-    }
 
     @Override
     public String getNom() {

@@ -29,12 +29,6 @@ public abstract class Expression extends ArbreAbstrait {
     }
 
     /**
-     * renvoie l'opérateur de l'expression
-     * @return String
-     */
-    public String getOper(){return "";}
-
-    /**
      * retourne le nom de l'expression
      * @return String
      */
