@@ -19,11 +19,6 @@ public class ExpressionInverse extends Expression {
     }
 
     @Override
-    public String getOper() {
-        return null;
-    }
-
-    @Override
     public void verifier() {
         if(!exp.isBool()){
             exp.verifier();
