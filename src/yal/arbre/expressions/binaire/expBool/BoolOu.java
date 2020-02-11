@@ -29,28 +29,34 @@ public class BoolOu extends ExpressionBool{
         int etq1 = Tds.getInstance().getIdfEtiquette();
         int etq2 = Tds.getInstance().getIdfEtiquette();
 
-        String res = expGauche.toMIPS() + "\n";
+        String res = "";
+
+        res += expDroite.toMIPS() + "\n";
+        res += "\tla $t8, Vrai\n";
+
+        res += "\tbeq $v0, $t8, si"+etq1+"\n";
+        res += "\tj sinon"+etq1+"\n";   // expDroite est fausse
+        res += "\tsi"+etq1+":\n";
+        res += "\tla $v0, Vrai\n";
+        res += "\tj suite"+etq1+"\n";   // expDroite est Vraie
+
+        res += "\tsinon"+etq1+":\n";
+        res += expGauche.toMIPS() + "\n";
         res += "\t# Empiler $v0\n";
         res += "\tsw $v0,($sp)\n";
         res += "\tadd $sp,$sp,-4\n";
-
-        res += expDroite.toMIPS() + "\n";
-        res += "\tla $t8, Faux\n";
-
-        res += "\tbeq $v0, $t8, si"+etq1+"\n";
-        res += "\tla $v0, Vrai\n";
-        res += "\tj suite"+etq1+"\n";
-        res += "\tsi"+etq1+":\n";
         res += "\t# Dépiler $v0\n";
         res += "\tadd $sp,$sp,4\n";
         res += "\tlw $t8,($sp)\n";
-        res += "\tla $v0, Faux\n";
-        res += "\tbeq $t8, $v0, si"+etq2+"\n";
         res += "\tla $v0, Vrai\n";
-        res += "\tj suite"+etq1+"\n";
+        res += "\tbeq $t8, $v0, si"+etq2+"\n";
+        res += "\tj sinon"+etq2+"\n";
         res += "\tsi"+etq2+":\n";
-        res += "\tla $v0, Faux\n";
-        res += "\tj suite"+etq1+"\n";   // peut-être pas utile
+        res += "\tla $v0, Vrai\n";  // expgauche est Vraie
+        res += "\tj suite"+etq1+"\n";
+        res += "\tsinon"+etq2+":\n";
+        res += "\tla $v0, Faux\n";  // les deux exp sont fausses
+        res += "\tj suite"+etq1+"\n";
         res += "\tsuite"+etq1+":\n";
 
         return res;

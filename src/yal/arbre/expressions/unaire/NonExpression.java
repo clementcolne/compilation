@@ -47,7 +47,7 @@ public class NonExpression extends Expression {
     @Override
     public String toMIPS() {
         etq = Tds.getInstance().getIdfEtiquette();
-        String res = "\t# Non"+exp.getNom()+"\n"+exp.toMIPS()+"\n";
+        String res = "\t# Non "+exp.getNom()+"\n"+exp.toMIPS()+"\n";
         res += "\tla $t8, Vrai\n";
         res += "\tbeq $v0,$t8,si"+etq+"\n";   // teste si la condition est vraie
         res += "\tla $v0, Vrai\n";
