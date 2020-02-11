@@ -23,23 +23,14 @@ public class Division extends ExpressionEntier{
     public String getNom() {
         return expGauche.getNom()+" / "+expDroite.getNom();
     }
-
     /**
-     * Renvoie le résultat entier de l'expression pour vérifier si c'est une division par 0
-     * @return int
-     */
-    @Override
-    public int getNombre(){
-        return expGauche.getNombre() / expDroite.getNombre();
-    }
-
-    /**
-     * Vérifie qu'une division n'est pas explicitement demandée
+     * Vérifie qu'une division par 0 n'est pas explicitement demandée
      */
     @Override
     public void verifier() {
         super.verifier();
-        if(expDroite.getNombre()==0){
+        // division par 0 explicite
+        if(expDroite.getNom().equals("0")){
             AnalyseSemantiqueException a = new AnalyseSemantiqueException(noLigne, ": division par 0");
             Tds.getInstance().add(a.getMessage());
         }
@@ -51,6 +42,7 @@ public class Division extends ExpressionEntier{
      */
     @Override
     public String toMIPS() {
+        int etq = Tds.getInstance().getIdfEtiquette();
         String res = "";
         res += expGauche.toMIPS() + "\n";
         res += "\t# Empiler $v0\n";
@@ -60,8 +52,11 @@ public class Division extends ExpressionEntier{
         res += "\t# Dépiler $v0\n";
         res += "\tadd $sp,$sp,4\n";
         res += "\tlw $t8,($sp)\n";
-
-        res += "\tdivu $v0, $t8, $v0\n";
+        res += "\t# évaluation de l'opérande droite de la division\n";
+        res += "\tbeqz $v0, erreurDivisionZero\n";
+        res += "\tdiv $v0, $t8, $v0\n";
+        res += "\tj suite"+etq+"\n";
+        res += "suite"+etq+":\n";
 
         return res;
     }

@@ -51,11 +51,11 @@ public class NonExpression extends Expression {
         res += "\tla $t8, Vrai\n";
         res += "\tbeq $v0,$t8,si"+etq+"\n";   // teste si la condition est vraie
         res += "\tla $v0, Vrai\n";
-        res += "\tjal suite"+etq+"\n";
+        res += "\tj suite"+etq+"\n";
 
         res += "si"+etq+":\n";
         res += "\tla $v0, Faux\n";
-        res += "\tjal suite"+etq+"\n";
+        res += "\tj suite"+etq+"\n";
         res += "suite"+etq+":\n";
         return res;
     }

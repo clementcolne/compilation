@@ -21,16 +21,6 @@ public class Multiplication extends ExpressionEntier{
     public String getNom() {
         return expGauche.getNom()+" * "+expDroite.getNom();
     }
-
-    /**
-     * Renvoie le résultat entier de l'expression pour vérifier si c'est une division par 0
-     * @return int
-     */
-    @Override
-    public int getNombre(){
-        return expGauche.getNombre() * expDroite.getNombre();
-    }
-
     /**
      * Retourne le code mips de la multiplication
      * @return le code mips de la multiplication

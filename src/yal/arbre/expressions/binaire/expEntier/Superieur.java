@@ -61,10 +61,10 @@ public class Superieur extends ExpressionEntier{
         res += "\t# Affectation de la valeur booléenne\n";
         res += "\tbge $v0,$t8,si"+etq+"\n";
         res += "\tla $v0, Vrai\n";
-        res += "\tjal suite"+etq+"\n";
+        res += "\tj suite"+etq+"\n";
         res += "si"+etq+":\n";
         res += "\tla $v0, Faux\n";
-        res += "\tjal suite"+etq+"\n";
+        res += "\tj suite"+etq+"\n";
         res += "suite"+etq+":\n";
 
         return res;

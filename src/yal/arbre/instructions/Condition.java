@@ -75,13 +75,13 @@ public class Condition extends Instruction {
             Tds.getInstance().setCptProg();
             res += arbre2.toMIPS()+"\n";
         }
-        res += "\tjal suite"+etq+"\n";
+        res += "\tj suite"+etq+"\n";
         res += "si"+etq+":\n";
         if(arbre1 != null){
             Tds.getInstance().setCptProg();
             res += arbre1.toMIPS()+"\n";
         }
-        res += "\tjal suite"+etq+"\n";
+        res += "\tj suite"+etq+"\n";
         res += "suite"+etq+":\n";
         return res;
     }

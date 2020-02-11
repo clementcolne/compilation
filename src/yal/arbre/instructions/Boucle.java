@@ -48,7 +48,7 @@ public class Boucle extends Instruction{
         res += "\tla $t8, Faux\n";
         res += "\tbeq $v0,$t8, suite"+etq+"\n";
         res += arbre.toMIPS()+"\n";
-        res += "\tjal loop"+etq+"\n";
+        res += "\tj loop"+etq+"\n";
         res += "suite"+etq+":\n";
 
         return res;

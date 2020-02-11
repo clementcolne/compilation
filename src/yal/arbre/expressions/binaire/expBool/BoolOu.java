@@ -39,7 +39,7 @@ public class BoolOu extends ExpressionBool{
 
         res += "\tbeq $v0, $t8, si"+etq1+"\n";
         res += "\tla $v0, Vrai\n";
-        res += "\tjal suite"+etq1+"\n";
+        res += "\tj suite"+etq1+"\n";
         res += "\tsi"+etq1+":\n";
         res += "\t# Dépiler $v0\n";
         res += "\tadd $sp,$sp,4\n";
@@ -47,10 +47,10 @@ public class BoolOu extends ExpressionBool{
         res += "\tla $v0, Faux\n";
         res += "\tbeq $t8, $v0, si"+etq2+"\n";
         res += "\tla $v0, Vrai\n";
-        res += "\tjal suite"+etq1+"\n";
+        res += "\tj suite"+etq1+"\n";
         res += "\tsi"+etq2+":\n";
         res += "\tla $v0, Faux\n";
-        res += "\tjal suite"+etq1+"\n";   // peut-être pas utile
+        res += "\tj suite"+etq1+"\n";   // peut-être pas utile
         res += "\tsuite"+etq1+":\n";
 
         return res;

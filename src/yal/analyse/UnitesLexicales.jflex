@@ -33,9 +33,9 @@ import yal.exceptions.AnalyseLexicaleException;
 
 idf = [A-Za-z_][A-Za-z_0-9]*
 csteE = [0-9]+
-commentaire = [/]{2}.*{finDeLigne}
 finDeLigne = \r|\n
 espace = {finDeLigne}  | [ \t\f]
+commentaire = "//".*{finDeLigne}
 
 %%
 
@@ -87,10 +87,8 @@ espace = {finDeLigne}  | [ \t\f]
 
 {idf}      	           { return symbol(CodesLexicaux.IDF, yytext()); }
 
-{commentaire}          { }
-
 {espace}               { }
-
+{commentaire}          { }
 .                      { throw new AnalyseLexicaleException(yyline, yycolumn, yytext()) ; }
 
 

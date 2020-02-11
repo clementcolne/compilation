@@ -21,16 +21,6 @@ public class Soustraction extends ExpressionEntier{
     public String getNom() {
         return expGauche.getNom()+" - "+expDroite.getNom();
     }
-
-    /**
-     * Retourne le résultat entier de l'expression pour vérifier si c'est une division par 0
-     * @return int
-     */
-    @Override
-    public int getNombre(){
-        return expGauche.getNombre() - expDroite.getNombre();
-    }
-
     /**
      * Retourne le code mips de la soustraction
      * @return le code mips de la soustraction

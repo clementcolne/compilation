@@ -30,14 +30,6 @@ public class ConstanteEntiere extends Constante {
     }
 
     /**
-     * Renvoie le résultat entier de l'expression pour vérifier si c'est une division par 0
-     * @return int
-     */
-    public int getNombre(){
-        return Integer.parseInt(cste);
-    }
-
-    /**
      * Renvoie le nom de l'expression
      * @return String
      */
