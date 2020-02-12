@@ -45,6 +45,7 @@ public class Condition extends Instruction {
      */
     public Condition(Expression e, int n){
         super(n);
+        exp = e;
     }
 
     /**

@@ -5,15 +5,17 @@ public class Symbole {
     private String type;
     private int deplacement;
     private int noLig;
+    private int noBloc;
 
     /**
      * Constructeur d'un symbole défini par son type et son déplacement
      * @param type String qui décrit le type du Symbole
      */
-    public Symbole(String type, int n) {
+    public Symbole(String type, int n, int bloc) {
         this.type = type;
         this.deplacement = 0;
         this.noLig = n;
+        this.noBloc = bloc;
     }
 
     /**
@@ -46,5 +48,13 @@ public class Symbole {
      */
     public int getNoLig() {
         return noLig;
+    }
+
+    /**
+     * Renvoie le bloc dans lequel la variable est déclarée
+     * @return int
+     */
+    public int getNoBloc() {
+        return noBloc;
     }
 }

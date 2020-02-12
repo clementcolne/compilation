@@ -1,4 +1,4 @@
-    package yal.analyse ;
+package yal.analyse ;
 
 import java.util.*;
 import yal.arbre.* ;
@@ -21,7 +21,7 @@ parser code {:
     public void report_error(String message, Object info) {
 
         HashMap<Integer, String> lesTerminaux = new HashMap<>() ;
-    
+
         lesTerminaux.put(new Integer(CodesLexicaux.DEBUT), "debut") ;
         lesTerminaux.put(new Integer(CodesLexicaux.FIN), "fin") ;
         lesTerminaux.put(new Integer(CodesLexicaux.POINTVIRGULE), ";") ;
@@ -31,12 +31,12 @@ parser code {:
         if (info instanceof java_cup.runtime.Symbol) {
             java_cup.runtime.Symbol s = ((java_cup.runtime.Symbol) info);
 
-            if (s.left >= 0) {                
+            if (s.left >= 0) {
                 m.append("\tligne : " + (s.left + 1)) ;
-                if (s.right >= 0)                    
+                if (s.right >= 0)
                     m.append(" colonne : " + (s.right+1)) ;
             }
-            
+
             if (s.value != null) {
                 lesTerminaux.put(CodesLexicaux.CSTENTIERE, "" + s.value) ;
             }
@@ -56,15 +56,15 @@ parser code {:
         report_error(message, info);
     }
 :};
-   
+
 /* ------------Declaration of Terminals and Non Terminals Section----------- */
-   
+
 /* Terminals (tokens returned by the scanner).  */
 
 terminal Symbol    PROGRAMME, DEBUT, FIN, POINTVIRGULE, ECRIRE, LIRE, ENTIER, EGAL, SI, ALORS, SINON, FINSI, TANTQUE, REPETER, FINTANTQUE, NON, ET, EGALITE, DIFFERENCE, INF,SUP,PLUS,MOINS,DIVISE,MULT,OU, PAR_OUVRANTE, PAR_FERMANTE;
 terminal String    IDF, CSTENTIERE;
 
-   
+
 /* Non terminals used in the grammar section.  */
 
 non terminal ArbreAbstrait PROG, LINST, INST, LDECL, DECL ;
@@ -82,7 +82,7 @@ precedence left NON;
 precedence left PAR_OUVRANTE, PAR_FERMANTE;
 
 /* ----------------------------Grammar Section-------------------- */
- 
+
 start with PROG ;
 
 PROG    ::=     PROGRAMME  IDF  DEBUT  LDECL:ld LINST:li  FIN
@@ -103,7 +103,7 @@ LDECL   ::=     LDECL:ld  DECL:d
                 ;
 
 DECL    ::=     ENTIER IDF:i POINTVIRGULE
-                {: Tds.getInstance().ajouter(new Entree(i), new Symbole("entier", ileft + 1)) ; :}
+                {: Tds.getInstance().ajouter(new Entree(i), new Symbole("entier", ileft + 1, Tds.getInstance().getBlocCourant())) ; :}
                 ;
 
 LINST   ::=     LINST:li  INST:i
@@ -126,16 +126,16 @@ INST    ::=     ECRIRE EXP:e POINTVIRGULE
                 {: RESULT = new Affect(e,new Idf(i, ileft + 1), eleft + 1) ; :}
         |
                 TANTQUE EXP:e REPETER LINST:li FINTANTQUE
-                {: RESULT = new Boucle(e,li,eleft + 1) ; :}
+                {: :}
        |
                 SI EXP:e ALORS LINST:li FINSI
                 {: RESULT = new Condition(e,eleft+1,li); :}
        |
                 SI EXP:e ALORS LINST:li SINON LINST:li2 FINSI
-                {: RESULT = new Condition(e,eleft+1,li,li2); :}
+                {: RESULT = new Condition(e,eleft+1); :}
        |
                 SI EXP:e ALORS SINON LINST:li FINSI
-                {: RESULT = new Condition(e,eleft+1,null,li); :}
+                {: RESULT = new Condition(e,eleft+1,li); :}
        |
                 SI EXP:e ALORS FINSI
                 {: RESULT = new Condition(e,eleft+1); :}

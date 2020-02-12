@@ -16,7 +16,7 @@ class TdsTest {
     @BeforeEach
     void setUp() {
         Tds.getInstance().reset();
-        s = new Symbole("entier",6);
+        s = new Symbole("entier",6,Tds.getInstance().getBlocCourant());
         e = new Entree("variable");
     }
 
