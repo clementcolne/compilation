@@ -29,6 +29,7 @@ public class Tds {
         erreurs = new ArrayList<>();
         pile = new ArrayList<>();
         cptErreur = 0;
+        ajoutBloc();
         cpt = 0;
         idfEtiquette = 0;
         blocCourant = 0;
@@ -91,13 +92,19 @@ public class Tds {
     public Symbole identifier(String e) throws Exception {
         Symbole s = new Symbole("",-1, blocCourant);
         boolean dedans = false;
+        boolean bonBloc = false;
         for(Map.Entry<Entree, ArrayList<Symbole>> k : variables.entrySet()) {
             if(k.getKey().getNom().equals(e)) {
-                //s = k.getValue();
+                for(Symbole symb : k.getValue()){
+                    if(pile.contains(symb.getNoBloc())){
+                        bonBloc = true;
+                        s = symb;
+                    }
+                }
                 dedans = true;
             }
         }
-        if(dedans) {
+        if(dedans && bonBloc) {
             return new Symbole(s.getType(), s.getNoLig(), blocCourant);
         }else{
             throw new Exception();
@@ -208,8 +215,11 @@ public class Tds {
      * Ajoute un bloc à la pile
      */
     public void ajoutBloc(){
-        blocCourant++;
         pile.add(blocCourant);
+    }
+
+    public void ajoutCptBloc(){
+        blocCourant++;
     }
 
     /**
