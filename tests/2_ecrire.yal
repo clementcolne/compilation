@@ -1,4 +1,6 @@
 programme prog debut
-ecrire 5;
-ecrire 55;
+entier a;
+    fonction fct debut
+        ecrire a;
+    fin
 fin
