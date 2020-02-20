@@ -136,7 +136,13 @@ public class Tds {
         int res = -1;
         for(Map.Entry<Entree, ArrayList<Symbole>> k : variables.entrySet()) {
             if(k.getKey().getNom().equals(e)) {
-                //res = k.getValue().getDeplacement();
+                for(Symbole s: k.getValue()) {
+                    for(int i=pile.size()-1; i>=0; i--) {   // on prend le dernier bloc ouvert
+                        if(s.getNoBloc()==pile.get(i)) {
+                            res = k.getValue().get(i).getDeplacement();
+                        }
+                    }
+                }
             }
         }
         return res;
