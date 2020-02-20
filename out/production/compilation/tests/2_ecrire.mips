@@ -9,21 +9,14 @@ main:
 
 	#allocation mémoire pour les variables
 	move $s7, $sp
-	add $sp, $sp, 0
+	add $sp, $sp, -8
 
-	#ecrire 5
-	li $v0, 5
-	move $a0, $v0
-	li $v0, 1
-	syscall
+	# a = 7
+	li $v0, 7
+	sw $v0, 0($s7)
 
-	#retour à la ligne
-	li $v0, 4 
-	la $a0, BackSlachN
-	syscall
-
-	#ecrire 55
-	li $v0, 55
+	#ecrire a
+	lw $v0, 0($s7)
 	move $a0, $v0
 	li $v0, 1
 	syscall

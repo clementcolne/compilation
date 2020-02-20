@@ -18,7 +18,12 @@ public class Fonction extends ArbreAbstrait{
 
     @Override
     public String toMIPS() {
+        Tds.getInstance().setCptProg();
+        StringBuilder res = new StringBuilder();
+        res.append("fonction" + Tds.getInstance().getIdfEtiquette() + ":");
+        res.append(arbre.toMIPS());
+        res.append("jr $ra");
         Tds.getInstance().suppBloc();
-        return null;
+        return res.toString();
     }
 }

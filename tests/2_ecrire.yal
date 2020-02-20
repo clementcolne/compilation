@@ -1,6 +1,8 @@
 programme prog debut
 entier a;
-    fonction fct debut
+    fonction fct () debut
         ecrire a;
     fin
+a = 7;
+ecrire a;
 fin
