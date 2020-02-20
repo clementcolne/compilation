@@ -29,10 +29,10 @@ public class Tds {
         erreurs = new ArrayList<>();
         pile = new ArrayList<>();
         cptErreur = 0;
-        ajoutBloc();
         cpt = 0;
         idfEtiquette = 0;
         blocCourant = 0;
+        ajoutBloc();
         cptProg = false;
     }
 

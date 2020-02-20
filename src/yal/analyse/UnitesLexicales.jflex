@@ -83,6 +83,8 @@ espace = {finDeLigne}  | [ \t\f]
 "("                    { return symbol(CodesLexicaux.PAR_OUVRANTE); }
 ")"                    { return symbol(CodesLexicaux.PAR_FERMANTE); }
 
+"fonction"             { return symbol(CodesLexicaux.FONCTION); }
+
 {csteE}      	       { return symbol(CodesLexicaux.CSTENTIERE, yytext()); }
 
 {idf}      	           { return symbol(CodesLexicaux.IDF, yytext()); }
