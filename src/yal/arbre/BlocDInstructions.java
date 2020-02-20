@@ -67,22 +67,23 @@ public class BlocDInstructions extends ArbreAbstrait {
     @Override
     public String toMIPS() {
         if(!Tds.getInstance().getCptProg()) {
-            String prog = ".data\n" +
-                    "BackSlachN: .asciiz \"\\n\"\nVrai: .asciiz \"vrai\"\nFaux: .asciiz \"faux\"\nErreurDivisionZero: .asciiz \"Erreur : Division par zéro\"\n.text\n\nmain:\n\n";
-            prog += "\t#allocation mémoire pour les variables\n\tmove $s7, $sp\n" +
-                    "\tadd $sp, $sp, " + Tds.getInstance().getTailleZoneVariable() + "\n\n";
+            StringBuilder prog = new StringBuilder();
+            prog.append(".data\n" +
+                    "BackSlachN: .asciiz \"\\n\"\nVrai: .asciiz \"vrai\"\nFaux: .asciiz \"faux\"\nErreurDivisionZero: .asciiz \"Erreur : Division par zéro\"\n.text\n\nmain:\n\n");
+            prog.append("\t#allocation mémoire pour les variables\n\tmove $s7, $sp\n" +
+                    "\tadd $sp, $sp, " + Tds.getInstance().getTailleZoneVariable() + "\n\n");
             for (ArbreAbstrait a : programme) {
-                prog += a.toMIPS() + "\n";
+                prog.append(a.toMIPS() + "\n");
             }
-            prog += "\nend:\n\t#Sortie de programme\n\tli $v0, 10\n\tsyscall\n";
-            prog += "erreurDivisionZero:\n\tli $v0, 4 \n\tla $a0, ErreurDivisionZero\n\tsyscall\n\t#Sortie de programme\n\tli $v0, 10\n\tsyscall\n";
-            return prog;
+            prog.append("\nend:\n\t#Sortie de programme\n\tli $v0, 10\n\tsyscall\n");
+            prog.append("erreurDivisionZero:\n\tli $v0, 4 \n\tla $a0, ErreurDivisionZero\n\tsyscall\n\t#Sortie de programme\n\tli $v0, 10\n\tsyscall\n");
+            return prog.toString();
         }else{
-            String prog = "";
+            StringBuilder prog = new StringBuilder();
             for (ArbreAbstrait a : programme) {
-                prog += a.toMIPS() + "\n";
+                prog.append(a.toMIPS() + "\n");
             }
-            return prog;
+            return prog.toString();
         }
     }
 

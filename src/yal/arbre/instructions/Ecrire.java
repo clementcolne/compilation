@@ -30,19 +30,20 @@ public class Ecrire extends Instruction {
      */
     @Override
     public String toMIPS() {
-        String ecrire = "\t#ecrire " + exp.getNom() + "\n";
-        ecrire += exp.toMIPS() + "\n";
-        ecrire += "\tmove $a0, $v0\n"; // $v0 dans $a0
+        StringBuilder ecrire = new StringBuilder();
+        ecrire.append("\t#ecrire " + exp.getNom() + "\n");
+        ecrire.append(exp.toMIPS() + "\n");
+        ecrire.append("\tmove $a0, $v0\n"); // $v0 dans $a0
         if(!exp.isBool()) {
-            ecrire += "\tli $v0, 1" + "\n\tsyscall\n\n";
+            ecrire.append("\tli $v0, 1" + "\n\tsyscall\n\n");
         }else{
-            ecrire += "\tli $v0, 4" + "\n\tsyscall\n\n";
+            ecrire.append("\tli $v0, 4" + "\n\tsyscall\n\n");
         }
-        ecrire += "\t#retour à la ligne\n";
-        ecrire += "\tli $v0, 4 \n" +
+        ecrire.append("\t#retour à la ligne\n");
+        ecrire.append("\tli $v0, 4 \n" +
                   "\tla $a0, BackSlachN\n" +
-                  "\tsyscall\n";
-        return ecrire;
+                  "\tsyscall\n");
+        return ecrire.toString();
     }
 
 }

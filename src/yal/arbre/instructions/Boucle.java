@@ -42,15 +42,16 @@ public class Boucle extends Instruction{
     public String toMIPS() {
         etq = Tds.getInstance().getIdfEtiquette();
         Tds.getInstance().setCptProg();
-        String res = "\t# Boucle\n";
-        res += "loop"+etq+":\n";
-        res += exp.toMIPS()+"\n";
-        res += "\tla $t8, Faux\n";
-        res += "\tbeq $v0,$t8, suite"+etq+"\n";
-        res += arbre.toMIPS()+"\n";
-        res += "\tj loop"+etq+"\n";
-        res += "suite"+etq+":\n";
+        StringBuilder res = new StringBuilder();
+        res.append("\t# Boucle\n");
+        res.append("loop"+etq+":\n");
+        res.append(exp.toMIPS()+"\n");
+        res.append("\tla $t8, Faux\n");
+        res.append("\tbeq $v0,$t8, suite"+etq+"\n");
+        res.append(arbre.toMIPS()+"\n");
+        res.append("\tj loop"+etq+"\n");
+        res.append("suite"+etq+":\n");
 
-        return res;
+        return res.toString();
     }
 }

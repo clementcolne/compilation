@@ -37,9 +37,9 @@ public class Idf extends Expression{
     @Override
     public String toMIPS() {
         int deplacement = Tds.getInstance().getDeplacement(nom);
-        String res = "";
-        res += "\tlw $v0, " + deplacement + "($s7)";
-        return res;
+        StringBuilder res = new StringBuilder();
+        res.append("\tlw $v0, " + deplacement + "($s7)");
+        return res.toString();
     }
 
     /**

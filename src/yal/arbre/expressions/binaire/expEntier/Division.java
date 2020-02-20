@@ -43,21 +43,21 @@ public class Division extends ExpressionEntier{
     @Override
     public String toMIPS() {
         int etq = Tds.getInstance().getIdfEtiquette();
-        String res = "";
-        res += expGauche.toMIPS() + "\n";
-        res += "\t# Empiler $v0\n";
-        res += "\tsw $v0,($sp)\n";
-        res += "\tadd $sp,$sp,-4\n";
-        res += expDroite.toMIPS() + "\n";
-        res += "\t# Dépiler $v0\n";
-        res += "\tadd $sp,$sp,4\n";
-        res += "\tlw $t8,($sp)\n";
-        res += "\t# évaluation de l'opérande droite de la division\n";
-        res += "\tbeqz $v0, erreurDivisionZero\n";
-        res += "\tdiv $v0, $t8, $v0\n";
-        res += "\tj suite"+etq+"\n";
-        res += "suite"+etq+":\n";
+        StringBuilder res = new StringBuilder();
+        res.append(expGauche.toMIPS() + "\n");
+        res.append("\t# Empiler $v0\n");
+        res.append("\tsw $v0,($sp)\n");
+        res.append("\tadd $sp,$sp,-4\n");
+        res.append(expDroite.toMIPS() + "\n");
+        res.append("\t# Dépiler $v0\n");
+        res.append("\tadd $sp,$sp,4\n");
+        res.append("\tlw $t8,($sp)\n");
+        res.append("\t# évaluation de l'opérande droite de la division\n");
+        res.append("\tbeqz $v0, erreurDivisionZero\n");
+        res.append("\tdiv $v0, $t8, $v0\n");
+        res.append("\tj suite"+etq+"\n");
+        res.append("suite"+etq+":\n");
 
-        return res;
+        return res.toString();
     }
 }

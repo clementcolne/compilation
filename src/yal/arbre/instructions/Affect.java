@@ -42,13 +42,14 @@ public class Affect extends Instruction {
      */
     @Override
     public String toMIPS() {
-        String res = "\t# " + partieG.getNom() + " = " + partieD.getNom() + "\n";
-        res += partieD.toMIPS()+"\n";
+        StringBuilder res = new StringBuilder();
+        res.append("\t# " + partieG.getNom() + " = " + partieD.getNom() + "\n");
+        res.append(partieD.toMIPS()+"\n");
         if(partieD.isConstante()) {
-            res += "\tsw $v0, " + Tds.getInstance().getDeplacement(partieG.getNom()) + "($s7)\n";
+            res.append("\tsw $v0, " + Tds.getInstance().getDeplacement(partieG.getNom()) + "($s7)\n");
         }else{
-            res += "\tsw $v0, " + Tds.getInstance().getDeplacement(partieG.getNom()) + "($s7)\n";
+            res.append("\tsw $v0, " + Tds.getInstance().getDeplacement(partieG.getNom()) + "($s7)\n");
         }
-        return res;
+        return res.toString();
     }
 }

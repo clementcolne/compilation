@@ -27,18 +27,18 @@ public class Soustraction extends ExpressionEntier{
      */
     @Override
     public String toMIPS() {
-        String res = "";
-        res += expGauche.toMIPS() + "\n";
-        res += "\t# Empiler $v0\n";
-        res += "\tsw $v0,($sp)\n";
-        res += "\tadd $sp,$sp,-4\n";
-        res += expDroite.toMIPS() + "\n";
-        res += "\t# Dépiler $v0\n";
-        res += "\tadd $sp,$sp,4\n";
-        res += "\tlw $t8,($sp)\n";
+        StringBuilder res = new StringBuilder();
+        res.append(expGauche.toMIPS() + "\n");
+        res.append("\t# Empiler $v0\n");
+        res.append("\tsw $v0,($sp)\n");
+        res.append("\tadd $sp,$sp,-4\n");
+        res.append(expDroite.toMIPS() + "\n");
+        res.append("\t# Dépiler $v0\n");
+        res.append("\tadd $sp,$sp,4\n");
+        res.append("\tlw $t8,($sp)\n");
 
-        res += "\tsub $v0, $t8, $v0\n";
+        res.append("\tsub $v0, $t8, $v0\n");
 
-        return res;
+        return res.toString();
     }
 }

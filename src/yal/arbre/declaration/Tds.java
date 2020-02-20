@@ -176,11 +176,12 @@ public class Tds {
      */
     public String afficheErreursSemantiques(){
         if(erreurs.size() > 0) {
-            String s = erreurs.get(0) + "\n";
+            StringBuilder s = new StringBuilder();
+            s.append(erreurs.get(0) + "\n");
             for (int i=1; i<erreurs.size();i++) {
-                s += erreurs.get(i) + "\n";
+                s.append(erreurs.get(i) + "\n");
             }
-            return s;
+            return s.toString();
         }else{
             return "";
         }

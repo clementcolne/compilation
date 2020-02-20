@@ -31,10 +31,11 @@ public class Lire extends Instruction {
      */
     @Override
     public String toMIPS() {
-        String result = "\t# lecture  entier (syscall 5)\n" +
+        StringBuilder result = new StringBuilder();
+        result.append("\t# lecture  entier (syscall 5)\n" +
                 "\taddi $v0, $zero, 5\n" +
-                "\tsyscall # $v0 contient le résultat de l'entrée de l'utilisateur\n";
-        result += "\tsw $v0, " + Tds.getInstance().getDeplacement(idf.getNom()) + "($s7)\n";
-        return result;
+                "\tsyscall # $v0 contient le résultat de l'entrée de l'utilisateur\n");
+        result.append("\tsw $v0, " + Tds.getInstance().getDeplacement(idf.getNom()) + "($s7)\n");
+        return result.toString();
     }
 }

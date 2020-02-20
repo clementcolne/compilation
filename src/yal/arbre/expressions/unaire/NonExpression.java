@@ -47,17 +47,18 @@ public class NonExpression extends Expression {
     @Override
     public String toMIPS() {
         etq = Tds.getInstance().getIdfEtiquette();
-        String res = "\t# Non "+exp.getNom()+"\n"+exp.toMIPS()+"\n";
-        res += "\tla $t8, Vrai\n";
-        res += "\tbeq $v0,$t8,si"+etq+"\n";   // teste si la condition est vraie
-        res += "\tla $v0, Vrai\n";
-        res += "\tj suite"+etq+"\n";
+        StringBuilder res = new StringBuilder();
+        res.append("\t# Non "+exp.getNom()+"\n"+exp.toMIPS()+"\n");
+        res.append("\tla $t8, Vrai\n");
+        res.append("\tbeq $v0,$t8,si"+etq+"\n");   // teste si la condition est vraie
+        res.append("\tla $v0, Vrai\n");
+        res.append("\tj suite"+etq+"\n");
 
-        res += "si"+etq+":\n";
-        res += "\tla $v0, Faux\n";
-        res += "\tj suite"+etq+"\n";
-        res += "suite"+etq+":\n";
-        return res;
+        res.append("si"+etq+":\n");
+        res.append("\tla $v0, Faux\n");
+        res.append("\tj suite"+etq+"\n");
+        res.append("suite"+etq+":\n");
+        return res.toString();
     }
 
     /**

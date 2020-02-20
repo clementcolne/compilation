@@ -69,21 +69,22 @@ public class Condition extends Instruction {
     @Override
     public String toMIPS() {
         etq = Tds.getInstance().getIdfEtiquette();
-        String res = "\t# Condition\n"+exp.toMIPS()+"\n";
-        res += "\tla $t8, Vrai\n";
-        res += "\tbeq $v0,$t8,si"+etq+"\n";   // teste si la condition est vraie
+        StringBuilder res = new StringBuilder();
+        res.append("\t# Condition\n"+exp.toMIPS()+"\n");
+        res.append("\tla $t8, Vrai\n");
+        res.append("\tbeq $v0,$t8,si"+etq+"\n");   // teste si la condition est vraie
         if(arbre2 != null){
             Tds.getInstance().setCptProg();
-            res += arbre2.toMIPS()+"\n";
+            res.append(arbre2.toMIPS()+"\n");
         }
-        res += "\tj suite"+etq+"\n";
-        res += "si"+etq+":\n";
+        res.append("\tj suite"+etq+"\n");
+        res.append("si"+etq+":\n");
         if(arbre1 != null){
             Tds.getInstance().setCptProg();
-            res += arbre1.toMIPS()+"\n";
+            res.append(arbre1.toMIPS()+"\n");
         }
-        res += "\tj suite"+etq+"\n";
-        res += "suite"+etq+":\n";
-        return res;
+        res.append("\tj suite"+etq+"\n");
+        res.append("suite"+etq+":\n");
+        return res.toString();
     }
 }
