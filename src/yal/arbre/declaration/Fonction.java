@@ -4,13 +4,11 @@ import yal.arbre.ArbreAbstrait;
 
 public class Fonction extends ArbreAbstrait{
 
-    /* |
-                FONCTION IDF:i DEBUT LINST:li FIN
-                {: Tds.getInstance().ajouter(new Entree(i), new Symbole("fonction", ileft + 1,Tds.getInstance().getBlocCourant())) ;
-                RESULT = new Fonction(li, ileft + 1) ; :}*/
+    private ArbreAbstrait arbre;
 
     public Fonction(ArbreAbstrait a, int n){
         super(n);
+        arbre = a;
     }
 
     @Override
@@ -20,6 +18,7 @@ public class Fonction extends ArbreAbstrait{
 
     @Override
     public String toMIPS() {
+        Tds.getInstance().suppBloc();
         return null;
     }
 }
