@@ -26,7 +26,7 @@ public class Affect extends Instruction {
      * Vérifie s'il n'y a pas d'erreurs sémantiques
      */
     @Override
-    public void verifier(){
+    public void verifier() {
         if(!partieD.isBool() && !partieG.isBool()) {
             partieD.verifier();
             partieG.verifier();

@@ -3,6 +3,7 @@ package yal.arbre.expressions.binaire.expEntier;
 import yal.arbre.declaration.Tds;
 import yal.arbre.expressions.Expression;
 import yal.exceptions.AnalyseSemantiqueException;
+import yal.outils.Gestionnaire;
 
 public class Division extends ExpressionEntier{
     /**
@@ -42,7 +43,7 @@ public class Division extends ExpressionEntier{
      */
     @Override
     public String toMIPS() {
-        int etq = Tds.getInstance().getIdfEtiquette();
+        int etq = Gestionnaire.getInstance().getIdfEtiquette();
         StringBuilder res = new StringBuilder();
         res.append(expGauche.toMIPS() + "\n");
         res.append("\t# Empiler $v0\n");

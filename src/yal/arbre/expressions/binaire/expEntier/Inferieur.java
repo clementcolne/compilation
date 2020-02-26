@@ -3,6 +3,7 @@ package yal.arbre.expressions.binaire.expEntier;
 import yal.arbre.declaration.Tds;
 import yal.arbre.expressions.Expression;
 import yal.exceptions.AnalyseSemantiqueException;
+import yal.outils.Gestionnaire;
 
 public class Inferieur extends ExpressionEntier{
 
@@ -31,7 +32,7 @@ public class Inferieur extends ExpressionEntier{
      * Vérifie les 2 expressions (gauche et droite) de l'expression
      */
     @Override
-    public void verifier() {
+    public void verifier()  {
         if(!expDroite.isBool() && !expGauche.isBool()) {
             expDroite.verifier();
             expGauche.verifier();
@@ -47,7 +48,7 @@ public class Inferieur extends ExpressionEntier{
      */
     @Override
     public String toMIPS() {
-        etq = Tds.getInstance().getIdfEtiquette();
+        etq = Gestionnaire.getInstance().getIdfEtiquette();
         StringBuilder res = new StringBuilder();
         res.append(expGauche.toMIPS() + "\n");
         res.append("\t# Empiler $v0\n");

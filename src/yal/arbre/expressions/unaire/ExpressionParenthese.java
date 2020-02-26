@@ -28,7 +28,7 @@ public class ExpressionParenthese extends Expression {
      * Vérifie l'expression
      */
     @Override
-    public void verifier() {
+    public void verifier()  {
         exp.verifier();
     }
 

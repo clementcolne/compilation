@@ -3,6 +3,7 @@ package yal.arbre.expressions.unaire;
 import yal.arbre.declaration.Tds;
 import yal.arbre.expressions.Expression;
 import yal.exceptions.AnalyseSemantiqueException;
+import yal.outils.Gestionnaire;
 
 public class NonExpression extends Expression {
 
@@ -31,7 +32,7 @@ public class NonExpression extends Expression {
      * Vérifie l'expression
      */
     @Override
-    public void verifier() {
+    public void verifier(){
         if(exp.isBool()){
             exp.verifier();
         }else{
@@ -46,7 +47,7 @@ public class NonExpression extends Expression {
      */
     @Override
     public String toMIPS() {
-        etq = Tds.getInstance().getIdfEtiquette();
+        etq = Gestionnaire.getInstance().getIdfEtiquette();
         StringBuilder res = new StringBuilder();
         res.append("\t# Non "+exp.getNom()+"\n"+exp.toMIPS()+"\n");
         res.append("\tla $t8, Vrai\n");

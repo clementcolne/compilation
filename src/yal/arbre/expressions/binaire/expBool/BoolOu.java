@@ -1,7 +1,7 @@
 package yal.arbre.expressions.binaire.expBool;
 
-import yal.arbre.declaration.Tds;
 import yal.arbre.expressions.Expression;
+import yal.outils.Gestionnaire;
 
 public class BoolOu extends ExpressionBool{
     /**
@@ -26,8 +26,8 @@ public class BoolOu extends ExpressionBool{
      */
     @Override
     public String toMIPS() {
-        int etq1 = Tds.getInstance().getIdfEtiquette();
-        int etq2 = Tds.getInstance().getIdfEtiquette();
+        int etq1 = Gestionnaire.getInstance().getIdfEtiquette();
+        int etq2 = Gestionnaire.getInstance().getIdfEtiquette();
 
         StringBuilder res = new StringBuilder();
 

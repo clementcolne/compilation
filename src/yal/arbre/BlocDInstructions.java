@@ -3,6 +3,7 @@ package yal.arbre;
 import yal.arbre.declaration.Tds;
 import yal.exceptions.AnalyseSemantiqueException;
 import yal.exceptions.SemantiqueException;
+import yal.outils.Gestionnaire;
 
 import java.util.ArrayList;
 
@@ -47,13 +48,19 @@ public class BlocDInstructions extends ArbreAbstrait {
      */
     @Override
     public void verifier() throws SemantiqueException{
-
             try {
-                for (ArbreAbstrait a : programme) {
-                    a.verifier();
+                if(!Gestionnaire.getInstance().getCptProg()) {
+                    Gestionnaire.getInstance().verifierFonc();
+                    for (ArbreAbstrait a : programme) {
+                        a.verifier();
+                    }
+                }else{   // pour éviter la boucle infinie d'apppels
+                    for (ArbreAbstrait a : programme) {
+                        a.verifier();
+                    }
                 }
             } catch (AnalyseSemantiqueException e) {
-
+            } catch (Exception e) {
             }
         if(Tds.getInstance().getCptErreur() > 0) {
             throw new SemantiqueException(Tds.getInstance().afficheErreursSemantiques());
@@ -66,7 +73,7 @@ public class BlocDInstructions extends ArbreAbstrait {
      */
     @Override
     public String toMIPS() {
-        if(!Tds.getInstance().getCptProg()) {
+        if(!Gestionnaire.getInstance().getCptProg()) {
             StringBuilder prog = new StringBuilder();
             prog.append(".data\n" +
                     "BackSlachN: .asciiz \"\\n\"\nVrai: .asciiz \"vrai\"\nFaux: .asciiz \"faux\"\nErreurDivisionZero: .asciiz \"Erreur : Division par zéro\"\n.text\n\nmain:\n\n");
@@ -77,6 +84,7 @@ public class BlocDInstructions extends ArbreAbstrait {
             }
             prog.append("\nend:\n\t#Sortie de programme\n\tli $v0, 10\n\tsyscall\n");
             prog.append("erreurDivisionZero:\n\tli $v0, 4 \n\tla $a0, ErreurDivisionZero\n\tsyscall\n\t#Sortie de programme\n\tli $v0, 10\n\tsyscall\n");
+            prog.append(Gestionnaire.getInstance().afficheFonction());
             return prog.toString();
         }else{
             StringBuilder prog = new StringBuilder();

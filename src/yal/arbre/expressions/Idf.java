@@ -21,9 +21,9 @@ public class Idf extends Expression{
      * @throws AnalyseSemantiqueException
      */
     @Override
-    public void verifier() throws AnalyseSemantiqueException{
+    public void verifier() {
         try {
-            Tds.getInstance().identifier(nom);
+            Tds.getInstance().identifier(nom,noLigne);
         }catch (Exception e){
             AnalyseSemantiqueException a = new AnalyseSemantiqueException(noLigne, ": variable non déclarée");
             Tds.getInstance().add(a.getMessage());

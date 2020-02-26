@@ -4,6 +4,7 @@ import yal.arbre.ArbreAbstrait;
 import yal.arbre.declaration.Tds;
 import yal.arbre.expressions.Expression;
 import yal.exceptions.AnalyseSemantiqueException;
+import yal.outils.Gestionnaire;
 
 public class Condition extends Instruction {
 
@@ -52,7 +53,7 @@ public class Condition extends Instruction {
      * Vérifie l'expression de la condition
      */
     @Override
-    public void verifier() {
+    public void verifier(){
         if(exp.isBool()) {
             exp.verifier();
         }else{
@@ -68,19 +69,19 @@ public class Condition extends Instruction {
      */
     @Override
     public String toMIPS() {
-        etq = Tds.getInstance().getIdfEtiquette();
+        etq = Gestionnaire.getInstance().getIdfEtiquette();
         StringBuilder res = new StringBuilder();
         res.append("\t# Condition\n"+exp.toMIPS()+"\n");
         res.append("\tla $t8, Vrai\n");
         res.append("\tbeq $v0,$t8,si"+etq+"\n");   // teste si la condition est vraie
         if(arbre2 != null){
-            Tds.getInstance().setCptProg();
+            Gestionnaire.getInstance().setCptProg();
             res.append(arbre2.toMIPS()+"\n");
         }
         res.append("\tj suite"+etq+"\n");
         res.append("si"+etq+":\n");
         if(arbre1 != null){
-            Tds.getInstance().setCptProg();
+            Gestionnaire.getInstance().setCptProg();
             res.append(arbre1.toMIPS()+"\n");
         }
         res.append("\tj suite"+etq+"\n");

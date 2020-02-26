@@ -4,6 +4,7 @@ import yal.arbre.ArbreAbstrait;
 import yal.arbre.declaration.Tds;
 import yal.arbre.expressions.Expression;
 import yal.exceptions.AnalyseSemantiqueException;
+import yal.outils.Gestionnaire;
 
 public class Boucle extends Instruction{
 
@@ -40,8 +41,8 @@ public class Boucle extends Instruction{
      */
     @Override
     public String toMIPS() {
-        etq = Tds.getInstance().getIdfEtiquette();
-        Tds.getInstance().setCptProg();
+        etq = Gestionnaire.getInstance().getIdfEtiquette();
+        Gestionnaire.getInstance().setCptProg();
         StringBuilder res = new StringBuilder();
         res.append("\t# Boucle\n");
         res.append("loop"+etq+":\n");

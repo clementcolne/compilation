@@ -31,7 +31,7 @@ public class ExpressionInverse extends Expression {
      * Vérifie l'expression de l'expression inverse
      */
     @Override
-    public void verifier() {
+    public void verifier()   {
         if(!exp.isBool()){
             exp.verifier();
         }else{

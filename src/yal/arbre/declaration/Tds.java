@@ -12,14 +12,14 @@ public class Tds {
     public ArrayList<String> erreurs;
     public int cpt;
     public int cptErreur;
-    public int idfEtiquette;
-    public boolean cptProg;
     public int blocCourant;
     public ArrayList<Integer> pile;
     private static Tds tds = new Tds();
+
     public static Tds getInstance() {
         return tds;
     }
+
 
     /**
      * Constructeur de Tds
@@ -30,10 +30,8 @@ public class Tds {
         pile = new ArrayList<>();
         cptErreur = 0;
         cpt = 0;
-        idfEtiquette = 0;
         blocCourant = 0;
         ajoutBloc();
-        cptProg = false;
     }
 
     /**
@@ -89,7 +87,7 @@ public class Tds {
      * @param e Entree
      * @return le symbole correspondant à l'entrée dans la hashmap des variables
      */
-    public Symbole identifier(String e) throws Exception {
+    public Symbole identifier(String e, int n)  {
         Symbole s = new Symbole("",-1, blocCourant);
         boolean dedans = false;
         boolean bonBloc = false;
@@ -107,8 +105,10 @@ public class Tds {
         if(dedans && bonBloc) {
             return new Symbole(s.getType(), s.getNoLig(), blocCourant);
         }else{
-            throw new Exception();
+            AnalyseSemantiqueException a = new AnalyseSemantiqueException(n, ": variable non déclarée");
+            Tds.getInstance().add(a.getMessage());
         }
+        return null;
     }
 
     /**
@@ -173,10 +173,6 @@ public class Tds {
         erreurs.clear();
     }
 
-    public void setCptProg(){
-        cptProg = true;
-    }
-
     /**
      * Affiche les erreurs sémantiques
      */
@@ -191,23 +187,6 @@ public class Tds {
         }else{
             return "";
         }
-    }
-
-    /**
-     * renvoie un identifiant unique pour l'étiquette de la condition
-     * @return int
-     */
-    public int getIdfEtiquette() {
-        idfEtiquette++;
-        return idfEtiquette;
-    }
-
-    /**
-     * Renvoie combien de bloc d'instruction on a
-     * @return int
-     */
-    public boolean getCptProg() {
-        return cptProg;
     }
 
     /**
@@ -234,6 +213,7 @@ public class Tds {
      */
     public void suppBloc(){
         pile.remove(blocCourant);
+        blocCourant = pile.get(pile.size()-1);
         // on ne décrémente pas blocCourant pour pouvoir supprimer des blocs et ne plus y revenir
     }
 }

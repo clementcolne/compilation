@@ -32,7 +32,7 @@ public abstract class ExpressionBool extends Expression {
      * Vérifie les 2 expressions de l'expression booléenne
      */
     @Override
-    public void verifier() {
+    public void verifier(){
         if(expDroite.isBool() && expGauche.isBool()) {
             expDroite.verifier();
             expGauche.verifier();

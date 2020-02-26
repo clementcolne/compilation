@@ -3,6 +3,7 @@ package yal.arbre.expressions.binaire;
 import yal.arbre.declaration.Tds;
 import yal.arbre.expressions.Expression;
 import yal.exceptions.AnalyseSemantiqueException;
+import yal.outils.Gestionnaire;
 
 public class Egalite extends Expression {
 
@@ -33,7 +34,7 @@ public class Egalite extends Expression {
      * Vérifie les expressions (gauche et droite) de l'expression égalité
      */
     @Override
-    public void verifier() {
+    public void verifier()   {
         if((!expDroite.isBool() && !expGauche.isBool()) || (expDroite.isBool() && expGauche.isBool())) {
             expDroite.verifier();
             expGauche.verifier();
@@ -49,7 +50,7 @@ public class Egalite extends Expression {
      */
     @Override
     public String toMIPS() {
-        etq = Tds.getInstance().getIdfEtiquette();
+        etq = Gestionnaire.getInstance().getIdfEtiquette();
         StringBuilder res = new StringBuilder();
         res.append(expGauche.toMIPS() + "\n");
         res.append("\t# Empiler $v0\n");
