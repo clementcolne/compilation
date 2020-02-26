@@ -23,7 +23,6 @@ public class Lire extends Instruction {
      */
     @Override
     public void verifier() {
-        System.out.println("lire"+Tds.getInstance().getCptErreur());
         try {
 
             if(!Tds.getInstance().identifier(idf.getNom(),noLigne).getType().equals("fonction")) {

@@ -54,15 +54,17 @@ public class BlocDInstructions extends ArbreAbstrait {
                     for (ArbreAbstrait a : programme) {
                         a.verifier();
                     }
+                    Gestionnaire.getInstance().setFinProg();
                 }else{   // pour éviter la boucle infinie d'apppels
                     for (ArbreAbstrait a : programme) {
                         a.verifier();
                     }
                 }
+
             } catch (AnalyseSemantiqueException e) {
             } catch (Exception e) {
             }
-        if(Tds.getInstance().getCptErreur() > 0) {
+        if(Tds.getInstance().getCptErreur() > 0 && Gestionnaire.getInstance().isFinProg()) {
             throw new SemantiqueException(Tds.getInstance().afficheErreursSemantiques());
         }
     }

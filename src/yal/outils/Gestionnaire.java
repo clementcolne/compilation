@@ -6,10 +6,11 @@ import java.util.ArrayList;
 
 public class Gestionnaire {
 
-    public int idfEtiquette;
-    public boolean cptProg;
-    public boolean inFonction;
-    public int cptRetourne;
+    private int idfEtiquette;
+    private boolean cptProg;
+    private boolean inFonction;
+    private int cptRetourne;
+    private boolean finProg;
     private ArrayList<Fonction> declFonc;
     private static Gestionnaire gestionnaire = new Gestionnaire();
 
@@ -27,6 +28,7 @@ public class Gestionnaire {
         cptRetourne = 0;
         cptProg = false;
         inFonction = false;
+        finProg = false;
         declFonc = new ArrayList<>();
     }
 
@@ -91,5 +93,13 @@ public class Gestionnaire {
 
     public void addRetourne(){
         cptRetourne++;
+    }
+
+    public void setFinProg(){
+        finProg = true;
+    }
+
+    public boolean isFinProg() {
+        return finProg;
     }
 }

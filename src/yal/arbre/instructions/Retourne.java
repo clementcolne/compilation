@@ -21,7 +21,6 @@ public class Retourne extends Instruction {
 
     @Override
     public void verifier() {
-        System.out.println("retourne"+Tds.getInstance().getCptErreur());
         if(Gestionnaire.getInstance().isInFonction()){
             Gestionnaire.getInstance().addRetourne();
             exp.verifier();
