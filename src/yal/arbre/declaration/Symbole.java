@@ -61,6 +61,7 @@ public class Symbole {
 
     public void setEtq(String e){
         this.etq = e;
+        System.out.println(this.getDeplacement());
     }
 
     public String getEtq() {

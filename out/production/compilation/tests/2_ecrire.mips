@@ -9,11 +9,11 @@ main:
 
 	#allocation mémoire pour les variables
 	move $s7, $sp
-	add $sp, $sp, -20
+	add $sp, $sp, -16
 
 	#ecrire fct()
 	jal null
-	sw $ra, -8($s7)
+	sw $ra, -4($s7)
 
 	move $a0, $v0
 	li $v0, 1
@@ -37,6 +37,10 @@ erreurDivisionZero:
 	li $v0, 10
 	syscall
 fonction1:
+	# a = 15
+	li $v0, 15
+	sw $v0, 0($s7)
+
 	#ecrire a
 	lw $v0, 0($s7)
 	move $a0, $v0
@@ -48,9 +52,7 @@ fonction1:
 	la $a0, BackSlachN
 	syscall
 
-	# a = 15
-	li $v0, 15
-	sw $v0, 0($s7)
+	lw $v0, 0($s7)	lw $ra, -4($s7)
+	jr $ra
 
-null
 

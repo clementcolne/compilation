@@ -8,6 +8,7 @@ import yal.outils.Gestionnaire;
 public class Retourne extends Instruction {
 
     private Expression exp;
+    private int noLig;
 
     /**
      * Constructeur d'une instruction
@@ -17,6 +18,7 @@ public class Retourne extends Instruction {
     public Retourne(Expression e, int n) {
         super(n);
         exp = e;
+        this.noLig = n;
     }
 
     @Override
@@ -36,6 +38,6 @@ public class Retourne extends Instruction {
         res.append(exp.toMIPS()); // stocké dans $v0
         res.append("\tlw $ra, " + Tds.getInstance().getDeplacement(Gestionnaire.getInstance().getFonctionCourante()) + "($s7)\n");
         res.append("\tjr $ra\n");
-        return null;
+        return res.toString();
     }
 }

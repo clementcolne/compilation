@@ -5,7 +5,7 @@ import yal.arbre.declaration.Tds;
 public class AppelFonction extends Expression{
 
     private Idf idf;
-    private int n;
+    private int noLig;
 
     /**
      * Constructeur d'une expression
@@ -15,7 +15,7 @@ public class AppelFonction extends Expression{
     public AppelFonction(Idf idf, int n) {
         super(n);
         this.idf = idf;
-        this.n = n;
+        this.noLig = n;
     }
 
     @Override
@@ -31,7 +31,8 @@ public class AppelFonction extends Expression{
     @Override
     public String toMIPS() {
         StringBuilder res = new StringBuilder();
-        res.append("\tjal " + Tds.getInstance().identifier(idf.getNom(), n).getEtq() + "\n"); // jump à la fonction
+        System.out.println(Tds.getInstance().identifier(idf.getNom(), noLig).getDeplacement());
+        res.append("\tjal " + Tds.getInstance().identifier(idf.getNom(), noLig).getEtq() + "\n"); // jump à la fonction
         res.append("\tsw $ra, " + Tds.getInstance().getDeplacement(idf.getNom()) + "($s7)\n"); // on empile l'adresse de retour de la fonction dans la pile
         return res.toString();
     }

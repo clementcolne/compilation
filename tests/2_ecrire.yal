@@ -1,14 +1,8 @@
 programme prog debut
 entier a;
-entier b;
     fonction fct () debut
-        ecrire a;
         a = 15;
-        retourne a;
-    fin
-    fonction fct2 () debut
         ecrire a;
-        a = 15;
         retourne a;
     fin
 ecrire fct();
