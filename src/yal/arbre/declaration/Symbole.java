@@ -6,6 +6,7 @@ public class Symbole {
     private int deplacement;
     private int noLig;
     private int noBloc;
+    private String etq;
 
     /**
      * Constructeur d'un symbole défini par son type et son déplacement
@@ -56,5 +57,13 @@ public class Symbole {
      */
     public int getNoBloc() {
         return noBloc;
+    }
+
+    public void setEtq(String e){
+        this.etq = e;
+    }
+
+    public String getEtq() {
+        return etq;
     }
 }

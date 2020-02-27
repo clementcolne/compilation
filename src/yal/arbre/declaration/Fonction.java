@@ -8,10 +8,13 @@ public class Fonction {
 
     private ArbreAbstrait arbre;
     private int noLigne;
+    private String etq;
 
-    public Fonction(ArbreAbstrait a, int n){
+    public Fonction(ArbreAbstrait a, int n, String idf){
         arbre = a;
         noLigne = n;
+        etq = "fonction" + Gestionnaire.getInstance().getIdfEtiquette();
+        Tds.getInstance().identifier(idf,n).setEtq(etq);
     }
 
 
