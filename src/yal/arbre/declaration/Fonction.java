@@ -37,7 +37,7 @@ public class Fonction {
 
     public String toMIPS() {
         StringBuilder res = new StringBuilder();
-        res.append("\nfonction" + Gestionnaire.getInstance().getIdfEtiquette() + ":\n");
+        res.append(etq + ":\n");
         Gestionnaire.getInstance().setCptProg();
         res.append(arbre.toMIPS());
         Tds.getInstance().suppBloc();

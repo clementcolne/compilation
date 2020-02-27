@@ -34,7 +34,7 @@ public class Retourne extends Instruction {
     public String toMIPS() {
         StringBuilder res = new StringBuilder();
         res.append(exp.toMIPS()); // stocké dans $v0
-
+        res.append("\tlw $ra, " +  + "($s7)\n");
         res.append("\tjr $ra\n");
         return null;
     }
