@@ -25,7 +25,6 @@ public class Symbole {
      * @param deplacement valeur entier du déplacement
      */
     public void setDeplacement(int deplacement) {
-        System.out.println(getType() + " - " + deplacement);
         this.deplacement = deplacement;
     }
 

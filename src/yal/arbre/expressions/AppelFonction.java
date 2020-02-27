@@ -31,7 +31,6 @@ public class AppelFonction extends Expression{
     @Override
     public String toMIPS() {
         StringBuilder res = new StringBuilder();
-        System.out.println(Tds.getInstance().getDeplacement(idf.getNom()));
         res.append("\tjal " + Tds.getInstance().identifier(idf.getNom(), noLig).getEtq() + "\n"); // jump à la fonction
         return res.toString();
     }

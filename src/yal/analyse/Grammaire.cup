@@ -112,7 +112,8 @@ DECL    ::=     ENTIER IDF:i POINTVIRGULE
                    Tds.getInstance().ajouter(new Entree(i), new Symbole("fonction", ileft + 1,Tds.getInstance().getBlocCourant(), etq)) ;
                    Tds.getInstance().ajoutCptBloc() ;
                    Tds.getInstance().ajoutBloc() ;
-                   Gestionnaire.getInstance().addFonc(new Fonction(li, ileft + 1, i,etq)) ; :}
+                   Gestionnaire.getInstance().addFonc(new Fonction(li, ileft + 1, i,etq)) ;
+                    Tds.getInstance().suppBloc(); :}
                 ;
 
 LINST   ::=     LINST:li  INST:i
