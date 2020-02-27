@@ -88,6 +88,7 @@ public class Tds {
                 }
             }
         }
+        System.out.println(e.getNom() + " - " + s.getType() + " - " + s.getNoLig());
     }
 
     /**

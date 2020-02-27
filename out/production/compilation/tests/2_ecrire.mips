@@ -11,8 +11,10 @@ main:
 	move $s7, $sp
 	add $sp, $sp, -20
 
-	#ecrire null
-null
+	#ecrire fct()
+	jal null
+	sw $ra, -8($s7)
+
 	move $a0, $v0
 	li $v0, 1
 	syscall
@@ -34,7 +36,6 @@ erreurDivisionZero:
 	#Sortie de programme
 	li $v0, 10
 	syscall
-
 fonction1:
 	#ecrire a
 	lw $v0, 0($s7)
@@ -52,5 +53,4 @@ fonction1:
 	sw $v0, 0($s7)
 
 null
-	jr $ra
 
