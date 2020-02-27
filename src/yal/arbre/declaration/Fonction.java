@@ -41,6 +41,7 @@ public class Fonction {
         StringBuilder res = new StringBuilder();
         res.append(etq + ":\n");
         Gestionnaire.getInstance().setCptProg();
+        res.append("\tsw $ra, " + Tds.getInstance().getDeplacement(Gestionnaire.getInstance().getFonctionCourante()) + "($s7)\n"); // on empile l'adresse de retour de la fonction dans la pile
         res.append(arbre.toMIPS());
         Tds.getInstance().suppBloc();
         Gestionnaire.getInstance().setFonctionCourante("");

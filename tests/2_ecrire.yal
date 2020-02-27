@@ -3,7 +3,7 @@ entier a;
     fonction fct () debut
         a = 15;
         ecrire a;
-        retourne a;
+        retourne 17;
     fin
 ecrire fct();
 fin

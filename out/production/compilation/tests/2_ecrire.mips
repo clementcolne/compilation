@@ -12,8 +12,7 @@ main:
 	add $sp, $sp, -16
 
 	#ecrire fct()
-	jal null
-	sw $ra, -4($s7)
+	jal fonction1
 
 	move $a0, $v0
 	li $v0, 1
@@ -37,6 +36,7 @@ erreurDivisionZero:
 	li $v0, 10
 	syscall
 fonction1:
+	sw $ra, -4($s7)
 	# a = 15
 	li $v0, 15
 	sw $v0, 0($s7)
@@ -52,7 +52,8 @@ fonction1:
 	la $a0, BackSlachN
 	syscall
 
-	lw $v0, 0($s7)	lw $ra, -4($s7)
+	li $v0, 17
+	lw $ra, -4($s7)
 	jr $ra
 
 

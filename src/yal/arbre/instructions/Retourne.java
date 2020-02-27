@@ -35,7 +35,7 @@ public class Retourne extends Instruction {
     @Override
     public String toMIPS() {
         StringBuilder res = new StringBuilder();
-        res.append(exp.toMIPS()); // stocké dans $v0
+        res.append(exp.toMIPS() + "\n"); // stocké dans $v0
         res.append("\tlw $ra, " + Tds.getInstance().getDeplacement(Gestionnaire.getInstance().getFonctionCourante()) + "($s7)\n");
         res.append("\tjr $ra\n");
         return res.toString();
