@@ -9,6 +9,7 @@ import yal.arbre.expressions.binaire.expEntier.* ;
 import yal.arbre.expressions.unaire.* ;
 import yal.arbre.instructions.* ;
 import yal.arbre.declaration.* ;
+import yal.outils.*;
 import yal.exceptions.AnalyseSyntaxiqueException;
 
 import java_cup.runtime.*;
@@ -61,7 +62,7 @@ parser code {:
 
 /* Terminals (tokens returned by the scanner).  */
 
-terminal Symbol    PROGRAMME, FONCTION, DEBUT, FIN, POINTVIRGULE, ECRIRE, LIRE, ENTIER, EGAL, SI, ALORS, SINON, FINSI, TANTQUE, REPETER, FINTANTQUE, NON, ET, EGALITE, DIFFERENCE, INF,SUP,PLUS,MOINS,DIVISE,MULT,OU, PAR_OUVRANTE, PAR_FERMANTE;
+terminal Symbol    PROGRAMME, FONCTION, DEBUT, FIN, POINTVIRGULE, ECRIRE, LIRE, ENTIER, EGAL, SI, ALORS, SINON, FINSI, TANTQUE, REPETER, FINTANTQUE, NON, ET, EGALITE, DIFFERENCE, INF,SUP,PLUS,MOINS,DIVISE,MULT,OU, PAR_OUVRANTE, PAR_FERMANTE, RETOURNE;
 terminal String    IDF, CSTENTIERE;
 
 
@@ -106,10 +107,11 @@ DECL    ::=     ENTIER IDF:i POINTVIRGULE
                 {: Tds.getInstance().ajouter(new Entree(i), new Symbole("entier", ileft + 1, Tds.getInstance().getBlocCourant())) ; :}
         |
                 FONCTION IDF:i PAR_OUVRANTE PAR_FERMANTE DEBUT LINST:li FIN
-                {: Tds.getInstance().ajoutCptBloc() ;
-                   Tds.getInstance().ajoutBloc() ;
+                {:
                    Tds.getInstance().ajouter(new Entree(i), new Symbole("fonction", ileft + 1,Tds.getInstance().getBlocCourant())) ;
-                   RESULT = new Fonction(li, ileft + 1) ; :}
+                   Tds.getInstance().ajoutCptBloc() ;
+                   Tds.getInstance().ajoutBloc() ;
+                   Gestionnaire.getInstance().addFonc(new Fonction(li, ileft + 1)) ; :}
                 ;
 
 LINST   ::=     LINST:li  INST:i
@@ -145,6 +147,9 @@ INST    ::=     ECRIRE EXP:e POINTVIRGULE
        |
                 SI EXP:e ALORS FINSI
                 {: RESULT = new Condition(e,eleft+1); :}
+       |
+                RETOURNE EXP:e POINTVIRGULE
+                {: RESULT = new Retourne(e, eleft+1); :}
                 ;
     
 EXP    ::=     CSTENTIERE:c
@@ -191,4 +196,7 @@ EXP    ::=     CSTENTIERE:c
         |
               PAR_OUVRANTE EXP:e PAR_FERMANTE
               {: RESULT = new ExpressionParenthese(e,eleft + 1) ; :}
+        |
+              IDF:i PAR_OUVRANTE PAR_FERMANTE
+              {: RESULT = new AppelFonction(i,ileft+1) ; :}
               ;

@@ -84,6 +84,7 @@ espace = {finDeLigne}  | [ \t\f]
 ")"                    { return symbol(CodesLexicaux.PAR_FERMANTE); }
 
 "fonction"             { return symbol(CodesLexicaux.FONCTION); }
+"retourne"             { return symbol(CodesLexicaux.RETOURNE); }
 
 {csteE}      	       { return symbol(CodesLexicaux.CSTENTIERE, yytext()); }
 

@@ -9,14 +9,10 @@ main:
 
 	#allocation mémoire pour les variables
 	move $s7, $sp
-	add $sp, $sp, -8
+	add $sp, $sp, -20
 
-	# a = 7
-	li $v0, 7
-	sw $v0, 0($s7)
-
-	#ecrire a
-	lw $v0, 0($s7)
+	#ecrire null
+null
 	move $a0, $v0
 	li $v0, 1
 	syscall
@@ -38,4 +34,23 @@ erreurDivisionZero:
 	#Sortie de programme
 	li $v0, 10
 	syscall
+
+fonction1:
+	#ecrire a
+	lw $v0, 0($s7)
+	move $a0, $v0
+	li $v0, 1
+	syscall
+
+	#retour à la ligne
+	li $v0, 4 
+	la $a0, BackSlachN
+	syscall
+
+	# a = 15
+	li $v0, 15
+	sw $v0, 0($s7)
+
+null
+	jr $ra
 

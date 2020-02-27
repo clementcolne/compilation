@@ -51,11 +51,19 @@ public class Tds {
         }
         // la variable n'est pas dedans -> on l'ajoute
         if(!dedans) {
-            s.setDeplacement(cpt*(-4));
-            ArrayList<Symbole> al = new ArrayList<>();
-            al.add(s);
-            variables.put(new Entree(e.getNom()), al);
-            cpt++;
+            if(s.getType().equals("entier")) {
+                s.setDeplacement(cpt);
+                ArrayList<Symbole> al = new ArrayList<>();
+                al.add(s);
+                variables.put(new Entree(e.getNom()), al);
+                cpt -= 4;
+            }else{
+                s.setDeplacement(cpt);
+                ArrayList<Symbole> al = new ArrayList<>();
+                al.add(s);
+                variables.put(new Entree(e.getNom()), al);
+                cpt -= 12;
+            }
         }else {
             String type = "";
             // on vérifie si les numéros de blocs sont différents
@@ -116,7 +124,7 @@ public class Tds {
      * @return la taille de la zone allouée aux variables dans la pile
      */
     public int getTailleZoneVariable() {
-        return cpt*(-4);
+        return cpt;
     }
 
     /**
