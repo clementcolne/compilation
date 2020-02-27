@@ -2,23 +2,26 @@ package yal.arbre.expressions;
 
 public class AppelFonction extends Expression{
 
+    private Idf idf;
+
     /**
      * Constructeur d'une expression
      *
      * @param n int
      */
-    public AppelFonction(String idf, int n) {
+    public AppelFonction(Idf idf, int n) {
         super(n);
+        this.idf = idf;
     }
 
     @Override
     public String getNom() {
-        return null;
+        return idf.getNom()+"()";
     }
 
     @Override
     public void verifier() {
-
+        idf.verifier();
     }
 
     @Override
