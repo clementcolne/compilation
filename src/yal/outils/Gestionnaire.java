@@ -11,6 +11,7 @@ public class Gestionnaire {
     private boolean inFonction;
     private int cptRetourne;
     private boolean finProg;
+    private String fonctionCourante;
     private ArrayList<Fonction> declFonc;
     private static Gestionnaire gestionnaire = new Gestionnaire();
 
@@ -29,6 +30,7 @@ public class Gestionnaire {
         cptProg = false;
         inFonction = false;
         finProg = false;
+        fonctionCourante = "";
         declFonc = new ArrayList<>();
     }
 
@@ -101,5 +103,13 @@ public class Gestionnaire {
 
     public boolean isFinProg() {
         return finProg;
+    }
+
+    public String getFonctionCourante() {
+        return fonctionCourante;
+    }
+
+    public void setFonctionCourante(String fonctionCourante) {
+        this.fonctionCourante = fonctionCourante;
     }
 }

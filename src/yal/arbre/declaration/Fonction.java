@@ -9,10 +9,12 @@ public class Fonction {
     private ArbreAbstrait arbre;
     private int noLigne;
     private String etq;
+    private String idf;
 
     public Fonction(ArbreAbstrait a, int n, String idf){
         arbre = a;
         noLigne = n;
+        this.idf = idf;
         etq = "fonction" + Gestionnaire.getInstance().getIdfEtiquette();
         Tds.getInstance().identifier(idf,n).setEtq(etq);
     }
@@ -36,12 +38,14 @@ public class Fonction {
 
 
     public String toMIPS() {
+        Gestionnaire.getInstance().setFonctionCourante(idf);
         StringBuilder res = new StringBuilder();
         res.append("\nfonction" + Gestionnaire.getInstance().getIdfEtiquette() + ":\n");
         Gestionnaire.getInstance().setCptProg();
         res.append(arbre.toMIPS());
         res.append("\tjr $ra\n");
         Tds.getInstance().suppBloc();
+        Gestionnaire.getInstance().setFonctionCourante("");
         return res.toString();
     }
 }
