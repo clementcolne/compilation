@@ -11,12 +11,11 @@ public class Fonction {
     private String etq;
     private String idf;
 
-    public Fonction(ArbreAbstrait a, int n, String idf){
+    public Fonction(ArbreAbstrait a, int n, String idf, String etq){
         arbre = a;
         noLigne = n;
         this.idf = idf;
-        etq = "fonction" + Gestionnaire.getInstance().getIdfEtiquette();
-        Tds.getInstance().identifier(idf,n).setEtq(etq);
+        this.etq = etq;
     }
 
 

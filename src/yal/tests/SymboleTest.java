@@ -12,7 +12,7 @@ class SymboleTest {
 
     @BeforeEach
     void setUp() {
-        s = new Symbole("entier",6, Tds.getInstance().getBlocCourant());
+        s = new Symbole("entier",6, Tds.getInstance().getBlocCourant(),"");
     }
 
 }
