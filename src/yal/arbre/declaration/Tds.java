@@ -25,7 +25,7 @@ public class Tds {
      * Constructeur de Tds
      */
     private Tds() {
-        variables = new HashMap<Entree, ArrayList<Symbole>>();
+        variables = new HashMap<>();
         erreurs = new ArrayList<>();
         pile = new ArrayList<>();
         cptErreur = 0;
