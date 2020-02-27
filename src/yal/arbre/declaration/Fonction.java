@@ -37,7 +37,6 @@ public class Fonction {
         res.append("\nfonction" + Gestionnaire.getInstance().getIdfEtiquette() + ":\n");
         Gestionnaire.getInstance().setCptProg();
         res.append(arbre.toMIPS());
-        res.append("\tjr $ra\n");
         Tds.getInstance().suppBloc();
         return res.toString();
     }

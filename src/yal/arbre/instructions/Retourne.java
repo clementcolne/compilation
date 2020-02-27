@@ -32,6 +32,10 @@ public class Retourne extends Instruction {
 
     @Override
     public String toMIPS() {
+        StringBuilder res = new StringBuilder();
+        res.append(exp.toMIPS()); // stocké dans $v0
+
+        res.append("\tjr $ra\n");
         return null;
     }
 }

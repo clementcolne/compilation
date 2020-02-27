@@ -1,8 +1,11 @@
 package yal.arbre.expressions;
 
+import yal.arbre.declaration.Tds;
+
 public class AppelFonction extends Expression{
 
     private Idf idf;
+    private int n;
 
     /**
      * Constructeur d'une expression
@@ -12,6 +15,7 @@ public class AppelFonction extends Expression{
     public AppelFonction(Idf idf, int n) {
         super(n);
         this.idf = idf;
+        this.n = n;
     }
 
     @Override
@@ -26,6 +30,8 @@ public class AppelFonction extends Expression{
 
     @Override
     public String toMIPS() {
+        StringBuilder res = new StringBuilder();
+        res.append("\tjal " + Tds.getInstance().identifier(idf.getNom(), n).getEtq() + "\n");
         return null;
     }
 }
