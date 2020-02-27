@@ -84,11 +84,10 @@ public class Tds {
                     AnalyseSemantiqueException a = new AnalyseSemantiqueException(noLig, ": multiples déclarations de la variable");
                     erreurs.add(a.getMessage());
                 } else {  // on ajoute un symbole à l'AL de l'Entree
-                    variables.get(entree).add(new Symbole(s.getType(), s.getNoLig(), blocCourant));
+                    variables.get(entree).add(new Symbole(s.getType(), s.getNoLig(), blocCourant,s.getEtq()));
                 }
             }
         }
-        System.out.println(e.getNom() + " - " + s.getType() + " - " + s.getNoLig());
     }
 
     /**
@@ -97,7 +96,7 @@ public class Tds {
      * @return le symbole correspondant à l'entrée dans la hashmap des variables
      */
     public Symbole identifier(String e, int n)  {
-        Symbole s = new Symbole("",-1, blocCourant);
+        Symbole s = new Symbole("",-1, blocCourant,"");
         boolean dedans = false;
         boolean bonBloc = false;
         for(Map.Entry<Entree, ArrayList<Symbole>> k : variables.entrySet()) {
@@ -112,7 +111,7 @@ public class Tds {
             }
         }
         if(dedans && bonBloc) {
-            return new Symbole(s.getType(), s.getNoLig(), blocCourant);
+            return new Symbole(s.getType(), s.getNoLig(), blocCourant,s.getEtq());
         }else{
             AnalyseSemantiqueException a = new AnalyseSemantiqueException(n, ": variable non déclarée");
             Tds.getInstance().add(a.getMessage());
