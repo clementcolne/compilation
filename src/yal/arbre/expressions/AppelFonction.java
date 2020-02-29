@@ -1,6 +1,7 @@
 package yal.arbre.expressions;
 
 import yal.arbre.declaration.Tds;
+import yal.exceptions.AnalyseSemantiqueException;
 
 public class AppelFonction extends Expression{
 
@@ -25,7 +26,10 @@ public class AppelFonction extends Expression{
 
     @Override
     public void verifier() {
-        idf.verifier();
+        if(!Tds.getInstance().identifier(idf.getNom(),noLig).getType().equals("fonction")){
+            AnalyseSemantiqueException a = new AnalyseSemantiqueException(noLigne, ": fonction non déclarée");
+            Tds.getInstance().add(a.getMessage());
+        }
     }
 
     @Override

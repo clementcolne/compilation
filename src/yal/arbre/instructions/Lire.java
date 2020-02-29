@@ -2,7 +2,6 @@ package yal.arbre.instructions;
 
 import yal.arbre.declaration.Tds;
 import yal.arbre.expressions.Idf;
-import yal.exceptions.AnalyseSemantiqueException;
 
 public class Lire extends Instruction {
 
@@ -23,17 +22,7 @@ public class Lire extends Instruction {
      */
     @Override
     public void verifier() {
-        try {
-
-            if(!Tds.getInstance().identifier(idf.getNom(),noLigne).getType().equals("fonction")) {
-                idf.verifier();
-            }else{
-                AnalyseSemantiqueException a = new AnalyseSemantiqueException(noLigne, ": lire est effectué uniquement sur des entier");
-                Tds.getInstance().add(a.getMessage());
-            }
-        } catch (Exception e) {
-
-        }
+         idf.verifier();
     }
 
     /**

@@ -14,7 +14,7 @@ import java.util.ArrayList;
  */
 
 public class BlocDInstructions extends ArbreAbstrait {
-    
+
     protected ArrayList<ArbreAbstrait> programme ;
 
     /**
@@ -48,22 +48,22 @@ public class BlocDInstructions extends ArbreAbstrait {
      */
     @Override
     public void verifier() throws SemantiqueException{
-            try {
-                if(!Gestionnaire.getInstance().getCptProg()) {
-                    Gestionnaire.getInstance().verifierFonc();
-                    for (ArbreAbstrait a : programme) {
-                        a.verifier();
-                    }
-                    Gestionnaire.getInstance().setFinProg();
-                }else{   // pour éviter la boucle infinie d'apppels
-                    for (ArbreAbstrait a : programme) {
-                        a.verifier();
-                    }
+        try {
+            if(!Gestionnaire.getInstance().getCptProg()) {
+                Gestionnaire.getInstance().verifierFonc();
+                for (ArbreAbstrait a : programme) {
+                    a.verifier();
                 }
-
-            } catch (AnalyseSemantiqueException e) {
-            } catch (Exception e) {
+                Gestionnaire.getInstance().setFinProg();
+            }else{   // pour éviter la boucle infinie d'apppels
+                for (ArbreAbstrait a : programme) {
+                    a.verifier();
+                }
             }
+
+        } catch (AnalyseSemantiqueException e) {
+        } catch (Exception e) {
+        }
         if(Tds.getInstance().getCptErreur() > 0 && Gestionnaire.getInstance().isFinProg()) {
             throw new SemantiqueException(Tds.getInstance().afficheErreursSemantiques());
         }

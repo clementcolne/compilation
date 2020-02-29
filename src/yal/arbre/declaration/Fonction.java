@@ -21,17 +21,17 @@ public class Fonction {
 
     public void verifier() {
 
-            Gestionnaire.getInstance().resetCptRetourne();
-            Gestionnaire.getInstance().setCptProg();
-            Gestionnaire.getInstance().setInFonction(true);
-            arbre.verifier();
-            if (Gestionnaire.getInstance().getCptRetourne() == 0) {
-                AnalyseSemantiqueException a = new AnalyseSemantiqueException(noLigne, ": une fonction doit avoir au moins un retour");
-                Tds.getInstance().add(a.getMessage());
-            }
-            Gestionnaire.getInstance().setInFonction(false);
-            Gestionnaire.getInstance().resetCptProg();
-            Gestionnaire.getInstance().resetCptRetourne();
+        Gestionnaire.getInstance().resetCptRetourne();
+        Gestionnaire.getInstance().setCptProg();
+        Gestionnaire.getInstance().setInFonction(true);
+        arbre.verifier();
+        if (Gestionnaire.getInstance().getCptRetourne() == 0) {
+            AnalyseSemantiqueException a = new AnalyseSemantiqueException(noLigne, ": une fonction doit avoir au moins un retour");
+            Tds.getInstance().add(a.getMessage());
+        }
+        Gestionnaire.getInstance().setInFonction(false);
+        Gestionnaire.getInstance().resetCptProg();
+        Gestionnaire.getInstance().resetCptRetourne();
 
     }
 

@@ -25,7 +25,12 @@ public class Retourne extends Instruction {
     public void verifier() {
         if(Gestionnaire.getInstance().isInFonction()){
             Gestionnaire.getInstance().addRetourne();
-            exp.verifier();
+            if(!exp.isBool()) {
+                exp.verifier();
+            }else{
+                AnalyseSemantiqueException a = new AnalyseSemantiqueException(noLigne, ": il faut retourner un entier uniquement");
+                Tds.getInstance().add(a.getMessage());
+            }
         }else{
             AnalyseSemantiqueException a = new AnalyseSemantiqueException(noLigne, ": retour en dehors d'une fonction");
             Tds.getInstance().add(a.getMessage());

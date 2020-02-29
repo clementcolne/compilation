@@ -157,6 +157,9 @@ INST    ::=     ECRIRE EXP:e POINTVIRGULE
 EXP    ::=     CSTENTIERE:c
                {: RESULT = new ConstanteEntiere(c, cleft + 1) ; :}
         |
+               IDF:i PAR_OUVRANTE PAR_FERMANTE
+               {: RESULT = new AppelFonction(new Idf(i, ileft + 1 ),ileft+1) ; :}
+        |
                IDF:i
                {: RESULT = new Idf(i, ileft + 1 ) ; :}
         |
@@ -198,7 +201,4 @@ EXP    ::=     CSTENTIERE:c
         |
               PAR_OUVRANTE EXP:e PAR_FERMANTE
               {: RESULT = new ExpressionParenthese(e,eleft + 1) ; :}
-        |
-              IDF:i PAR_OUVRANTE PAR_FERMANTE
-              {: RESULT = new AppelFonction(new Idf(i, ileft + 1 ),ileft+1) ; :}
               ;

@@ -23,10 +23,11 @@ public class Idf extends Expression{
     @Override
     public void verifier() {
         try {
-            Tds.getInstance().identifier(nom,noLigne);
+            if(!Tds.getInstance().identifier(nom,noLigne).getType().equals("entier")){
+                AnalyseSemantiqueException a = new AnalyseSemantiqueException(noLigne, ": variable non déclarée");
+                Tds.getInstance().add(a.getMessage());
+            }
         }catch (Exception e){
-            AnalyseSemantiqueException a = new AnalyseSemantiqueException(noLigne, ": variable non déclarée");
-            Tds.getInstance().add(a.getMessage());
         }
     }
 
