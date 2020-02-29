@@ -42,6 +42,7 @@ public class Retourne extends Instruction {
         StringBuilder res = new StringBuilder();
         res.append(exp.toMIPS() + "\n"); // stocké dans $v0
         res.append("\tlw $ra, " + Tds.getInstance().getDeplacement(Gestionnaire.getInstance().getFonctionCourante()) + "($s7)\n");
+        res.append("\tadd, $sp, $sp, 8\n"); // on libère l'espace mémoire de la pile
         res.append("\tjr $ra\n");
         return res.toString();
     }

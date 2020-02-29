@@ -58,11 +58,11 @@ public class Tds {
                 variables.put(new Entree(e.getNom()), al);
                 cpt -= 4;
             }else{
-                s.setDeplacement(cpt);
+                //s.setDeplacement(cpt);
                 ArrayList<Symbole> al = new ArrayList<>();
                 al.add(s);
                 variables.put(new Entree(e.getNom()), al);
-                cpt -= 12;
+                //cpt -= 12;
             }
         }else {
             String type = "";
