@@ -85,7 +85,7 @@ public class BlocDInstructions extends ArbreAbstrait {
                 prog.append(a.toMIPS() + "\n");
             }
             prog.append("\nend:\n\t#Sortie de programme\n\tli $v0, 10\n\tsyscall\n");
-            prog.append("erreurDivisionZero:\n\tli $v0, 4 \n\tla $a0, ErreurDivisionZero\n\tsyscall\n\t#Sortie de programme\n\tli $v0, 10\n\tsyscall\n");
+            prog.append("erreurDivisionZero:\n\tli $v0, 4 \n\tla $a0, ErreurDivisionZero\n\tsyscall\n\t#Sortie de programme\n\tli $v0, 10\n\tsyscall\n\n");
             prog.append(Gestionnaire.getInstance().afficheFonction());
             return prog.toString();
         }else{

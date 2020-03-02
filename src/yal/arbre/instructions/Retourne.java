@@ -40,9 +40,10 @@ public class Retourne extends Instruction {
     @Override
     public String toMIPS() {
         StringBuilder res = new StringBuilder();
+        res.append("\t# retourne "+exp.getNom()+"\n");
         res.append(exp.toMIPS() + "\n"); // stocké dans $v0
-        res.append("\tlw $ra, " + Tds.getInstance().getDeplacement(Gestionnaire.getInstance().getFonctionCourante()) + "($s7)\n");
-        res.append("\tadd, $sp, $sp, 8\n"); // on libère l'espace mémoire de la pile
+        res.append("\tadd, $sp, $sp, 4\n"); // on libère l'espace mémoire de la pile
+        res.append("\tlw $ra, ($sp)\n"); // on récupère l'adresse retour
         res.append("\tjr $ra\n");
         return res.toString();
     }
