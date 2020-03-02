@@ -11,6 +11,13 @@ public class Fonction {
     private String etq;
     private String idf;
 
+    /**
+     * Constructeur d'une fonction
+     * @param a ArbreAbstrait
+     * @param n numéro de ligne
+     * @param idf identifiant
+     * @param etq étiquette
+     */
     public Fonction(ArbreAbstrait a, int n, String idf, String etq){
         arbre = a;
         noLigne = n;
@@ -18,9 +25,10 @@ public class Fonction {
         this.etq = etq;
     }
 
-
+    /**
+     * Vérifie la conformité de la fonction
+     */
     public void verifier() {
-
         Gestionnaire.getInstance().resetCptRetourne();
         Gestionnaire.getInstance().setCptProg();
         Gestionnaire.getInstance().setInFonction(true);
@@ -35,7 +43,10 @@ public class Fonction {
 
     }
 
-
+    /**
+     * Retourne le code MIPS de la fonction
+     * @return le code MIPS de la fonction
+     */
     public String toMIPS() {
         Gestionnaire.getInstance().setFonctionCourante(idf);
         StringBuilder res = new StringBuilder();

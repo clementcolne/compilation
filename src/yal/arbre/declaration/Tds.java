@@ -213,6 +213,9 @@ public class Tds {
         pile.add(blocCourant);
     }
 
+    /**
+     * Incrémente le compteur de bloc courant
+     */
     public void ajoutCptBloc(){
         blocCourant++;
     }

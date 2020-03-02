@@ -60,11 +60,18 @@ public class Symbole {
         return noBloc;
     }
 
+    /**
+     * Fixe l'étiquette du symbole avec l'étiquette en paramètre
+     * @param e l'étiquette du symbole avec l'étiquette en paramètre
+     */
     public void setEtq(String e){
         this.etq = e;
-        System.out.println(this.getDeplacement());
     }
 
+    /**
+     * Retourne l'étiquette du symbole
+     * @return l'étiquette du symbole
+     */
     public String getEtq() {
         return etq;
     }

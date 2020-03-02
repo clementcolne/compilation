@@ -10,7 +10,6 @@ public class AppelFonction extends Expression{
 
     /**
      * Constructeur d'une expression
-     *
      * @param n int
      */
     public AppelFonction(Idf idf, int n) {
@@ -19,11 +18,18 @@ public class AppelFonction extends Expression{
         this.noLig = n;
     }
 
+    /**
+     * Retourne le nom de la fonction pour le commentaire MIPS
+     * @return le nom de la fonction pour le commentaire MIPS
+     */
     @Override
     public String getNom() {
         return idf.getNom()+"()";
     }
 
+    /**
+     * Vérifie la conformité de l'appel de fonction
+     */
     @Override
     public void verifier() {
         if(!Tds.getInstance().identifier(idf.getNom(),noLig,"fonction").getType().equals("fonction")){
@@ -32,6 +38,10 @@ public class AppelFonction extends Expression{
         }
     }
 
+    /**
+     * Retourne le code MIPS de l'appel de fonction
+     * @return le code MIPS de l'appel de fonction
+     */
     @Override
     public String toMIPS() {
         StringBuilder res = new StringBuilder();

@@ -21,6 +21,9 @@ public class Retourne extends Instruction {
         this.noLig = n;
     }
 
+    /**
+     * Vérifie la conformité du retourne
+     */
     @Override
     public void verifier() {
         if(Gestionnaire.getInstance().isInFonction()){
@@ -37,6 +40,10 @@ public class Retourne extends Instruction {
         }
     }
 
+    /**
+     * Retourne le code MIPS de retourne
+     * @return le code MIPS de retourne
+     */
     @Override
     public String toMIPS() {
         StringBuilder res = new StringBuilder();
