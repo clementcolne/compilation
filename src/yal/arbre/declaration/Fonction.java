@@ -40,8 +40,9 @@ public class Fonction {
         Gestionnaire.getInstance().setFonctionCourante(idf);
         StringBuilder res = new StringBuilder();
         res.append(etq + ":\n");
+        res.append("\t# Sauvegarde de l'adresse de retour\n");
         res.append("\tsw $ra, ($sp)\n"); // on empile l'adresse de retour de la fonction dans la pile
-        res.append("\tadd, $sp, $sp, -4\n");
+        res.append("\tadd, $sp, $sp, -4\n\n");
         //res.append("\tsw $s7, 4($sp)\n"); // chainage dynamique
         Gestionnaire.getInstance().setCptProg();
         res.append(arbre.toMIPS());

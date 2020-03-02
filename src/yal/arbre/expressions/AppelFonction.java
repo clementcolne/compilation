@@ -26,7 +26,7 @@ public class AppelFonction extends Expression{
 
     @Override
     public void verifier() {
-        if(!Tds.getInstance().identifier(idf.getNom(),noLig).getType().equals("fonction")){
+        if(!Tds.getInstance().identifier(idf.getNom(),noLig,"fonction").getType().equals("fonction")){
             AnalyseSemantiqueException a = new AnalyseSemantiqueException(noLigne, ": fonction non déclarée");
             Tds.getInstance().add(a.getMessage());
         }
@@ -35,7 +35,7 @@ public class AppelFonction extends Expression{
     @Override
     public String toMIPS() {
         StringBuilder res = new StringBuilder();
-        res.append("\tjal " + Tds.getInstance().identifier(idf.getNom(), noLig).getEtq() + "\n"); // jump à la fonction
+        res.append("\tjal " + Tds.getInstance().identifier(idf.getNom(), noLig,"fonction").getEtq() + "\n"); // jump à la fonction
         return res.toString();
     }
 }

@@ -23,7 +23,7 @@ public class Idf extends Expression{
     @Override
     public void verifier() {
         try {
-            if(!Tds.getInstance().identifier(nom,noLigne).getType().equals("entier")){
+            if(!Tds.getInstance().identifier(nom,noLigne,"entier").getType().equals("entier")){
                 AnalyseSemantiqueException a = new AnalyseSemantiqueException(noLigne, ": variable non déclarée");
                 Tds.getInstance().add(a.getMessage());
             }

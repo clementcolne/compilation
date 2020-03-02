@@ -96,14 +96,14 @@ public class Tds {
      * @param e Entree
      * @return le symbole correspondant à l'entrée dans la hashmap des variables
      */
-    public Symbole identifier(String e, int n)  {
+    public Symbole identifier(String e, int n, String type)  {
         Symbole s = new Symbole("",-1, blocCourant,"");
         boolean dedans = false;
         boolean bonBloc = false;
         for(Map.Entry<Entree, ArrayList<Symbole>> k : variables.entrySet()) {
             if(k.getKey().getNom().equals(e)) {
                 for(Symbole symb : k.getValue()){
-                    if(pile.contains(symb.getNoBloc())){
+                    if(pile.contains(symb.getNoBloc()) && symb.getType().equals(type)){
                         bonBloc = true;
                         s = symb;
                     }
