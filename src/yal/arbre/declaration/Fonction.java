@@ -57,7 +57,7 @@ public class Fonction {
         //res.append("\tsw $s7, 4($sp)\n"); // chainage dynamique
         Gestionnaire.getInstance().setCptProg();
         res.append(arbre.toMIPS());
-
+        res.append("\tj erreurRetour\n\n");
         Gestionnaire.getInstance().setFonctionCourante("");
         return res.toString();
     }

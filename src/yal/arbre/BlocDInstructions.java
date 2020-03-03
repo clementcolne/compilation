@@ -78,7 +78,7 @@ public class BlocDInstructions extends ArbreAbstrait {
         if(!Gestionnaire.getInstance().getCptProg()) {
             StringBuilder prog = new StringBuilder();
             prog.append(".data\n" +
-                    "BackSlachN: .asciiz \"\\n\"\nVrai: .asciiz \"vrai\"\nFaux: .asciiz \"faux\"\nErreurDivisionZero: .asciiz \"Erreur : Division par zéro\"\n.text\n\nmain:\n\n");
+                    "BackSlachN: .asciiz \"\\n\"\nVrai: .asciiz \"vrai\"\nFaux: .asciiz \"faux\"\nErreurDivisionZero: .asciiz \"Erreur : Division par zéro\"\nErreurRetour: .asciiz \"Erreur : Pas de retour dans la fonction\"\n.text\n\nmain:\n\n");
             prog.append("\t#allocation mémoire pour les variables\n\tmove $s7, $sp\n" +
                     "\tadd $sp, $sp, " + Tds.getInstance().getTailleZoneVariable() + "\n\n");
             for (ArbreAbstrait a : programme) {
@@ -86,6 +86,7 @@ public class BlocDInstructions extends ArbreAbstrait {
             }
             prog.append("\nend:\n\t#Sortie de programme\n\tli $v0, 10\n\tsyscall\n");
             prog.append("erreurDivisionZero:\n\tli $v0, 4 \n\tla $a0, ErreurDivisionZero\n\tsyscall\n\t#Sortie de programme\n\tli $v0, 10\n\tsyscall\n\n");
+            prog.append("erreurRetour:\n\tli $v0, 4 \n\tla $a0, ErreurRetour\n\tsyscall\n\t#Sortie de programme\n\tli $v0, 10\n\tsyscall\n\n");
             prog.append(Gestionnaire.getInstance().afficheFonction());
             return prog.toString();
         }else{
