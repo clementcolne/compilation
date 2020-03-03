@@ -56,6 +56,12 @@ public class Condition extends Instruction {
     public void verifier(){
         if(exp.isBool()) {
             exp.verifier();
+            if(arbre2 != null){
+                arbre2.verifier();
+            }
+            if(arbre1 != null){
+                arbre1.verifier();
+            }
         }else{
             AnalyseSemantiqueException a = new AnalyseSemantiqueException(noLigne, ": le type attendu est un booléen");
             Tds.getInstance().add(a.getMessage());
