@@ -114,10 +114,12 @@ public class Tds {
         if(dedans && bonBloc) {
             return new Symbole(s.getType(), s.getNoLig(), blocCourant,s.getEtq());
         }else{
-            AnalyseSemantiqueException a = new AnalyseSemantiqueException(n, ": variable non déclarée");
-            Tds.getInstance().add(a.getMessage());
+            /*if(!type.equals("fonction")) {
+                AnalyseSemantiqueException a = new AnalyseSemantiqueException(n, ": variable non déclarée");
+                Tds.getInstance().add(a.getMessage());
+            }*/
+            return s;
         }
-        return null;
     }
 
     /**
