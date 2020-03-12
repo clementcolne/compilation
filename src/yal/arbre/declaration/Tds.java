@@ -98,10 +98,18 @@ public class Tds {
                     AnalyseSemantiqueException a = new AnalyseSemantiqueException(noLig, ": multiples déclarations de la variable");
                     erreurs.add(a.getMessage());
                 } else {  // on ajoute un symbole à l'AL de l'Entree
-                    variables.get(entree).add(new Symbole(s.getType(), s.getNoLig(), blocCourant,s.getEtq()));
+                    Symbole sy = new Symbole(s.getType(), s.getNoLig(), blocCourant,s.getEtq());
+                    if(type.equals("entier")){
+                        sy.setDeplacement(cpt);
+                    }
+                    variables.get(entree).add(sy);
                 }
             }else{
-                variables.get(entree).add(new Symbole(s.getType(), s.getNoLig(), s.getNoBloc(),s.getEtq()));
+                Symbole sy = new Symbole(s.getType(), s.getNoLig(), getCptBloc(),s.getEtq());
+                if(type.equals("entier")){
+                    sy.setDeplacement(cpt);
+                }
+                variables.get(entree).add(sy);
             }
         }
     }
@@ -156,11 +164,19 @@ public class Tds {
      * @return int le déplacement
      */
     public int getDeplacement(String e) {
+        //System.out.println("\nTds: ");
+        //afficherTds();
         int res = -1;
         for(Map.Entry<Entree, ArrayList<Symbole>> k : variables.entrySet()) {
             if(k.getKey().getNom().equals(e)) {
                 for(Symbole s: k.getValue()) {
+                    System.out.println("pile:");
+                    for(int i=0; i<pile.size();i++){
+                        System.out.print(pile.get(i));
+                    }
+                    System.out.println();
                     for(int i=pile.size()-1; i>=0; i--) {   // on prend le dernier bloc ouvert
+                        System.out.println(i);
                         if(s.getNoBloc()==pile.get(i)) {
                             res = k.getValue().get(i).getDeplacement();
                         }
