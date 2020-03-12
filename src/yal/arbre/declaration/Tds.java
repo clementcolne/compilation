@@ -246,12 +246,6 @@ public class Tds {
         pile.add(b);
     }
 
-    /**
-     * Incrémente le compteur de bloc courant
-     */
-    public void ajoutCptBloc(){
-        blocCourant++;
-    }
 
     /**
      * Supprime un bloc à la pile : le bloc est fermé, on n'y revient plus
