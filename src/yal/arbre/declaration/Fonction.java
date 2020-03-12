@@ -10,6 +10,7 @@ public class Fonction {
     private int noLigne;
     private String etq;
     private String idf;
+    private int bloc;
 
     /**
      * Constructeur d'une fonction
@@ -18,17 +19,19 @@ public class Fonction {
      * @param idf identifiant
      * @param etq étiquette
      */
-    public Fonction(ArbreAbstrait a, int n, String idf, String etq){
+    public Fonction(ArbreAbstrait a, int n, String idf, String etq, int bloc){
         arbre = a;
         noLigne = n;
         this.idf = idf;
         this.etq = etq;
+        this.bloc = bloc;
     }
 
     /**
      * Vérifie la conformité de la fonction
      */
     public void verifier() {
+        Tds.getInstance().ajoutBloc(bloc);
         Gestionnaire.getInstance().resetCptRetourne();
         Gestionnaire.getInstance().setCptProg();
         Gestionnaire.getInstance().setInFonction(true);
@@ -41,6 +44,7 @@ public class Fonction {
         Gestionnaire.getInstance().resetCptProg();
         Gestionnaire.getInstance().resetCptRetourne();
 
+        Tds.getInstance().suppBloc(bloc);
     }
 
     /**
@@ -48,6 +52,7 @@ public class Fonction {
      * @return le code MIPS de la fonction
      */
     public String toMIPS() {
+        Tds.getInstance().ajoutBloc(bloc);
         Gestionnaire.getInstance().setFonctionCourante(idf);
         StringBuilder res = new StringBuilder();
         res.append(etq + ":\n");
@@ -59,6 +64,7 @@ public class Fonction {
         res.append(arbre.toMIPS());
         res.append("\tj erreurRetour\n\n");
         Gestionnaire.getInstance().setFonctionCourante("");
+        Tds.getInstance().suppBloc(bloc);
         return res.toString();
     }
 }

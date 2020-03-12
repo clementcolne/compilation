@@ -13,6 +13,7 @@ public class Tds {
     public int cpt;
     public int cptErreur;
     public int blocCourant;
+    public int cptBloc;    // pour ne pas avoir 2x le même bloc -> problème de déclarations dans le même bloc
     public ArrayList<Integer> pile;
     private static Tds tds = new Tds();
 
@@ -31,7 +32,17 @@ public class Tds {
         cptErreur = 0;
         cpt = 0;
         blocCourant = 0;
-        ajoutBloc();
+        cptBloc = -1;
+        ajoutBloc(blocCourant);
+    }
+
+    public void afficherTds(){
+        for(Map.Entry<Entree, ArrayList<Symbole>> k : variables.entrySet()) {
+            System.out.print(k.getKey().getNom());
+            for(Symbole s: k.getValue()) {
+                System.out.println(" -> " +s.getNoBloc());
+            }
+        }
     }
 
     /**
@@ -41,6 +52,9 @@ public class Tds {
      * @throws Exception Lève une exception si l'entrée e est déjà présente dans la hashmap des variables
      */
     public void ajouter(Entree e, Symbole s) throws AnalyseSemantiqueException {
+        //System.out.println(e.getNom()+" -> "+s.getNoBloc());
+        //System.out.println("\nTds: ");
+       // afficherTds();
         boolean dedans = false;
         Entree entree=new Entree("");
         for(Map.Entry<Entree, ArrayList<Symbole>> k : variables.entrySet()) {
@@ -114,10 +128,6 @@ public class Tds {
         if(dedans && bonBloc) {
             return new Symbole(s.getType(), s.getNoLig(), blocCourant,s.getEtq());
         }else{
-            /*if(!type.equals("fonction")) {
-                AnalyseSemantiqueException a = new AnalyseSemantiqueException(n, ": variable non déclarée");
-                Tds.getInstance().add(a.getMessage());
-            }*/
             return s;
         }
     }
@@ -209,10 +219,29 @@ public class Tds {
     }
 
     /**
+     * Renvoie le numéro du prochain bloc à prendre pour le donner en paramètre à une fonction
+     * @return int
+     */
+    public int getCptBloc(){
+        return cptBloc;
+    }
+
+    /**
+     * Renvoie le numéro du prochain bloc à prendre pour le donner en paramètre à une variable locale
+     * @return int
+     */
+    public void setCptBloc(){
+        cptBloc++;
+    }
+
+
+    /**
      * Ajoute un bloc à la pile
      */
-    public void ajoutBloc(){
-        pile.add(blocCourant);
+    public void ajoutBloc(int b){
+        blocCourant = b;
+        cptBloc ++;
+        pile.add(b);
     }
 
     /**
@@ -225,8 +254,8 @@ public class Tds {
     /**
      * Supprime un bloc à la pile : le bloc est fermé, on n'y revient plus
      */
-    public void suppBloc(){
-        pile.remove(blocCourant);
+    public void suppBloc(int b){
+        pile.remove(b);
         blocCourant = pile.get(pile.size()-1);
         // on ne décrémente pas blocCourant pour pouvoir supprimer des blocs et ne plus y revenir
     }
