@@ -68,7 +68,7 @@ terminal String    IDF, CSTENTIERE;
 
 /* Non terminals used in the grammar section.  */
 
-non terminal ArbreAbstrait PROG, LINST, INST, LDECL, DECL ;
+non terminal ArbreAbstrait PROG, LINST, INST, LDECL, LDECL_VAR, DECL, DECL_VAR, DECL_VAR_LOC, DECL_FONC ;
 non terminal Expression EXP ;
 
 
@@ -103,16 +103,38 @@ LDECL   ::=     LDECL:ld  DECL:d
                 RESULT = b ; :}
                 ;
 
+LDECL_VAR   ::=     LDECL_VAR:ld  DECL_VAR_LOC:d
+                {: ((BlocDInstructions)ld).ajouter(d) ;
+                   RESULT = ld ; :}
+        |
+                DECL_VAR_LOC:d
+                {: BlocDInstructions b = new BlocDInstructions(dleft + 1) ;
+                b.ajouter(d) ;
+                RESULT = b ; :}
+                ;
+
+DECL_VAR_LOC ::=    ENTIER IDF:i POINTVIRGULE
+                {:
+                Tds.getInstance().ajouter(new Entree(i), new Symbole("entier", ileft + 1, Tds.getInstance().getCptBloc()+1,"")) ; :}
+                ;
+
 DECL    ::=     ENTIER IDF:i POINTVIRGULE
                 {:
                 Tds.getInstance().ajouter(new Entree(i), new Symbole("entier", ileft + 1, Tds.getInstance().getBlocCourant(),"")) ; :}
         |
+                FONCTION IDF:i PAR_OUVRANTE PAR_FERMANTE DEBUT  LDECL_VAR:d LINST:li FIN
+                {: String etq = "fonction" + Gestionnaire.getInstance().getIdfEtiquette();
+                Tds.getInstance().ajouter(new Entree(i), new Symbole("fonction", ileft + 1,Tds.getInstance().getBlocCourant(), etq)) ;
+                Gestionnaire.getInstance().addFonc(new Fonction(li, ileft + 1, i,etq,Tds.getInstance().getCptBloc()+1 ));
+                 Tds.getInstance().setCptBloc();
+                :}
+        |
                 FONCTION IDF:i PAR_OUVRANTE PAR_FERMANTE DEBUT LINST:li FIN
                 {: String etq = "fonction" + Gestionnaire.getInstance().getIdfEtiquette();
-                   Tds.getInstance().ajouter(new Entree(i), new Symbole("fonction", ileft + 1,Tds.getInstance().getBlocCourant(), etq)) ;
-                   Tds.getInstance().ajoutCptBloc() ;
-                   Tds.getInstance().ajoutBloc() ;
-                   Gestionnaire.getInstance().addFonc(new Fonction(li, ileft + 1, i,etq)) ; :}
+                Tds.getInstance().ajouter(new Entree(i), new Symbole("fonction", ileft + 1,Tds.getInstance().getBlocCourant(), etq)) ;
+                Gestionnaire.getInstance().addFonc(new Fonction(li, ileft + 1, i,etq,Tds.getInstance().getCptBloc()+1)) ;
+                Tds.getInstance().setCptBloc();
+                :}
                 ;
 
 LINST   ::=     LINST:li  INST:i
@@ -137,11 +159,11 @@ INST    ::=     ECRIRE EXP:e POINTVIRGULE
                 TANTQUE EXP:e REPETER LINST:li FINTANTQUE
                 {: RESULT = new Boucle(e,li,eleft + 1 ) ; :}
        |
+                SI EXP:e ALORS LINST:li SINON LINST:li2 FINSI
+                {: RESULT = new Condition(e,eleft+1,li,li2); :}
+       |
                 SI EXP:e ALORS LINST:li FINSI
                 {: RESULT = new Condition(e,eleft+1,li); :}
-       |
-                SI EXP:e ALORS LINST:li SINON LINST:li2 FINSI
-                {: RESULT = new Condition(e,eleft+1); :}
        |
                 SI EXP:e ALORS SINON LINST:li FINSI
                 {: RESULT = new Condition(e,eleft+1,li); :}
@@ -155,6 +177,9 @@ INST    ::=     ECRIRE EXP:e POINTVIRGULE
     
 EXP    ::=     CSTENTIERE:c
                {: RESULT = new ConstanteEntiere(c, cleft + 1) ; :}
+        |
+               IDF:i PAR_OUVRANTE PAR_FERMANTE
+               {: RESULT = new AppelFonction(new Idf(i, ileft + 1 ),ileft+1) ; :}
         |
                IDF:i
                {: RESULT = new Idf(i, ileft + 1 ) ; :}
@@ -197,7 +222,4 @@ EXP    ::=     CSTENTIERE:c
         |
               PAR_OUVRANTE EXP:e PAR_FERMANTE
               {: RESULT = new ExpressionParenthese(e,eleft + 1) ; :}
-        |
-              IDF:i PAR_OUVRANTE PAR_FERMANTE
-              {: RESULT = new AppelFonction(new Idf(i, ileft + 1 ),ileft+1) ; :}
               ;

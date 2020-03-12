@@ -95,7 +95,12 @@ public class Tds {
                 if (s.getType().equals(type)) {  // c'est exactement la même variable
                     int noLig = s.getNoLig();
                     cptErreur++;
-                    AnalyseSemantiqueException a = new AnalyseSemantiqueException(noLig, ": multiples déclarations de la variable");
+                    AnalyseSemantiqueException a;
+                    if(s.getType().equals("fonction")) {
+                        a = new AnalyseSemantiqueException(noLig, ": multiples déclarations de fonction");
+                    }else{
+                        a = new AnalyseSemantiqueException(noLig, ": multiples déclarations de variable");
+                    }
                     erreurs.add(a.getMessage());
                 } else {  // on ajoute un symbole à l'AL de l'Entree
                     Symbole sy = new Symbole(s.getType(), s.getNoLig(), blocCourant,s.getEtq());
