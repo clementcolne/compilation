@@ -54,7 +54,7 @@ public class Tds {
     public void ajouter(Entree e, Symbole s) throws AnalyseSemantiqueException {
         //System.out.println(e.getNom()+" -> "+s.getNoBloc());
         //System.out.println("\nTds: ");
-       // afficherTds();
+        //afficherTds();
         boolean dedans = false;
         Entree entree=new Entree("");
         for(Map.Entry<Entree, ArrayList<Symbole>> k : variables.entrySet()) {
@@ -100,6 +100,8 @@ public class Tds {
                 } else {  // on ajoute un symbole à l'AL de l'Entree
                     variables.get(entree).add(new Symbole(s.getType(), s.getNoLig(), blocCourant,s.getEtq()));
                 }
+            }else{
+                variables.get(entree).add(new Symbole(s.getType(), s.getNoLig(), s.getNoBloc(),s.getEtq()));
             }
         }
     }
@@ -254,9 +256,9 @@ public class Tds {
     /**
      * Supprime un bloc à la pile : le bloc est fermé, on n'y revient plus
      */
-    public void suppBloc(int b){
+    public void suppBloc(Integer b){
         pile.remove(b);
-        blocCourant = pile.get(pile.size()-1);
+        blocCourant = pile.get(pile.size() - 1);
         // on ne décrémente pas blocCourant pour pouvoir supprimer des blocs et ne plus y revenir
     }
 }
