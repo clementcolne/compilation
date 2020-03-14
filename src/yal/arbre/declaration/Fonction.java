@@ -53,6 +53,7 @@ public class Fonction {
      */
     public String toMIPS() {
         Tds.getInstance().ajoutBloc(bloc);
+        Tds.getInstance().setDeplacementVarLoc(idf);
         StringBuilder res = new StringBuilder();
         res.append(etq + ":\n");
         // Ajout des variables locales

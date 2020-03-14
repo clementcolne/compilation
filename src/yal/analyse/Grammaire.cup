@@ -123,23 +123,23 @@ LDECL_PARAM   ::=  LDECL_PARAM:ld  DECL_PARAM:d
                 {: ((BlocDInstructions)ld).ajouter(d) ;
                    RESULT = ld ; :}
            |
-                DECL_PARAM:d
+                DECL_PARAM:d POINTVIRGULE
                 {: BlocDInstructions b = new BlocDInstructions(dleft + 1) ;
                 b.ajouter(d) ;
                 RESULT = b ; :}
                 ;
 
-DECL_PARAM  ::=  ENTIER IDF:i POINTVIRGULE
+DECL_PARAM  ::=  ENTIER IDF:i
                  {: Tds.getInstance().ajouter(new Entree(i), new SymboleParametre("entier", ileft + 1, Tds.getInstance().getCptBloc()+1,"")) ; :}
-            |
-                ENTIER IDF:i
-                {: Tds.getInstance().ajouter(new Entree(i), new SymboleParametre("entier", ileft + 1, Tds.getInstance().getCptBloc()+1,"")) ; :}
-                ;
+                 ;
 
 PARAM ::=     PAR_OUVRANTE PAR_FERMANTE
               {: :}
         |
-              PAR_OUVRANTE LDECL_PARAM PAR_FERMANTE
+              PAR_OUVRANTE LDECL_PARAM DECL_PARAM PAR_FERMANTE
+              {: :}
+        |
+              PAR_OUVRANTE DECL_PARAM PAR_FERMANTE
               {: :}
               ;
 
