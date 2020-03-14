@@ -1,6 +1,6 @@
 package yal.arbre.declaration;
 
-public class Symbole {
+public abstract class Symbole {
 
     private String type;
     private int deplacement;
@@ -76,4 +76,37 @@ public class Symbole {
     public String getEtq() {
         return etq;
     }
+
+    /**
+     * Retourne vrai si le symbole est une fonction, faux sinon
+     * @return vrai si le symbole est une fonction, faux sinon
+     */
+    public boolean isFonction() {
+        return false;
+    }
+
+    /**
+     * Retourne vrai si le symbole est une variable locale, faux sinon
+     * @return vrai si le symbole est une variable locale, faux sinon
+     */
+    public boolean isVariableLocale() {
+        return false;
+    }
+
+    /**
+     * Retourne vrai si le symbole est une variable, faux sinon
+     * @return vrai si le symbole est une variable, faux sinon
+     */
+    public boolean isVariable() {
+        return false;
+    }
+
+    /**
+     * Retourne vrai si le symbole est un paramètre, faux sinon
+     * @return vrai si le symbole est un paramètre, faux sinon
+     */
+    public boolean isParametre() {
+        return false;
+    }
+
 }

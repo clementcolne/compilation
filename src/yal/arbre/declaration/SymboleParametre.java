@@ -1,6 +1,6 @@
 package yal.arbre.declaration;
 
-public class SymboleFonction extends Symbole {
+public class SymboleParametre extends Symbole {
     /**
      * Constructeur d'un symbole défini par son type et son déplacement
      *
@@ -9,16 +9,16 @@ public class SymboleFonction extends Symbole {
      * @param bloc
      * @param etq
      */
-    public SymboleFonction(String type, int n, int bloc, String etq) {
+    public SymboleParametre(String type, int n, int bloc, String etq) {
         super(type, n, bloc, etq);
     }
 
     /**
-     * Retourne vrai si le symbole est une fonction, faux sinon
-     * @return vrai si le symbole est une fonction, faux sinon
+     * Retourne vrai si le symbole est un paramètre, faux sinon
+     * @return vrai si le symbole est un paramètre, faux sinon
      */
     @Override
-    public boolean isFonction() {
+    public boolean isParametre() {
         return true;
     }
 
