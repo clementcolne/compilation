@@ -68,7 +68,7 @@ terminal String    IDF, CSTENTIERE;
 
 /* Non terminals used in the grammar section.  */
 
-non terminal ArbreAbstrait PROG , PARAM, LINST, INST, LDECL, LDECL_VAR_LOC, LDECL_PARAM, DECL, DECL_VAR_LOC, DECL_PARAM ;
+non terminal ArbreAbstrait PROG , PARAM, LINST, INST, LDECL, LDECL_VAR_LOC, LDECL_PARAM, DECL, DECL_VAR_LOC, DECL_PARAM, FONC ;
 non terminal Expression EXP ;
 
 
@@ -115,7 +115,7 @@ LDECL_VAR_LOC   ::=     LDECL_VAR_LOC:ld  DECL_VAR_LOC:d
 
 DECL_VAR_LOC ::=    ENTIER IDF:i POINTVIRGULE
                 {:
-                Tds.getInstance().ajouter(new Entree(i), new SymboleVarLoc("entier", ileft + 1, Tds.getInstance().getCptBloc()+1,"", Gestionnaire.getInstance().getFonctionCourante())) ;
+                Tds.getInstance().ajouter(new Entree(i), new SymboleVarLoc("entier", ileft + 1, Tds.getInstance().getCptBloc()+1,"")) ;
                 :}
                 ;
 
@@ -130,10 +130,10 @@ LDECL_PARAM   ::=  LDECL_PARAM:ld  DECL_PARAM:d
                 ;
 
 DECL_PARAM  ::=  ENTIER IDF:i POINTVIRGULE
-                 {: Tds.getInstance().ajouter(new Entree(i), new SymboleParam("entier", ileft + 1, Tds.getInstance().getCptBloc()+1,"")) ; :}
+                 {: Tds.getInstance().ajouter(new Entree(i), new SymboleParametre("entier", ileft + 1, Tds.getInstance().getCptBloc()+1,"")) ; :}
             |
                 ENTIER IDF:i
-                {: Tds.getInstance().ajouter(new Entree(i), new SymboleParam("entier", ileft + 1, Tds.getInstance().getCptBloc()+1,"")) ; :}
+                {: Tds.getInstance().ajouter(new Entree(i), new SymboleParametre("entier", ileft + 1, Tds.getInstance().getCptBloc()+1,"")) ; :}
                 ;
 
 PARAM ::=     PAR_OUVRANTE PAR_FERMANTE
@@ -146,21 +146,25 @@ PARAM ::=     PAR_OUVRANTE PAR_FERMANTE
 DECL    ::=     ENTIER IDF:i POINTVIRGULE
                 {: Tds.getInstance().ajouter(new Entree(i), new SymboleVariable("entier", ileft + 1, Tds.getInstance().getBlocCourant(),"")) ; :}
         |
-                FONCTION IDF:i {: Gestionnaire.getInstance().setFonctionCourante(i); :} PARAM:p DEBUT  LDECL_VAR_LOC:d LINST:li FIN
+                FONC PARAM:p DEBUT  LDECL_VAR_LOC:d LINST:li FIN
                 {: String etq = "fonction" + Gestionnaire.getInstance().getIdfEtiquette();
-                Tds.getInstance().ajouter(new Entree(i), new SymboleFonction("fonction", ileft + 1,Tds.getInstance().getBlocCourant(), etq)) ;
-                Gestionnaire.getInstance().addFonc(new Fonction(li, ileft + 1, i,etq,Tds.getInstance().getCptBloc()+1 ));
+                Tds.getInstance().ajouter(new Entree(Gestionnaire.getInstance().getNomFoncCourante()), new SymboleFonction("fonction", Gestionnaire.getInstance().getLigFoncCourante(),Tds.getInstance().getBlocCourant(), etq)) ;
+                Gestionnaire.getInstance().addFonc(new Fonction(li, Gestionnaire.getInstance().getLigFoncCourante(), Gestionnaire.getInstance().getFonctionCourante(),etq,Tds.getInstance().getCptBloc()+1 ));
                  Tds.getInstance().setCptBloc();
                 :}
         |
-                FONCTION IDF:i {: Gestionnaire.getInstance().setFonctionCourante(i); :} PARAM:p DEBUT LINST:li FIN
+                FONC PARAM:p DEBUT LINST:li FIN
                 {: String etq = "fonction" + Gestionnaire.getInstance().getIdfEtiquette();
-                Tds.getInstance().ajouter(new Entree(i), new SymboleFonction("fonction", ileft + 1,Tds.getInstance().getBlocCourant(), etq)) ;
-                Gestionnaire.getInstance().addFonc(new Fonction(li, ileft + 1, i,etq,Tds.getInstance().getCptBloc()+1)) ;
+                Tds.getInstance().ajouter(new Entree(Gestionnaire.getInstance().getNomFoncCourante()), new SymboleFonction("fonction", Gestionnaire.getInstance().getLigFoncCourante(),Tds.getInstance().getBlocCourant(), etq)) ;
+                Gestionnaire.getInstance().addFonc(new Fonction(li, Gestionnaire.getInstance().getLigFoncCourante(), Gestionnaire.getInstance().getFonctionCourante(),etq,Tds.getInstance().getCptBloc()+1)) ;
                 Tds.getInstance().setCptBloc();
                 :}
                 ;
 
+FONC    ::=     FONCTION IDF:i
+                {: Gestionnaire.getInstance().setFonctionCourante();
+                   Gestionnaire.getInstance().setNomFoncCourante(i) ;
+                   Gestionnaire.getInstance().setLigFoncCourante(ileft + 1) ;:};
 
 LINST   ::=     LINST:li  INST:i
                 {: ((BlocDInstructions)li).ajouter(i) ;

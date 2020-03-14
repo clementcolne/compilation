@@ -12,6 +12,8 @@ public class Gestionnaire {
     private int cptRetourne;
     private boolean finProg;
     private int fonctionCourante;
+    private String nomFoncCourante;
+    private int ligFoncCourante;
     private ArrayList<Fonction> declFonc;
     private static Gestionnaire gestionnaire = new Gestionnaire();
 
@@ -162,5 +164,21 @@ public class Gestionnaire {
      */
     public int getFonctionCourante() {
         return fonctionCourante;
+    }
+
+    public String getNomFoncCourante() {
+        return nomFoncCourante;
+    }
+
+    public void setNomFoncCourante(String nomFoncCourante) {
+        this.nomFoncCourante = nomFoncCourante;
+    }
+
+    public int getLigFoncCourante() {
+        return ligFoncCourante;
+    }
+
+    public void setLigFoncCourante(int ligFoncCourante) {
+        this.ligFoncCourante = ligFoncCourante;
     }
 }
