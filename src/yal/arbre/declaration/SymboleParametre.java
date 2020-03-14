@@ -1,6 +1,9 @@
 package yal.arbre.declaration;
 
 public class SymboleParametre extends Symbole {
+
+    private String fonction;
+
     /**
      * Constructeur d'un symbole défini par son type et son déplacement
      *
@@ -9,8 +12,9 @@ public class SymboleParametre extends Symbole {
      * @param bloc
      * @param etq
      */
-    public SymboleParametre(String type, int n, int bloc, String etq) {
+    public SymboleParametre(String type, int n, int bloc, String etq, String fonction) {
         super(type, n, bloc, etq);
+        this.fonction = fonction;
     }
 
     /**

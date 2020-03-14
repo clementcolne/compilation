@@ -10,12 +10,14 @@ public class Tds {
 
     public HashMap<Entree, ArrayList<Symbole>> variables;
     public ArrayList<String> erreurs;
-    public int cpt;
+    public int cptVariables;
+    public int cptVariablesLocale;
     public int cptErreur;
     public int blocCourant;
     public int cptBloc;    // pour ne pas avoir 2x le même bloc -> problème de déclarations dans le même bloc
     public ArrayList<Integer> pile;
     private static Tds tds = new Tds();
+
 
     public static Tds getInstance() {
         return tds;
@@ -30,7 +32,7 @@ public class Tds {
         erreurs = new ArrayList<>();
         pile = new ArrayList<>();
         cptErreur = 0;
-        cpt = 0;
+        cptVariables = 0;
         blocCourant = 0;
         cptBloc = -1;
         ajoutBloc(blocCourant);
@@ -65,18 +67,17 @@ public class Tds {
         }
         // la variable n'est pas dedans -> on l'ajoute
         if(!dedans) {
-            if(s.getType().equals("entier")) {
-                s.setDeplacement(cpt);
+            if(s.getType().equals("entier") && s.isVariable()) {
+                // le symbole est une variable entière non locale à une fonction
+                s.setDeplacement(cptVariables);
                 ArrayList<Symbole> al = new ArrayList<>();
                 al.add(s);
                 variables.put(new Entree(e.getNom()), al);
-                cpt -= 4;
+                cptVariables -= 4;
             }else{
-                //s.setDeplacement(cpt);
                 ArrayList<Symbole> al = new ArrayList<>();
                 al.add(s);
                 variables.put(new Entree(e.getNom()), al);
-                //cpt -= 12;
             }
         }else {
             String type = "";
@@ -105,14 +106,15 @@ public class Tds {
                 } else {  // on ajoute un symbole à l'AL de l'Entree
                     Symbole sy = new Symbole(s.getType(), s.getNoLig(), blocCourant,s.getEtq());
                     if(type.equals("entier")){
-                        sy.setDeplacement(cpt);
+                        // le symbole est une variable
+                        sy.setDeplacement(cptVariables);
                     }
                     variables.get(entree).add(sy);
                 }
             }else{
                 Symbole sy = new Symbole(s.getType(), s.getNoLig(), getCptBloc(),s.getEtq());
                 if(type.equals("entier")){
-                    sy.setDeplacement(cpt);
+                    sy.setDeplacement(cptVariables);
                 }
                 variables.get(entree).add(sy);
             }
@@ -152,7 +154,7 @@ public class Tds {
      * @return la taille de la zone allouée aux variables dans la pile
      */
     public int getTailleZoneVariable() {
-        return cpt;
+        return cptVariables;
     }
 
     /**
@@ -160,7 +162,7 @@ public class Tds {
      * @return le nombre de variables déclarées
      */
     public int getNbVariables() {
-        return cpt;
+        return cptVariables;
     }
 
     /**

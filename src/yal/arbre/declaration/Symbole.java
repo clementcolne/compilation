@@ -1,6 +1,6 @@
 package yal.arbre.declaration;
 
-public abstract class Symbole {
+public class Symbole {
 
     private String type;
     private int deplacement;
