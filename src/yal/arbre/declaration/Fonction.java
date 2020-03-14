@@ -25,6 +25,7 @@ public class Fonction {
         this.idf = idf;
         this.etq = etq;
         this.bloc = bloc;
+        this.nbParametres = nbParametres;
     }
 
     /**

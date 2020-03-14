@@ -18,11 +18,9 @@ public class Tds {
     public ArrayList<Integer> pile;
     private static Tds tds = new Tds();
 
-
     public static Tds getInstance() {
         return tds;
     }
-
 
     /**
      * Constructeur de Tds
@@ -278,4 +276,9 @@ public class Tds {
         blocCourant = pile.get(pile.size() - 1);
         // on ne décrémente pas blocCourant pour pouvoir supprimer des blocs et ne plus y revenir
     }
+
+    public int String getNbParametres(String nomFonc) {
+
+    }
+
 }
