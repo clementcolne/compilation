@@ -156,4 +156,12 @@ public class Gestionnaire {
     public void setFonctionCourante(String fonctionCourante) {
         this.fonctionCourante = fonctionCourante;
     }
+
+    /**
+     * Renvoie la fonction courante
+     * @return String
+     */
+    public String getFonctionCourante() {
+        return fonctionCourante;
+    }
 }
