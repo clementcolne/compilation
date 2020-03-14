@@ -9,7 +9,7 @@ public class Fonction {
     private ArbreAbstrait arbre;
     private int noLigne;
     private String etq;
-    private String idf;
+    private int idf;
     private int bloc;
 
     /**
@@ -19,13 +19,12 @@ public class Fonction {
      * @param idf identifiant
      * @param etq étiquette
      */
-    public Fonction(ArbreAbstrait a, int n, String idf, String etq, int bloc){
+    public Fonction(ArbreAbstrait a, int n, int idf, String etq, int bloc){
         arbre = a;
         noLigne = n;
         this.idf = idf;
         this.etq = etq;
         this.bloc = bloc;
-        this.nbParametres = nbParametres;
     }
 
     /**
@@ -54,7 +53,6 @@ public class Fonction {
      */
     public String toMIPS() {
         Tds.getInstance().ajoutBloc(bloc);
-        Gestionnaire.getInstance().setFonctionCourante(idf);
         StringBuilder res = new StringBuilder();
         res.append(etq + ":\n");
         // Ajout des variables locales
@@ -65,7 +63,6 @@ public class Fonction {
         Gestionnaire.getInstance().setCptProg();
         res.append(arbre.toMIPS());
         res.append("\tj erreurRetour\n\n");
-        Gestionnaire.getInstance().setFonctionCourante("");
         Tds.getInstance().suppBloc(bloc);
         return res.toString();
     }

@@ -11,7 +11,7 @@ public class Gestionnaire {
     private boolean inFonction;
     private int cptRetourne;
     private boolean finProg;
-    private String fonctionCourante;
+    private int fonctionCourante;
     private ArrayList<Fonction> declFonc;
     private static Gestionnaire gestionnaire = new Gestionnaire();
 
@@ -32,7 +32,7 @@ public class Gestionnaire {
         cptProg = false;
         inFonction = false;
         finProg = false;
-        fonctionCourante = "";
+        fonctionCourante = 0;
         declFonc = new ArrayList<>();
     }
 
@@ -150,18 +150,17 @@ public class Gestionnaire {
     }
 
     /**
-     * Définit la fonction en paramètre comme fonction courante
-     * @param fonctionCourante nom de la fonction
+     * Incrémente le compteur d'identifiant de fonction
      */
-    public void setFonctionCourante(String fonctionCourante) {
-        this.fonctionCourante = fonctionCourante;
+    public void setFonctionCourante() {
+        this.fonctionCourante++;
     }
 
     /**
-     * Renvoie la fonction courante
-     * @return String
+     * Renvoie l'identifiant de la fonction courante
+     * @return int
      */
-    public String getFonctionCourante() {
+    public int getFonctionCourante() {
         return fonctionCourante;
     }
 }

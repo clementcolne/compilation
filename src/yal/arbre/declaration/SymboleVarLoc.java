@@ -1,8 +1,10 @@
 package yal.arbre.declaration;
 
+import yal.outils.Gestionnaire;
+
 public class SymboleVarLoc extends Symbole {
 
-    private String fonction;
+    private int idfFonction;
 
     /**
      * Constructeur d'un symbole défini par son type et son déplacement
@@ -12,9 +14,9 @@ public class SymboleVarLoc extends Symbole {
      * @param bloc
      * @param etq
      */
-    public SymboleVarLoc(String type, int n, int bloc, String etq, String fonction) {
+    public SymboleVarLoc(String type, int n, int bloc, String etq) {
         super(type, n, bloc, etq);
-        this.fonction = fonction;
+        this.idfFonction = Gestionnaire.getInstance().getFonctionCourante();
     }
 
     /**
@@ -26,4 +28,11 @@ public class SymboleVarLoc extends Symbole {
         return true;
     }
 
+    /**
+     * Retourne l'identifiant de la fonction associée au symbole de la variable locale
+     * @return l'identifiant de la fonction associée au symbole de la variable locale
+     */
+    public int getIdfFonction() {
+        return idfFonction;
+    }
 }

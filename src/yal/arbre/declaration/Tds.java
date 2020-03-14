@@ -1,6 +1,7 @@
 package yal.arbre.declaration;
 
 import yal.exceptions.AnalyseSemantiqueException;
+import yal.outils.Gestionnaire;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -169,8 +170,6 @@ public class Tds {
      * @return int le déplacement
      */
     public int getDeplacement(String e) {
-        //System.out.println("\nTds: ");
-        //afficherTds();
         int res = -1;
         for(Map.Entry<Entree, ArrayList<Symbole>> k : variables.entrySet()) {
             if(k.getKey().getNom().equals(e)) {
@@ -277,8 +276,24 @@ public class Tds {
         // on ne décrémente pas blocCourant pour pouvoir supprimer des blocs et ne plus y revenir
     }
 
-    public int String getNbParametres(String nomFonc) {
-
+    /**
+     * Retourne le nombre de paramètres d'une fonction
+     * @param idfFonction identifiant de la fonction
+     * @return le nombre de paramètres d'une fonction
+     */
+    public int getNbParametres(int idfFonction) {
+        int cptParametre = 0;
+        for(Map.Entry<Entree, ArrayList<Symbole>> k : variables.entrySet()) {
+            for(Symbole s : k.getValue()) {
+                // pour chaque entrée, je parcours son arraylist de symboles
+                // si le symbole est un paramètre et que il est lié à la fonction qui nous intéresse
+                // alors on incrémente le compteur
+                if(s.isParametre() && Gestionnaire.getInstance().getFonctionCourante() == idfFonction) {
+                    cptParametre++;
+                }
+            }
+        }
+        return cptParametre;
     }
 
 }

@@ -16,6 +16,7 @@ public class SymboleFonction extends Symbole {
      */
     public SymboleFonction(String type, int n, int bloc, String etq) {
         super(type, n, bloc, etq);
+        Gestionnaire.getInstance().getFonctionCourante();
     }
 
     /**
