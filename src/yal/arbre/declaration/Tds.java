@@ -31,6 +31,7 @@ public class Tds {
         pile = new ArrayList<>();
         cptErreur = 0;
         cptVariables = 0;
+        cptVariablesLocale = 0;
         blocCourant = 0;
         cptBloc = -1;
         ajoutBloc(blocCourant);
@@ -64,11 +65,13 @@ public class Tds {
         if(!dedans) {
             if(s.getType().equals("entier") && s.isVariable()) {
                 // le symbole est une variable entière non locale à une fonction
-                s.setDeplacement(cptVariables);
+                if(s.isVariable()) {
+                    s.setDeplacement(cptVariables);
+                    cptVariables -= 4;
+                }
                 ArrayList<Symbole> al = new ArrayList<>();
                 al.add(s);
                 variables.put(new Entree(e.getNom()), al);
-                cptVariables -= 4;
             }else{
                 ArrayList<Symbole> al = new ArrayList<>();
                 al.add(s);
@@ -102,7 +105,10 @@ public class Tds {
                     Symbole sy = new Symbole(s.getType(), s.getNoLig(), blocCourant,s.getEtq());
                     if(type.equals("entier")){
                         // le symbole est une variable
-                        sy.setDeplacement(cptVariables);
+                        if(sy.isVariable()) {
+                            sy.setDeplacement(cptVariables);
+                            cptVariables -= 4;
+                        }
                     }
                     variables.get(entree).add(sy);
                 }
@@ -110,6 +116,10 @@ public class Tds {
                 Symbole sy = new Symbole(s.getType(), s.getNoLig(), getCptBloc(),s.getEtq());
                 if(type.equals("entier")){
                     sy.setDeplacement(cptVariables);
+                    if(sy.isVariable()) {
+                        sy.setDeplacement(cptVariables);
+                        cptVariables -= 4;
+                    }
                 }
                 variables.get(entree).add(sy);
             }
@@ -170,21 +180,33 @@ public class Tds {
         for(Map.Entry<Entree, ArrayList<Symbole>> k : variables.entrySet()) {
             if(k.getKey().getNom().equals(e)) {
                 for(Symbole s: k.getValue()) {
-                    System.out.println("pile:");
-                    for(int i=0; i<pile.size();i++){
-                        System.out.print(pile.get(i));
-                    }
-                    System.out.println();
                     for(int i=pile.size()-1; i>=0; i--) {   // on prend le dernier bloc ouvert
-                        System.out.println(i);
                         if(s.getNoBloc()==pile.get(i)) {
-                            res = k.getValue().get(i).getDeplacement();
+                            res = s.getDeplacement();
                         }
                     }
                 }
             }
         }
         return res;
+    }
+
+    /**
+     * Met à jour le déplacement des variables locales associées à la fonction idf
+     * @param idfFonction
+     */
+    public void setDeplacementVarLoc(int idfFonction){
+        for(Map.Entry<Entree, ArrayList<Symbole>> k : variables.entrySet()) {
+            for(Symbole s : k.getValue()) {
+                // pour chaque entrée, je parcours son arraylist de symboles
+                // si le symbole est un paramètre et que il est lié à la fonction qui nous intéresse
+                // alors on incrémente le compteur
+                if(s.isParametre() && Gestionnaire.getInstance().getFonctionCourante() == idfFonction) {
+                    s.setDeplacement(cptVariablesLocale);
+                    cptVariablesLocale -= 4;
+                }
+            }
+        }
     }
 
     /**

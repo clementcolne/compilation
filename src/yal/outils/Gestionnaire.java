@@ -166,18 +166,32 @@ public class Gestionnaire {
         return fonctionCourante;
     }
 
+    /**
+     * Renvoie le nom de la fonction courante
+     * @return String
+     */
     public String getNomFoncCourante() {
         return nomFoncCourante;
     }
 
+    /**
+     * Met à jour le nom de la fonction courante
+     */
     public void setNomFoncCourante(String nomFoncCourante) {
         this.nomFoncCourante = nomFoncCourante;
     }
 
+    /**
+     * Renvoie la ligne de déclaration de la fonction courante
+     * @return int
+     */
     public int getLigFoncCourante() {
         return ligFoncCourante;
     }
 
+    /**
+     * Met à jour la ligne de déclaration de la fonction courante
+     */
     public void setLigFoncCourante(int ligFoncCourante) {
         this.ligFoncCourante = ligFoncCourante;
     }
