@@ -123,24 +123,24 @@ LDECL_PARAM   ::=  LDECL_PARAM:ld  DECL_PARAM:d
                 {: ((BlocDInstructions)ld).ajouter(d) ;
                    RESULT = ld ; :}
            |
-                DECL_PARAM:d POINTVIRGULE
+                DECL_PARAM:d
                 {: BlocDInstructions b = new BlocDInstructions(dleft + 1) ;
                 b.ajouter(d) ;
                 RESULT = b ; :}
                 ;
 
-DECL_PARAM  ::=  ENTIER IDF:i
+DECL_PARAM  ::=  ENTIER IDF:i POINTVIRGULE
                  {: Tds.getInstance().ajouter(new Entree(i), new SymboleParametre("entier", ileft + 1, Tds.getInstance().getCptBloc()+1,"",Gestionnaire.getInstance().getFonctionCourante())) ; :}
                  ;
 
 PARAM ::=     PAR_OUVRANTE PAR_FERMANTE
               {: :}
         |
-              PAR_OUVRANTE LDECL_PARAM DECL_PARAM PAR_FERMANTE
-              {: :}
+              PAR_OUVRANTE LDECL_PARAM ENTIER IDF:i PAR_FERMANTE
+              {: Tds.getInstance().ajouter(new Entree(i), new SymboleParametre("entier", ileft + 1, Tds.getInstance().getCptBloc()+1,"",Gestionnaire.getInstance().getFonctionCourante())) ; :}
         |
-              PAR_OUVRANTE DECL_PARAM PAR_FERMANTE
-              {: :}
+              PAR_OUVRANTE ENTIER IDF:i PAR_FERMANTE
+              {: Tds.getInstance().ajouter(new Entree(i), new SymboleParametre("entier", ileft + 1, Tds.getInstance().getCptBloc()+1,"",Gestionnaire.getInstance().getFonctionCourante())) ; :}
               ;
 
 DECL    ::=     ENTIER IDF:i POINTVIRGULE
@@ -266,12 +266,12 @@ LPARAM   ::=     LPARAM:lp  PARAMETRE:p
                 {: ((BlocDInstructions)lp).ajouter(p) ;
                    RESULT = lp ; :}
         |
-                PARAMETRE:p VIRGULE
+                PARAMETRE:p
                 {: BlocDInstructions b = new BlocDInstructions(pleft + 1) ;
                    b.ajouter(p) ;
                    RESULT = b ; :}
                 ;
 
-PARAMETRE  ::=   IDF:i
+PARAMETRE  ::=   IDF:i VIRGULE
                  {: RESULT = new Parametre(ileft + 1, i) ; :}
                  ;

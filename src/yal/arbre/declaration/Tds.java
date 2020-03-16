@@ -59,24 +59,26 @@ public class Tds {
         //afficherTds();
         boolean dedans = false;
         Entree entree=new Entree("");
+        ArrayList<Symbole> listSymb = new ArrayList<>();
         for(Map.Entry<Entree, ArrayList<Symbole>> k : variables.entrySet()) {
             if(k.getKey().getNom().equals(e.getNom())) {
                 dedans = true;
+                listSymb = k.getValue();
                 entree = k.getKey();  // pour gérer le get(Object) -> trouver une façon plus légère
             }
         }
         // la variable n'est pas dedans -> on l'ajoute
         if(!dedans) {
-            if(s.getType().equals("entier") && s.isVariable()) {
+            if (s.getType().equals("entier")) {
                 // le symbole est une variable entière non locale à une fonction
-                if(s.isVariable()) {
+                if (s.isVariable()) {
                     s.setDeplacement(cptVariables);
                     cptVariables -= 4;
                 }
                 ArrayList<Symbole> al = new ArrayList<>();
                 al.add(s);
                 variables.put(new Entree(e.getNom()), al);
-            }else{
+            } else {
                 ArrayList<Symbole> al = new ArrayList<>();
                 al.add(s);
                 variables.put(new Entree(e.getNom()), al);
@@ -84,48 +86,56 @@ public class Tds {
         }else {
             String type = "";
             // on vérifie si les numéros de blocs sont différents
-            int bloc = s.getNoBloc();
             boolean sameBloc = false;
+            int nbParam = -1;
             for (Symbole symb : variables.get(entree)) {
-                if (bloc == symb.getNoBloc()) {
+                if (s.getNoBloc() == symb.getNoBloc()) {
                     sameBloc = true;
                     type = symb.getType();
+                    if(symb.isFonction()){
+                        nbParam = symb.getNbParametres();
+                    }
                 }
             }
 
             // la variable est déjà déclarée dans le même bloc -> on vérifie son type
             if (sameBloc) {
                 if (s.getType().equals(type)) {  // c'est exactement la même variable
-                    int noLig = s.getNoLig();
                     cptErreur++;
-                    AnalyseSemantiqueException a;
                     if(s.getType().equals("fonction")) {
-                        a = new AnalyseSemantiqueException(noLig, ": multiples déclarations de fonction "+e.getNom());
+                        if(s.getNbParametres() == nbParam) {
+                            AnalyseSemantiqueException a = new AnalyseSemantiqueException(s.getNoLig(), ": multiples déclarations de fonction " + e.getNom());
+                            erreurs.add(a.getMessage());
+                        }else{
+                            // Surcharge de fonction
+                            variables.get(entree).add(s);
+                        }
+                    }else if(s.isParametre()){
+                        AnalyseSemantiqueException a = new AnalyseSemantiqueException(s.getNoLig(), ": multiples déclarations du paramètre "+e.getNom());
+                        erreurs.add(a.getMessage());
                     }else{
-                        a = new AnalyseSemantiqueException(noLig, ": multiples déclarations de variable "+e.getNom());
+                        AnalyseSemantiqueException a = new AnalyseSemantiqueException(s.getNoLig(), ": multiples déclarations de la variable "+e.getNom());
+                        erreurs.add(a.getMessage());
                     }
-                    erreurs.add(a.getMessage());
                 } else {  // on ajoute un symbole à l'AL de l'Entree
-                    Symbole sy = new Symbole(s.getType(), s.getNoLig(), blocCourant,s.getEtq());
                     if(type.equals("entier")){
                         // le symbole est une variable
-                        if(sy.isVariable()) {
-                            sy.setDeplacement(cptVariables);
+                        if(s.isVariable()) {
+                            s.setDeplacement(cptVariables);
                             cptVariables -= 4;
                         }
                     }
-                    variables.get(entree).add(sy);
+                    variables.get(entree).add(s);
                 }
-            }else{
-                Symbole sy = new Symbole(s.getType(), s.getNoLig(), getCptBloc(),s.getEtq());
+            }else{ // blocs différents
                 if(type.equals("entier")){
-                    sy.setDeplacement(cptVariables);
-                    if(sy.isVariable()) {
-                        sy.setDeplacement(cptVariables);
+                    s.setDeplacement(cptVariables);
+                    if(s.isVariable()) {
+                        s.setDeplacement(cptVariables);
                         cptVariables -= 4;
                     }
                 }
-                variables.get(entree).add(sy);
+                variables.get(entree).add(s);
             }
         }
     }
