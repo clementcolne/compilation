@@ -108,4 +108,12 @@ public class Symbole {
         return false;
     }
 
+    /**
+     * Retourne l'identifiant de la fonction associée au symbole paramètre
+     * @return l'identifiant de la fonction associée au symbole paramètre
+     */
+    public int getIdfFonction() {
+        return -1;
+    }
+
 }

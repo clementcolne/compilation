@@ -24,7 +24,7 @@ public class Idf extends Expression{
     public void verifier() {
         try {
             if(!Tds.getInstance().identifier(nom,noLigne,"entier").getType().equals("entier")){
-                AnalyseSemantiqueException a = new AnalyseSemantiqueException(noLigne, ": variable non déclarée");
+                AnalyseSemantiqueException a = new AnalyseSemantiqueException(noLigne, ": variable "+nom+" non déclarée");
                 Tds.getInstance().add(a.getMessage());
             }
         }catch (Exception e){

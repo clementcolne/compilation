@@ -41,7 +41,7 @@ public class Tds {
         for(Map.Entry<Entree, ArrayList<Symbole>> k : variables.entrySet()) {
             System.out.print(k.getKey().getNom());
             for(Symbole s: k.getValue()) {
-                System.out.println(" -> " +s.getNoBloc());
+                System.out.println(" -> " +s.getNoBloc()+"(bloc) "+s.getIdfFonction()+"(idfFonc)");
             }
         }
     }
@@ -96,9 +96,9 @@ public class Tds {
                     cptErreur++;
                     AnalyseSemantiqueException a;
                     if(s.getType().equals("fonction")) {
-                        a = new AnalyseSemantiqueException(noLig, ": multiples déclarations de fonction");
+                        a = new AnalyseSemantiqueException(noLig, ": multiples déclarations de fonction "+e.getNom());
                     }else{
-                        a = new AnalyseSemantiqueException(noLig, ": multiples déclarations de variable");
+                        a = new AnalyseSemantiqueException(noLig, ": multiples déclarations de variable "+e.getNom());
                     }
                     erreurs.add(a.getMessage());
                 } else {  // on ajoute un symbole à l'AL de l'Entree
@@ -300,13 +300,15 @@ public class Tds {
      * @return le nombre de paramètres d'une fonction
      */
     public int getNbParametres(int idfFonction) {
+        //System.out.println("Pile");
+        //afficherTds();
         int cptParametre = 0;
         for(Map.Entry<Entree, ArrayList<Symbole>> k : variables.entrySet()) {
             for(Symbole s : k.getValue()) {
                 // pour chaque entrée, je parcours son arraylist de symboles
                 // si le symbole est un paramètre et que il est lié à la fonction qui nous intéresse
                 // alors on incrémente le compteur
-                if(s.isParametre() && Gestionnaire.getInstance().getFonctionCourante() == idfFonction) {
+                if(s.isParametre() && s.getIdfFonction() == idfFonction) {
                     cptParametre++;
                 }
             }

@@ -32,6 +32,7 @@ public class SymboleVarLoc extends Symbole {
      * Retourne l'identifiant de la fonction associée au symbole de la variable locale
      * @return l'identifiant de la fonction associée au symbole de la variable locale
      */
+    @Override
     public int getIdfFonction() {
         return idfFonction;
     }
