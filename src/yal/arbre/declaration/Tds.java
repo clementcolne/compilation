@@ -100,9 +100,9 @@ public class Tds {
                     cptErreur++;
                     AnalyseSemantiqueException a;
                     if(s.getType().equals("fonction")) {
-                        a = new AnalyseSemantiqueException(noLig, ": multiples déclarations de fonction");
+                        a = new AnalyseSemantiqueException(noLig, ": multiples déclarations de fonction "+e.getNom());
                     }else{
-                        a = new AnalyseSemantiqueException(noLig, ": multiples déclarations de variable");
+                        a = new AnalyseSemantiqueException(noLig, ": multiples déclarations de variable "+e.getNom());
                     }
                     erreurs.add(a.getMessage());
                 } else {  // on ajoute un symbole à l'AL de l'Entree

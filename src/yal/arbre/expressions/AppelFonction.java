@@ -60,7 +60,7 @@ public class AppelFonction extends Expression{
     @Override
     public void verifier() {
         if(!Tds.getInstance().identifier(idf.getNom(),noLig,"fonction").getType().equals("fonction")){
-            AnalyseSemantiqueException a = new AnalyseSemantiqueException(noLigne, ": fonction non déclarée");
+            AnalyseSemantiqueException a = new AnalyseSemantiqueException(noLigne, ": fonction "+idf.getNom()+" non déclarée");
             Tds.getInstance().add(a.getMessage());
         }
         if(param != null){

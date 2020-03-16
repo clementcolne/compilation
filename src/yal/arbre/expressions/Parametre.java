@@ -22,7 +22,7 @@ public class Parametre extends Instruction {
     public void verifier() {
         try {
             if(!Tds.getInstance().identifier(idf,noLigne,"entier").getType().equals("entier")){
-                AnalyseSemantiqueException a = new AnalyseSemantiqueException(noLigne, ": variable non déclarée");
+                AnalyseSemantiqueException a = new AnalyseSemantiqueException(noLigne, ": paramètre "+idf+" non déclaré");
                 Tds.getInstance().add(a.getMessage());
             }
         }catch (Exception e){
