@@ -2,7 +2,6 @@ package yal.arbre.declaration;
 
 import yal.exceptions.AnalyseSemantiqueException;
 import yal.outils.Gestionnaire;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -53,9 +52,6 @@ public class Tds {
      * @throws Exception Lève une exception si l'entrée e est déjà présente dans la hashmap des variables
      */
     public void ajouter(Entree e, Symbole s) throws AnalyseSemantiqueException {
-        //System.out.println(e.getNom()+" -> "+s.getNoBloc());
-        //System.out.println("\nTds: ");
-        //afficherTds();
         boolean dedans = false;
         Entree entree=new Entree("");
         for(Map.Entry<Entree, ArrayList<Symbole>> k : variables.entrySet()) {
