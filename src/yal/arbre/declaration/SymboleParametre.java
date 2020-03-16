@@ -1,7 +1,5 @@
 package yal.arbre.declaration;
 
-import yal.outils.Gestionnaire;
-
 public class SymboleParametre extends Symbole {
 
     private int idfFonction;
@@ -14,9 +12,9 @@ public class SymboleParametre extends Symbole {
      * @param bloc
      * @param etq
      */
-    public SymboleParametre(String type, int n, int bloc, String etq) {
+    public SymboleParametre(String type, int n, int bloc, String etq, int idf) {
         super(type, n, bloc, etq);
-        this.idfFonction = Gestionnaire.getInstance().getFonctionCourante();
+        this.idfFonction = idf;
     }
 
     /**
@@ -32,6 +30,7 @@ public class SymboleParametre extends Symbole {
      * Retourne l'identifiant de la fonction associée au symbole paramètre
      * @return l'identifiant de la fonction associée au symbole paramètre
      */
+    @Override
     public int getIdfFonction() {
         return idfFonction;
     }

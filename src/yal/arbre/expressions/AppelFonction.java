@@ -1,5 +1,6 @@
 package yal.arbre.expressions;
 
+import yal.arbre.ArbreAbstrait;
 import yal.arbre.declaration.Tds;
 import yal.exceptions.AnalyseSemantiqueException;
 
@@ -7,6 +8,8 @@ public class AppelFonction extends Expression{
 
     private Idf idf;
     private int noLig;
+    private Parametre param;
+    private ArbreAbstrait arbre;
 
     /**
      * Constructeur d'une expression
@@ -17,6 +20,30 @@ public class AppelFonction extends Expression{
         this.idf = idf;
         this.noLig = n;
     }
+
+    /**
+     * Constructeur d'une expression
+     * @param n int
+     */
+    public AppelFonction(Idf idf, int n, ArbreAbstrait a, Parametre p) {
+        super(n);
+        this.idf = idf;
+        this.noLig = n;
+        this.arbre = a;
+        this.param = p;
+    }
+
+    /**
+     * Constructeur d'une expression
+     * @param n int
+     */
+    public AppelFonction(Idf idf, int n, Parametre p) {
+        super(n);
+        this.idf = idf;
+        this.noLig = n;
+        this.param = p;
+    }
+
 
     /**
      * Retourne le nom de la fonction pour le commentaire MIPS
@@ -35,6 +62,12 @@ public class AppelFonction extends Expression{
         if(!Tds.getInstance().identifier(idf.getNom(),noLig,"fonction").getType().equals("fonction")){
             AnalyseSemantiqueException a = new AnalyseSemantiqueException(noLigne, ": fonction non déclarée");
             Tds.getInstance().add(a.getMessage());
+        }
+        if(param != null){
+            param.verifier();
+        }
+        if(arbre != null){
+            arbre.verifier();
         }
     }
 

@@ -62,13 +62,13 @@ parser code {:
 
 /* Terminals (tokens returned by the scanner).  */
 
-terminal Symbol    PROGRAMME, FONCTION, DEBUT, FIN, POINTVIRGULE, ECRIRE, LIRE, ENTIER, EGAL, SI, ALORS, SINON, FINSI, TANTQUE, REPETER, FINTANTQUE, NON, ET, EGALITE, DIFFERENCE, INF,SUP,PLUS,MOINS,DIVISE,MULT,OU, PAR_OUVRANTE, PAR_FERMANTE, RETOURNE ;
+terminal Symbol    PROGRAMME, FONCTION, DEBUT, FIN, POINTVIRGULE, VIRGULE, ECRIRE, LIRE, ENTIER, EGAL, SI, ALORS, SINON, FINSI, TANTQUE, REPETER, FINTANTQUE, NON, ET, EGALITE, DIFFERENCE, INF,SUP,PLUS,MOINS,DIVISE,MULT,OU, PAR_OUVRANTE, PAR_FERMANTE, RETOURNE ;
 terminal String    IDF, CSTENTIERE;
 
 
 /* Non terminals used in the grammar section.  */
 
-non terminal ArbreAbstrait PROG , PARAM, LINST, INST, LDECL, LDECL_VAR_LOC, LDECL_PARAM, DECL, DECL_VAR_LOC, DECL_PARAM, FONC ;
+non terminal ArbreAbstrait PROG , PARAM, LINST, INST, LDECL, LDECL_VAR_LOC, LDECL_PARAM, DECL, DECL_VAR_LOC, DECL_PARAM, FONC, LPARAM, PARAMETRE ;
 non terminal Expression EXP ;
 
 
@@ -130,7 +130,7 @@ LDECL_PARAM   ::=  LDECL_PARAM:ld  DECL_PARAM:d
                 ;
 
 DECL_PARAM  ::=  ENTIER IDF:i
-                 {: Tds.getInstance().ajouter(new Entree(i), new SymboleParametre("entier", ileft + 1, Tds.getInstance().getCptBloc()+1,"")) ; :}
+                 {: Tds.getInstance().ajouter(new Entree(i), new SymboleParametre("entier", ileft + 1, Tds.getInstance().getCptBloc()+1,"",Gestionnaire.getInstance().getFonctionCourante())) ; :}
                  ;
 
 PARAM ::=     PAR_OUVRANTE PAR_FERMANTE
@@ -213,6 +213,12 @@ EXP    ::=     CSTENTIERE:c
                IDF:i PAR_OUVRANTE PAR_FERMANTE
                {: RESULT = new AppelFonction(new Idf(i, ileft + 1 ),ileft+1) ; :}
         |
+               IDF:i PAR_OUVRANTE LPARAM:lp IDF:p PAR_FERMANTE
+               {: RESULT = new AppelFonction(new Idf(i, ileft + 1 ),ileft+1, lp, new Parametre(pleft + 1, p)) ; :}
+        |
+               IDF:i PAR_OUVRANTE IDF:p PAR_FERMANTE
+               {: RESULT = new AppelFonction(new Idf(i, ileft + 1 ),ileft+1, new Parametre(pleft + 1, p) ) ; :}
+        |
                IDF:i
                {: RESULT = new Idf(i, ileft + 1 ) ; :}
         |
@@ -255,3 +261,17 @@ EXP    ::=     CSTENTIERE:c
               PAR_OUVRANTE EXP:e PAR_FERMANTE
               {: RESULT = new ExpressionParenthese(e,eleft + 1) ; :}
               ;
+
+LPARAM   ::=     LPARAM:lp  PARAMETRE:p
+                {: ((BlocDInstructions)lp).ajouter(p) ;
+                   RESULT = lp ; :}
+        |
+                PARAMETRE:p VIRGULE
+                {: BlocDInstructions b = new BlocDInstructions(pleft + 1) ;
+                   b.ajouter(p) ;
+                   RESULT = b ; :}
+                ;
+
+PARAMETRE  ::=   IDF:i
+                 {: RESULT = new Parametre(ileft + 1, i) ; :}
+                 ;
