@@ -56,14 +56,16 @@ public class Fonction {
         Tds.getInstance().setDeplacementVarLoc(idf);
         StringBuilder res = new StringBuilder();
         res.append(etq + ":\n");
-        res.append("\tlw $s2, ($sp)\n"); // $s2 = $sp
-        // on empile les paramètres selon $sp
-
+        res.append("\t# Sauvegarde $sp dans $s2\n");
+        res.append("\tmove $s2, $sp\n"); // $s2 = $sp
+        res.append("\t# Empile les paramètres\n");
+        res.append("\t\n");
         res.append("\t# Sauvegarde de l'adresse de retour\n");
         res.append("\tsw $ra, ($sp)\n"); // on empile l'adresse de retour de la fonction dans la pile
         res.append("\tadd, $sp, $sp, -4\n\n");
-        res.append("\tsw $s7, ($sp)\n"); // chainage dynamique -> contraire dans le retour
-        res.append("\tadd, $sp, $sp, -4\n\n");
+        //res.append("\t# chainage dynamique\n");
+        //res.append("\tsw $s7, ($sp)\n"); // chainage dynamique -> contraire dans le retour
+        //res.append("\tadd, $sp, $sp, -4\n\n");
         Gestionnaire.getInstance().setCptProg();
         res.append(arbre.toMIPS());
         res.append("\tj erreurRetour\n\n");

@@ -233,7 +233,7 @@ public class Tds {
                 }
             }
         }
-        cptVariablesLocale -= 8;
+        cptVariablesLocale -= 4;
         System.out.println("-8");
         for(Map.Entry<Entree, ArrayList<Symbole>> k : variables.entrySet()) {
             for(Symbole s : k.getValue()) {

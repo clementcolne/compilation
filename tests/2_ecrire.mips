@@ -12,24 +12,9 @@ main:
 	move $s7, $sp
 	add $sp, $sp, -4
 
-	# a = 3
-	li $v0, 3
-	sw $v0, 0($s7)
-
 	#ecrire fct()
 	jal fonction1
 
-	move $a0, $v0
-	li $v0, 1
-	syscall
-
-	#retour à la ligne
-	li $v0, 4 
-	la $a0, BackSlachN
-	syscall
-
-	#ecrire a
-	lw $v0, 0($s7)
 	move $a0, $v0
 	li $v0, 1
 	syscall
@@ -61,32 +46,22 @@ erreurRetour:
 	syscall
 
 fonction1:
-	lw $s2, ($sp)
+	# Sauvegarde $sp dans $s2
+	move $s2, $sp
+	# Empile les paramètres
+	li $v0, 17
+	sw $v0, ($sp)
+    add $sp, $sp, -4
+
 	# Sauvegarde de l'adresse de retour
 	sw $ra, ($sp)
-	add, $sp, $sp, -4
+	add $sp, $sp, -4
 
-	sw $s7, ($sp)
-	add, $sp, $sp, -4
-
-	# a = 17
-	li $v0, 17
-	sw $v0, 0($s7)
-
-	#ecrire a
-	lw $v0, 0($s7)
+	# ecrire a
+	lw $v0, ($s2)
 	move $a0, $v0
 	li $v0, 1
 	syscall
-
-	#retour à la ligne
-	li $v0, 4 
-	la $a0, BackSlachN
-	syscall
-
-	# a = 0
-	li $v0, 0
-	sw $v0, 0($s7)
 
 	# retourne 0
 	li $v0, 0
@@ -95,5 +70,3 @@ fonction1:
 	jr $ra
 
 	j erreurRetour
-
-
