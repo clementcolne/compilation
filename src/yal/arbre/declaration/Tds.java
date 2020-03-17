@@ -217,7 +217,7 @@ public class Tds {
     }
 
     /**
-     * Met à jour le déplacement des variables locales associées à la fonction idf
+     * Met à jour le déplacement des variables locales et paramètres associées à la fonction idf
      * @param idfFonction
      */
     public void setDeplacementVarLoc(int idfFonction){
@@ -228,6 +228,22 @@ public class Tds {
                 // alors on incrémente le compteur
                 if(s.isParametre() && Gestionnaire.getInstance().getFonctionCourante() == idfFonction) {
                     s.setDeplacement(cptVariablesLocale);
+                    System.out.println("Ajout paramètre déplacement : " + cptVariablesLocale);
+                    cptVariablesLocale -= 4;
+                }
+            }
+        }
+        cptVariablesLocale -= 8;
+        System.out.println("-8");
+        for(Map.Entry<Entree, ArrayList<Symbole>> k : variables.entrySet()) {
+            for(Symbole s : k.getValue()) {
+                // pour chaque entrée, je parcours son arraylist de symboles
+                // si le symbole est un paramètre et que il est lié à la fonction qui nous intéresse
+                // alors on incrémente le compteur
+                if(s.isVariableLocale() && Gestionnaire.getInstance().getFonctionCourante() == idfFonction) {
+                    s.setDeplacement(cptVariablesLocale);
+
+                    System.out.println("Ajout variable locale déplacement : " + cptVariablesLocale);
                     cptVariablesLocale -= 4;
                 }
             }
