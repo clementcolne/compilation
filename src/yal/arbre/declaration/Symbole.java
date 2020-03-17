@@ -1,5 +1,7 @@
 package yal.arbre.declaration;
 
+import java.util.Objects;
+
 public class Symbole {
 
     private String type;
@@ -7,6 +9,7 @@ public class Symbole {
     private int noLig;
     private int noBloc;
     private String etq;
+    protected int nbParametres;
 
     /**
      * Constructeur d'un symbole défini par son type et son déplacement
@@ -114,6 +117,24 @@ public class Symbole {
      */
     public int getIdfFonction() {
         return -1;
+    }
+
+    /**
+     * Renvoie le nombre de paramètre si c'est une fonction
+     * @return
+     */
+    public int getNbParametres(){
+        return nbParametres;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Symbole)) return false;
+        Symbole symbole = (Symbole) o;
+        return getNoBloc() == symbole.getNoBloc() &&
+                getNbParametres() == symbole.getNbParametres() &&
+                Objects.equals(getType(), symbole.getType());
     }
 
 }

@@ -1,6 +1,7 @@
 package yal.outils;
 
 import yal.arbre.declaration.Fonction;
+import yal.arbre.expressions.Parametre;
 
 import java.util.ArrayList;
 
@@ -14,6 +15,7 @@ public class Gestionnaire {
     private int fonctionCourante;
     private String nomFoncCourante;
     private int ligFoncCourante;
+    private ArrayList<Parametre> param;
     private ArrayList<Fonction> declFonc;
     private static Gestionnaire gestionnaire = new Gestionnaire();
 
@@ -35,6 +37,7 @@ public class Gestionnaire {
         inFonction = false;
         finProg = false;
         fonctionCourante = 0;
+        param = new ArrayList<>();
         declFonc = new ArrayList<>();
     }
 
@@ -194,5 +197,24 @@ public class Gestionnaire {
      */
     public void setLigFoncCourante(int ligFoncCourante) {
         this.ligFoncCourante = ligFoncCourante;
+    }
+
+    /**
+     * Ajoute un paramètre dans la liste des paramètres lors de l'appel d'une fonction
+     * @param p
+     */
+    public void addParam(Parametre p){
+        param.add(p);
+    }
+
+    /**
+     * Renvoie le nombre de paramètre il y a dans l'appel de fonction en cours
+     * Puis clear la liste pour le prochain appel
+     * @return
+     */
+    public int getNbParam(){
+        int res = param.size();
+        param.clear();
+        return res;
     }
 }

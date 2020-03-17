@@ -4,8 +4,6 @@ import yal.outils.Gestionnaire;
 
 public class SymboleFonction extends Symbole {
 
-    private int nbParametres;
-
     /**
      * Constructeur d'un symbole défini par son type et son déplacement
      *

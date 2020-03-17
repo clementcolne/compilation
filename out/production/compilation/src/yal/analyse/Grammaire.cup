@@ -68,7 +68,7 @@ terminal String    IDF, CSTENTIERE;
 
 /* Non terminals used in the grammar section.  */
 
-non terminal ArbreAbstrait PROG , PARAM, LINST, INST, LDECL, LDECL_VAR_LOC, LDECL_PARAM, DECL, DECL_VAR_LOC, DECL_PARAM, FONC, LPARAM, PARAMETRE ;
+non terminal ArbreAbstrait PROG , PARAM, LINST, INST, LDECL, LDECL_VAR_LOC, LDECL_PARAM, DECL, DECL_VAR_LOC, DECL_PARAM, FONC, LEXP ;
 non terminal Expression EXP ;
 
 
@@ -123,24 +123,24 @@ LDECL_PARAM   ::=  LDECL_PARAM:ld  DECL_PARAM:d
                 {: ((BlocDInstructions)ld).ajouter(d) ;
                    RESULT = ld ; :}
            |
-                DECL_PARAM:d POINTVIRGULE
+                DECL_PARAM:d
                 {: BlocDInstructions b = new BlocDInstructions(dleft + 1) ;
                 b.ajouter(d) ;
                 RESULT = b ; :}
                 ;
 
-DECL_PARAM  ::=  ENTIER IDF:i
+DECL_PARAM  ::=  ENTIER IDF:i POINTVIRGULE
                  {: Tds.getInstance().ajouter(new Entree(i), new SymboleParametre("entier", ileft + 1, Tds.getInstance().getCptBloc()+1,"",Gestionnaire.getInstance().getFonctionCourante())) ; :}
                  ;
 
 PARAM ::=     PAR_OUVRANTE PAR_FERMANTE
               {: :}
         |
-              PAR_OUVRANTE LDECL_PARAM DECL_PARAM PAR_FERMANTE
-              {: :}
+              PAR_OUVRANTE LDECL_PARAM ENTIER IDF:i PAR_FERMANTE
+              {: Tds.getInstance().ajouter(new Entree(i), new SymboleParametre("entier", ileft + 1, Tds.getInstance().getCptBloc()+1,"",Gestionnaire.getInstance().getFonctionCourante())) ; :}
         |
-              PAR_OUVRANTE DECL_PARAM PAR_FERMANTE
-              {: :}
+              PAR_OUVRANTE ENTIER IDF:i PAR_FERMANTE
+              {: Tds.getInstance().ajouter(new Entree(i), new SymboleParametre("entier", ileft + 1, Tds.getInstance().getCptBloc()+1,"",Gestionnaire.getInstance().getFonctionCourante())) ; :}
               ;
 
 DECL    ::=     ENTIER IDF:i POINTVIRGULE
@@ -173,6 +173,16 @@ LINST   ::=     LINST:li  INST:i
                 INST:i
                 {: BlocDInstructions b = new BlocDInstructions(ileft + 1) ;
                    b.ajouter(i) ;
+                   RESULT = b ; :}
+                ;
+
+LEXP   ::=     LEXP:le  EXP:e
+                {: ((BlocDInstructions)le).ajouter(e) ;
+                   RESULT = le ; :}
+        |
+                VIRGULE EXP:e
+                {: BlocDInstructions b = new BlocDInstructions(eleft + 1) ;
+                   b.ajouter(e) ;
                    RESULT = b ; :}
                 ;
 
@@ -213,11 +223,11 @@ EXP    ::=     CSTENTIERE:c
                IDF:i PAR_OUVRANTE PAR_FERMANTE
                {: RESULT = new AppelFonction(new Idf(i, ileft + 1 ),ileft+1) ; :}
         |
-               IDF:i PAR_OUVRANTE LPARAM:lp IDF:p PAR_FERMANTE
-               {: RESULT = new AppelFonction(new Idf(i, ileft + 1 ),ileft+1, lp, new Parametre(pleft + 1, p)) ; :}
+               IDF:i PAR_OUVRANTE EXP:p LEXP:lp PAR_FERMANTE
+               {: RESULT = new AppelFonction(new Idf(i, ileft + 1 ),ileft+1,p,lp) ; :}
         |
-               IDF:i PAR_OUVRANTE IDF:p PAR_FERMANTE
-               {: RESULT = new AppelFonction(new Idf(i, ileft + 1 ),ileft+1, new Parametre(pleft + 1, p) ) ; :}
+               IDF:i PAR_OUVRANTE EXP:p PAR_FERMANTE
+               {: RESULT = new AppelFonction(new Idf(i, ileft + 1 ),ileft+1, p) ; :}
         |
                IDF:i
                {: RESULT = new Idf(i, ileft + 1 ) ; :}
@@ -262,16 +272,3 @@ EXP    ::=     CSTENTIERE:c
               {: RESULT = new ExpressionParenthese(e,eleft + 1) ; :}
               ;
 
-LPARAM   ::=     LPARAM:lp  PARAMETRE:p
-                {: ((BlocDInstructions)lp).ajouter(p) ;
-                   RESULT = lp ; :}
-        |
-                PARAMETRE:p VIRGULE
-                {: BlocDInstructions b = new BlocDInstructions(pleft + 1) ;
-                   b.ajouter(p) ;
-                   RESULT = b ; :}
-                ;
-
-PARAMETRE  ::=   IDF:i
-                 {: RESULT = new Parametre(ileft + 1, i) ; :}
-                 ;
