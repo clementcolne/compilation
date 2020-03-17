@@ -20,13 +20,10 @@ public class Parametre extends Instruction {
 
     @Override
     public void verifier() {
-        try {
-            if(!Tds.getInstance().identifier(idf,noLigne,"entier").getType().equals("entier")){
+            if(!Tds.getInstance().identifier(idf,noLigne,"entier",0).getType().equals("entier")){
                 AnalyseSemantiqueException a = new AnalyseSemantiqueException(noLigne, ": paramètre "+idf+" non déclaré");
                 Tds.getInstance().add(a.getMessage());
             }
-        }catch (Exception e){
-        }
     }
 
     @Override

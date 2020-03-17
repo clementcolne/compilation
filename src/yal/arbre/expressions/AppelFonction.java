@@ -3,12 +3,14 @@ package yal.arbre.expressions;
 import yal.arbre.ArbreAbstrait;
 import yal.arbre.declaration.Tds;
 import yal.exceptions.AnalyseSemantiqueException;
+import yal.outils.Gestionnaire;
 
 public class AppelFonction extends Expression{
 
     private Idf idf;
     private int noLig;
-    private Parametre param;
+    private int nbParam;
+    private Expression exp;
     private ArbreAbstrait arbre;
 
     /**
@@ -19,29 +21,30 @@ public class AppelFonction extends Expression{
         super(n);
         this.idf = idf;
         this.noLig = n;
+        nbParam = Gestionnaire.getInstance().getNbParam();
     }
 
     /**
      * Constructeur d'une expression
      * @param n int
      */
-    public AppelFonction(Idf idf, int n, ArbreAbstrait a, Parametre p) {
+    public AppelFonction(Idf idf, int n, Expression p, ArbreAbstrait a) {
         super(n);
         this.idf = idf;
         this.noLig = n;
         this.arbre = a;
-        this.param = p;
+        this.exp = p;
     }
 
     /**
      * Constructeur d'une expression
      * @param n int
      */
-    public AppelFonction(Idf idf, int n, Parametre p) {
+    public AppelFonction(Idf idf, int n, Expression p) {
         super(n);
         this.idf = idf;
         this.noLig = n;
-        this.param = p;
+        this.exp = p;
     }
 
 
@@ -59,12 +62,12 @@ public class AppelFonction extends Expression{
      */
     @Override
     public void verifier() {
-        if(!Tds.getInstance().identifier(idf.getNom(),noLig,"fonction").getType().equals("fonction")){
+        if(!Tds.getInstance().identifier(idf.getNom(),noLig,"fonction",nbParam).getType().equals("fonction")){
             AnalyseSemantiqueException a = new AnalyseSemantiqueException(noLigne, ": fonction "+idf.getNom()+" non déclarée");
             Tds.getInstance().add(a.getMessage());
         }
-        if(param != null){
-            param.verifier();
+        if(exp != null){
+            exp.verifier();
         }
         if(arbre != null){
             arbre.verifier();
@@ -78,7 +81,7 @@ public class AppelFonction extends Expression{
     @Override
     public String toMIPS() {
         StringBuilder res = new StringBuilder();
-        res.append("\tjal " + Tds.getInstance().identifier(idf.getNom(), noLig,"fonction").getEtq() + "\n"); // jump à la fonction
+        res.append("\tjal " + Tds.getInstance().identifier(idf.getNom(), noLig,"fonction",nbParam).getEtq() + "\n"); // jump à la fonction
         return res.toString();
     }
 }

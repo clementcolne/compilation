@@ -42,7 +42,15 @@ public class Tds {
         for(Map.Entry<Entree, ArrayList<Symbole>> k : variables.entrySet()) {
             System.out.print(k.getKey().getNom());
             for(Symbole s: k.getValue()) {
-                System.out.println(" -> " +s.getNoBloc()+"(bloc) "+s.getIdfFonction()+"(idfFonc)");
+                if(s.isVariableLocale() || s.isParametre()) {
+                    System.out.println(" -> " + s.getNoBloc() + "(bloc) " + s.getIdfFonction() + "(idfFonc)");
+                }
+                if(s.isFonction()){
+                    System.out.println(" -> " + s.getNoBloc() + "(bloc) " + s.getNbParametres() + "(paramètres)");
+                }
+                if(s.isVariable()){
+                    System.out.println(" -> " + s.getNoBloc() + "(bloc) ");
+                }
             }
         }
     }
@@ -117,7 +125,7 @@ public class Tds {
                         AnalyseSemantiqueException a = new AnalyseSemantiqueException(s.getNoLig(), ": multiples déclarations de la variable "+e.getNom());
                         erreurs.add(a.getMessage());
                     }
-                } else {  // on ajoute un symbole à l'AL de l'Entree
+                } else {  // types différents
                     if(type.equals("entier")){
                         // le symbole est une variable
                         if(s.isVariable()) {
@@ -138,6 +146,8 @@ public class Tds {
                 variables.get(entree).add(s);
             }
         }
+        //System.out.println("Pile:");
+        //afficherTds();
     }
 
 
@@ -146,7 +156,7 @@ public class Tds {
      * @param e Entree
      * @return le symbole correspondant à l'entrée dans la hashmap des variables
      */
-    public Symbole identifier(String e, int n, String type)  {
+    public Symbole identifier(String e, int n, String type, int nbParam)  {
         Symbole s = new Symbole("",-1, blocCourant,"");
         boolean dedans = false;
         boolean bonBloc = false;
@@ -154,8 +164,13 @@ public class Tds {
             if(k.getKey().getNom().equals(e)) {
                 for(Symbole symb : k.getValue()){
                     if(pile.contains(symb.getNoBloc()) && symb.getType().equals(type)){
-                        bonBloc = true;
-                        s = symb;
+                        if(symb.isFonction() && symb.getNbParametres()==nbParam){
+                            bonBloc = true;
+                            s = symb;
+                        }else {
+                            bonBloc = true;
+                            s = symb;
+                        }
                     }
                 }
                 dedans = true;
