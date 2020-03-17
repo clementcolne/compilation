@@ -4,6 +4,8 @@ import yal.arbre.ArbreAbstrait;
 import yal.exceptions.AnalyseSemantiqueException;
 import yal.outils.Gestionnaire;
 
+import java.util.ArrayList;
+
 public class Fonction {
 
     private ArbreAbstrait arbre;
@@ -11,6 +13,8 @@ public class Fonction {
     private String etq;
     private int idf;
     private int bloc;
+    private ArrayList<Symbole> parametres;
+    private ArrayList<Symbole> varLoc;
 
     /**
      * Constructeur d'une fonction
@@ -25,6 +29,8 @@ public class Fonction {
         this.idf = idf;
         this.etq = etq;
         this.bloc = bloc;
+        parametres = Tds.getInstance().getParametres(idf);
+        varLoc = Tds.getInstance().getVarLoc(idf);
     }
 
     /**

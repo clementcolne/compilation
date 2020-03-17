@@ -82,6 +82,7 @@ public class AppelFonction extends Expression{
     public String toMIPS() {
         StringBuilder res = new StringBuilder();
         if(arbre != null) {
+            Gestionnaire.getInstance().setCptProg();
             // On fait appel aux toMIPS de paramètre
             res.append(arbre.toMIPS());
         }

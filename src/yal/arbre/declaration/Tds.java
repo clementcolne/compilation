@@ -160,9 +160,11 @@ public class Tds {
             if(k.getKey().getNom().equals(e)) {
                 for(Symbole symb : k.getValue()){
                     if(pile.contains(symb.getNoBloc()) && symb.getType().equals(type)){
-                        if(symb.isFonction() && symb.getNbParametres()==nbParam){
-                            bonBloc = true;
-                            s = symb;
+                        if(symb.isFonction()){
+                            if(symb.getNbParametres()==nbParam) {
+                                bonBloc = true;
+                                s = symb;
+                            }
                         }else {
                             bonBloc = true;
                             s = symb;
@@ -355,6 +357,46 @@ public class Tds {
             }
         }
         return cptParametre;
+    }
+
+    /**
+     * Retourne la liste des paramètres d'une fonction
+     * @param idfFonction identifiant de la fonction
+     * @return l'arraylist de paramètres d'une fonction
+     */
+    public ArrayList<Symbole> getParametres(int idfFonction) {
+        ArrayList<Symbole> list = new ArrayList<>();
+        for(Map.Entry<Entree, ArrayList<Symbole>> k : variables.entrySet()) {
+            for(Symbole s : k.getValue()) {
+                // pour chaque entrée, je parcours son arraylist de symboles
+                // si le symbole est un paramètre et que il est lié à la fonction qui nous intéresse
+                // alors on incrémente le compteur
+                if(s.isParametre() && s.getIdfFonction() == idfFonction) {
+                    list.add(s);
+                }
+            }
+        }
+        return list;
+    }
+
+    /**
+     * Retourne la liste des variables locales d'une fonction
+     * @param idfFonction identifiant de la fonction
+     * @return l'arraylist des variables locales d'une fonction
+     */
+    public ArrayList<Symbole> getVarLoc(int idfFonction) {
+        ArrayList<Symbole> list = new ArrayList<>();
+        for(Map.Entry<Entree, ArrayList<Symbole>> k : variables.entrySet()) {
+            for(Symbole s : k.getValue()) {
+                // pour chaque entrée, je parcours son arraylist de symboles
+                // si le symbole est un paramètre et que il est lié à la fonction qui nous intéresse
+                // alors on incrémente le compteur
+                if(s.isVariableLocale() && s.getIdfFonction() == idfFonction) {
+                    list.add(s);
+                }
+            }
+        }
+        return list;
     }
 
 }
