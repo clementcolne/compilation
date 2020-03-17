@@ -160,9 +160,11 @@ public class Tds {
             if(k.getKey().getNom().equals(e)) {
                 for(Symbole symb : k.getValue()){
                     if(pile.contains(symb.getNoBloc()) && symb.getType().equals(type)){
-                        if(symb.isFonction() && symb.getNbParametres()==nbParam){
-                            bonBloc = true;
-                            s = symb;
+                        if(symb.isFonction()){
+                            if(symb.getNbParametres()==nbParam) {
+                                bonBloc = true;
+                                s = symb;
+                            }
                         }else {
                             bonBloc = true;
                             s = symb;
