@@ -37,6 +37,7 @@ public class Idf extends Expression{
      */
     @Override
     public String toMIPS() {
+        // différencier entre variable locale et globale, et donc utiliser soit $s7 ou $s2
         int deplacement = Tds.getInstance().getDeplacement(nom);
         StringBuilder res = new StringBuilder();
         res.append("\tlw $v0, " + deplacement + "($s7)");

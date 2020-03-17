@@ -36,9 +36,9 @@ public class AnalyseurLexical implements java_cup.runtime.Scanner {
    * Translates characters to character classes
    */
   private static final String ZZ_CMAP_PACKED = 
-    "\11\0\1\7\1\4\1\5\1\6\1\4\22\0\1\7\1\41\6\0"+
-    "\1\42\1\43\1\34\1\35\1\0\1\36\1\0\1\3\12\2\1\0"+
-    "\1\32\1\40\1\33\1\37\2\0\32\1\4\0\1\1\1\0\1\14"+
+    "\11\0\1\7\1\4\1\5\1\6\1\4\22\0\1\7\1\42\6\0"+
+    "\1\43\1\44\1\35\1\36\1\33\1\37\1\0\1\3\12\2\1\0"+
+    "\1\32\1\41\1\34\1\40\2\0\32\1\4\0\1\1\1\0\1\14"+
     "\1\20\1\31\1\17\1\16\1\23\1\13\1\1\1\24\2\1\1\30"+
     "\1\15\1\25\1\12\1\10\1\26\1\11\1\27\1\22\1\21\5\1"+
     "\12\0\1\5\u1fa2\0\1\5\1\5\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\udfe6\0";
@@ -55,15 +55,15 @@ public class AnalyseurLexical implements java_cup.runtime.Scanner {
 
   private static final String ZZ_ACTION_PACKED_0 =
     "\1\0\1\1\1\2\1\3\1\4\1\5\13\2\1\6"+
-    "\1\7\1\10\1\11\1\12\1\13\1\14\1\1\1\15"+
-    "\1\16\1\0\2\2\1\17\1\2\1\20\7\2\1\21"+
-    "\1\2\1\22\1\23\11\2\1\24\1\25\16\2\1\26"+
-    "\3\2\1\27\2\2\1\30\3\2\1\31\1\32\3\2"+
-    "\1\33\1\34\4\2\1\35\1\2\1\36\3\2\1\37"+
-    "\1\40\1\2\1\41\1\2\1\42";
+    "\1\7\1\10\1\11\1\12\1\13\1\14\1\15\1\1"+
+    "\1\16\1\17\1\0\2\2\1\20\1\2\1\21\7\2"+
+    "\1\22\1\2\1\23\1\24\11\2\1\25\1\26\16\2"+
+    "\1\27\3\2\1\30\2\2\1\31\3\2\1\32\1\33"+
+    "\3\2\1\34\1\35\4\2\1\36\1\2\1\37\3\2"+
+    "\1\40\1\41\1\2\1\42\1\2\1\43";
 
   private static int [] zzUnpackAction() {
-    int [] result = new int[103];
+    int [] result = new int[104];
     int offset = 0;
     offset = zzUnpackAction(ZZ_ACTION_PACKED_0, offset, result);
     return result;
@@ -88,22 +88,22 @@ public class AnalyseurLexical implements java_cup.runtime.Scanner {
   private static final int [] ZZ_ROWMAP = zzUnpackRowMap();
 
   private static final String ZZ_ROWMAP_PACKED_0 =
-    "\0\0\0\44\0\110\0\154\0\220\0\44\0\264\0\330"+
-    "\0\374\0\u0120\0\u0144\0\u0168\0\u018c\0\u01b0\0\u01d4\0\u01f8"+
-    "\0\u021c\0\44\0\u0240\0\44\0\44\0\44\0\44\0\44"+
-    "\0\u0264\0\44\0\44\0\u0288\0\u02ac\0\u02d0\0\110\0\u02f4"+
-    "\0\110\0\u0318\0\u033c\0\u0360\0\u0384\0\u03a8\0\u03cc\0\u03f0"+
-    "\0\u0414\0\u0438\0\44\0\44\0\u045c\0\u0480\0\u04a4\0\u04c8"+
-    "\0\u04ec\0\u0510\0\u0534\0\u0558\0\u057c\0\u05a0\0\110\0\u05c4"+
-    "\0\u05e8\0\u060c\0\u0630\0\u0654\0\u0678\0\u069c\0\u06c0\0\u06e4"+
-    "\0\u0708\0\u072c\0\u0750\0\u0774\0\u0798\0\110\0\u07bc\0\u07e0"+
-    "\0\u0804\0\110\0\u0828\0\u084c\0\110\0\u0870\0\u0894\0\u08b8"+
-    "\0\110\0\110\0\u08dc\0\u0900\0\u0924\0\110\0\110\0\u0948"+
-    "\0\u096c\0\u0990\0\u09b4\0\110\0\u09d8\0\110\0\u09fc\0\u0a20"+
-    "\0\u0a44\0\110\0\110\0\u0a68\0\110\0\u0a8c\0\110";
+    "\0\0\0\45\0\112\0\157\0\224\0\45\0\271\0\336"+
+    "\0\u0103\0\u0128\0\u014d\0\u0172\0\u0197\0\u01bc\0\u01e1\0\u0206"+
+    "\0\u022b\0\45\0\45\0\u0250\0\45\0\45\0\45\0\45"+
+    "\0\45\0\u0275\0\45\0\45\0\u029a\0\u02bf\0\u02e4\0\112"+
+    "\0\u0309\0\112\0\u032e\0\u0353\0\u0378\0\u039d\0\u03c2\0\u03e7"+
+    "\0\u040c\0\u0431\0\u0456\0\45\0\45\0\u047b\0\u04a0\0\u04c5"+
+    "\0\u04ea\0\u050f\0\u0534\0\u0559\0\u057e\0\u05a3\0\u05c8\0\112"+
+    "\0\u05ed\0\u0612\0\u0637\0\u065c\0\u0681\0\u06a6\0\u06cb\0\u06f0"+
+    "\0\u0715\0\u073a\0\u075f\0\u0784\0\u07a9\0\u07ce\0\112\0\u07f3"+
+    "\0\u0818\0\u083d\0\112\0\u0862\0\u0887\0\112\0\u08ac\0\u08d1"+
+    "\0\u08f6\0\112\0\112\0\u091b\0\u0940\0\u0965\0\112\0\112"+
+    "\0\u098a\0\u09af\0\u09d4\0\u09f9\0\112\0\u0a1e\0\112\0\u0a43"+
+    "\0\u0a68\0\u0a8d\0\112\0\112\0\u0ab2\0\112\0\u0ad7\0\112";
 
   private static int [] zzUnpackRowMap() {
-    int [] result = new int[103];
+    int [] result = new int[104];
     int offset = 0;
     offset = zzUnpackRowMap(ZZ_ROWMAP_PACKED_0, offset, result);
     return result;
@@ -130,64 +130,64 @@ public class AnalyseurLexical implements java_cup.runtime.Scanner {
     "\1\10\1\11\1\3\1\12\1\3\1\13\1\14\2\3"+
     "\1\15\1\16\1\3\1\17\1\3\1\20\1\21\1\3"+
     "\1\22\1\23\1\24\1\25\1\26\1\27\1\30\1\31"+
-    "\1\32\1\33\45\0\2\3\5\0\22\3\14\0\1\4"+
-    "\44\0\1\34\41\0\2\3\5\0\1\3\1\35\20\3"+
-    "\13\0\2\3\5\0\6\3\1\36\13\3\13\0\2\3"+
-    "\5\0\11\3\1\37\10\3\13\0\2\3\5\0\20\3"+
-    "\1\40\1\3\13\0\2\3\5\0\12\3\1\41\2\3"+
-    "\1\42\3\3\1\43\13\0\2\3\5\0\6\3\1\44"+
-    "\13\3\13\0\2\3\5\0\4\3\1\45\15\3\13\0"+
-    "\2\3\5\0\2\3\1\46\11\3\1\47\5\3\13\0"+
-    "\2\3\5\0\2\3\1\50\17\3\13\0\2\3\5\0"+
-    "\14\3\1\51\5\3\13\0\2\3\5\0\14\3\1\52"+
-    "\5\3\45\0\1\53\43\0\1\54\10\0\4\34\1\6"+
-    "\2\0\35\34\1\0\2\3\5\0\2\3\1\55\17\3"+
-    "\13\0\2\3\5\0\1\56\11\3\1\57\7\3\13\0"+
-    "\2\3\5\0\2\3\1\60\17\3\13\0\2\3\5\0"+
-    "\12\3\1\61\7\3\13\0\2\3\5\0\1\3\1\62"+
-    "\20\3\13\0\2\3\5\0\10\3\1\63\11\3\13\0"+
-    "\2\3\5\0\15\3\1\64\4\3\13\0\2\3\5\0"+
-    "\15\3\1\65\4\3\13\0\2\3\5\0\15\3\1\66"+
-    "\4\3\13\0\2\3\5\0\15\3\1\67\4\3\13\0"+
-    "\2\3\5\0\15\3\1\70\4\3\13\0\2\3\5\0"+
-    "\1\3\1\71\20\3\13\0\2\3\5\0\3\3\1\72"+
-    "\16\3\13\0\2\3\5\0\6\3\1\73\13\3\13\0"+
-    "\2\3\5\0\2\3\1\74\17\3\13\0\2\3\5\0"+
-    "\1\3\1\75\20\3\13\0\2\3\5\0\14\3\1\76"+
-    "\5\3\13\0\2\3\5\0\14\3\1\77\5\3\13\0"+
-    "\2\3\5\0\11\3\1\100\10\3\13\0\2\3\5\0"+
-    "\12\3\1\101\7\3\13\0\2\3\5\0\21\3\1\102"+
-    "\13\0\2\3\5\0\12\3\1\103\4\3\1\104\2\3"+
-    "\13\0\2\3\5\0\2\3\1\105\17\3\13\0\2\3"+
-    "\5\0\6\3\1\106\13\3\13\0\2\3\5\0\1\3"+
-    "\1\107\20\3\13\0\2\3\5\0\12\3\1\110\7\3"+
-    "\13\0\2\3\5\0\11\3\1\111\10\3\13\0\2\3"+
-    "\5\0\17\3\1\112\2\3\13\0\2\3\5\0\6\3"+
-    "\1\113\13\3\13\0\2\3\5\0\1\3\1\114\20\3"+
-    "\13\0\2\3\5\0\12\3\1\115\7\3\13\0\2\3"+
-    "\5\0\16\3\1\116\3\3\13\0\2\3\5\0\12\3"+
-    "\1\117\7\3\13\0\2\3\5\0\4\3\1\120\15\3"+
-    "\13\0\2\3\5\0\14\3\1\121\5\3\13\0\2\3"+
-    "\5\0\15\3\1\122\4\3\13\0\2\3\5\0\4\3"+
-    "\1\123\15\3\13\0\2\3\5\0\6\3\1\124\13\3"+
-    "\13\0\2\3\5\0\1\3\1\125\20\3\13\0\2\3"+
-    "\5\0\1\3\1\126\20\3\13\0\2\3\5\0\6\3"+
-    "\1\127\13\3\13\0\2\3\5\0\11\3\1\130\10\3"+
-    "\13\0\2\3\5\0\14\3\1\131\5\3\13\0\2\3"+
-    "\5\0\15\3\1\132\4\3\13\0\2\3\5\0\5\3"+
-    "\1\133\14\3\13\0\2\3\5\0\1\3\1\134\20\3"+
-    "\13\0\2\3\5\0\15\3\1\135\4\3\13\0\2\3"+
-    "\5\0\6\3\1\136\13\3\13\0\2\3\5\0\2\3"+
-    "\1\137\17\3\13\0\2\3\5\0\12\3\1\140\7\3"+
-    "\13\0\2\3\5\0\5\3\1\141\14\3\13\0\2\3"+
-    "\5\0\6\3\1\142\13\3\13\0\2\3\5\0\15\3"+
-    "\1\143\4\3\13\0\2\3\5\0\16\3\1\144\3\3"+
-    "\13\0\2\3\5\0\6\3\1\145\13\3\13\0\2\3"+
-    "\5\0\11\3\1\146\10\3\13\0\2\3\5\0\6\3"+
-    "\1\147\13\3\12\0";
+    "\1\32\1\33\1\34\46\0\2\3\5\0\22\3\15\0"+
+    "\1\4\45\0\1\35\42\0\2\3\5\0\1\3\1\36"+
+    "\20\3\14\0\2\3\5\0\6\3\1\37\13\3\14\0"+
+    "\2\3\5\0\11\3\1\40\10\3\14\0\2\3\5\0"+
+    "\20\3\1\41\1\3\14\0\2\3\5\0\12\3\1\42"+
+    "\2\3\1\43\3\3\1\44\14\0\2\3\5\0\6\3"+
+    "\1\45\13\3\14\0\2\3\5\0\4\3\1\46\15\3"+
+    "\14\0\2\3\5\0\2\3\1\47\11\3\1\50\5\3"+
+    "\14\0\2\3\5\0\2\3\1\51\17\3\14\0\2\3"+
+    "\5\0\14\3\1\52\5\3\14\0\2\3\5\0\14\3"+
+    "\1\53\5\3\47\0\1\54\44\0\1\55\10\0\4\35"+
+    "\1\6\2\0\36\35\1\0\2\3\5\0\2\3\1\56"+
+    "\17\3\14\0\2\3\5\0\1\57\11\3\1\60\7\3"+
+    "\14\0\2\3\5\0\2\3\1\61\17\3\14\0\2\3"+
+    "\5\0\12\3\1\62\7\3\14\0\2\3\5\0\1\3"+
+    "\1\63\20\3\14\0\2\3\5\0\10\3\1\64\11\3"+
+    "\14\0\2\3\5\0\15\3\1\65\4\3\14\0\2\3"+
+    "\5\0\15\3\1\66\4\3\14\0\2\3\5\0\15\3"+
+    "\1\67\4\3\14\0\2\3\5\0\15\3\1\70\4\3"+
+    "\14\0\2\3\5\0\15\3\1\71\4\3\14\0\2\3"+
+    "\5\0\1\3\1\72\20\3\14\0\2\3\5\0\3\3"+
+    "\1\73\16\3\14\0\2\3\5\0\6\3\1\74\13\3"+
+    "\14\0\2\3\5\0\2\3\1\75\17\3\14\0\2\3"+
+    "\5\0\1\3\1\76\20\3\14\0\2\3\5\0\14\3"+
+    "\1\77\5\3\14\0\2\3\5\0\14\3\1\100\5\3"+
+    "\14\0\2\3\5\0\11\3\1\101\10\3\14\0\2\3"+
+    "\5\0\12\3\1\102\7\3\14\0\2\3\5\0\21\3"+
+    "\1\103\14\0\2\3\5\0\12\3\1\104\4\3\1\105"+
+    "\2\3\14\0\2\3\5\0\2\3\1\106\17\3\14\0"+
+    "\2\3\5\0\6\3\1\107\13\3\14\0\2\3\5\0"+
+    "\1\3\1\110\20\3\14\0\2\3\5\0\12\3\1\111"+
+    "\7\3\14\0\2\3\5\0\11\3\1\112\10\3\14\0"+
+    "\2\3\5\0\17\3\1\113\2\3\14\0\2\3\5\0"+
+    "\6\3\1\114\13\3\14\0\2\3\5\0\1\3\1\115"+
+    "\20\3\14\0\2\3\5\0\12\3\1\116\7\3\14\0"+
+    "\2\3\5\0\16\3\1\117\3\3\14\0\2\3\5\0"+
+    "\12\3\1\120\7\3\14\0\2\3\5\0\4\3\1\121"+
+    "\15\3\14\0\2\3\5\0\14\3\1\122\5\3\14\0"+
+    "\2\3\5\0\15\3\1\123\4\3\14\0\2\3\5\0"+
+    "\4\3\1\124\15\3\14\0\2\3\5\0\6\3\1\125"+
+    "\13\3\14\0\2\3\5\0\1\3\1\126\20\3\14\0"+
+    "\2\3\5\0\1\3\1\127\20\3\14\0\2\3\5\0"+
+    "\6\3\1\130\13\3\14\0\2\3\5\0\11\3\1\131"+
+    "\10\3\14\0\2\3\5\0\14\3\1\132\5\3\14\0"+
+    "\2\3\5\0\15\3\1\133\4\3\14\0\2\3\5\0"+
+    "\5\3\1\134\14\3\14\0\2\3\5\0\1\3\1\135"+
+    "\20\3\14\0\2\3\5\0\15\3\1\136\4\3\14\0"+
+    "\2\3\5\0\6\3\1\137\13\3\14\0\2\3\5\0"+
+    "\2\3\1\140\17\3\14\0\2\3\5\0\12\3\1\141"+
+    "\7\3\14\0\2\3\5\0\5\3\1\142\14\3\14\0"+
+    "\2\3\5\0\6\3\1\143\13\3\14\0\2\3\5\0"+
+    "\15\3\1\144\4\3\14\0\2\3\5\0\16\3\1\145"+
+    "\3\3\14\0\2\3\5\0\6\3\1\146\13\3\14\0"+
+    "\2\3\5\0\11\3\1\147\10\3\14\0\2\3\5\0"+
+    "\6\3\1\150\13\3\13\0";
 
   private static int [] zzUnpackTrans() {
-    int [] result = new int[2736];
+    int [] result = new int[2812];
     int offset = 0;
     offset = zzUnpackTrans(ZZ_TRANS_PACKED_0, offset, result);
     return result;
@@ -225,11 +225,11 @@ public class AnalyseurLexical implements java_cup.runtime.Scanner {
   private static final int [] ZZ_ATTRIBUTE = zzUnpackAttribute();
 
   private static final String ZZ_ATTRIBUTE_PACKED_0 =
-    "\1\0\1\11\3\1\1\11\13\1\1\11\1\1\5\11"+
+    "\1\0\1\11\3\1\1\11\13\1\2\11\1\1\5\11"+
     "\1\1\2\11\1\0\16\1\2\11\73\1";
 
   private static int [] zzUnpackAttribute() {
-    int [] result = new int[103];
+    int [] result = new int[104];
     int offset = 0;
     offset = zzUnpackAttribute(ZZ_ATTRIBUTE_PACKED_0, offset, result);
     return result;
@@ -704,139 +704,143 @@ public class AnalyseurLexical implements java_cup.runtime.Scanner {
           case 1: 
             { throw new AnalyseLexicaleException(yyline, yycolumn, yytext()) ;
             }
-          case 35: break;
+          case 36: break;
           case 2: 
             { return symbol(CodesLexicaux.IDF, yytext());
             }
-          case 36: break;
+          case 37: break;
           case 3: 
             { return symbol(CodesLexicaux.CSTENTIERE, yytext());
             }
-          case 37: break;
+          case 38: break;
           case 4: 
             { return symbol(CodesLexicaux.DIVISE);
             }
-          case 38: break;
+          case 39: break;
           case 5: 
             { 
             }
-          case 39: break;
+          case 40: break;
           case 6: 
             { return symbol(CodesLexicaux.POINTVIRGULE);
             }
-          case 40: break;
-          case 7: 
-            { return symbol(CodesLexicaux.EGAL);
-            }
           case 41: break;
-          case 8: 
-            { return symbol(CodesLexicaux.MULT);
+          case 7: 
+            { return symbol(CodesLexicaux.VIRGULE);
             }
           case 42: break;
-          case 9: 
-            { return symbol(CodesLexicaux.PLUS);
+          case 8: 
+            { return symbol(CodesLexicaux.EGAL);
             }
           case 43: break;
-          case 10: 
-            { return symbol(CodesLexicaux.MOINS);
+          case 9: 
+            { return symbol(CodesLexicaux.MULT);
             }
           case 44: break;
-          case 11: 
-            { return symbol(CodesLexicaux.SUP);
+          case 10: 
+            { return symbol(CodesLexicaux.PLUS);
             }
           case 45: break;
-          case 12: 
-            { return symbol(CodesLexicaux.INF);
+          case 11: 
+            { return symbol(CodesLexicaux.MOINS);
             }
           case 46: break;
-          case 13: 
-            { return symbol(CodesLexicaux.PAR_OUVRANTE);
+          case 12: 
+            { return symbol(CodesLexicaux.SUP);
             }
           case 47: break;
-          case 14: 
-            { return symbol(CodesLexicaux.PAR_FERMANTE);
+          case 13: 
+            { return symbol(CodesLexicaux.INF);
             }
           case 48: break;
-          case 15: 
-            { return symbol(CodesLexicaux.OU);
+          case 14: 
+            { return symbol(CodesLexicaux.PAR_OUVRANTE);
             }
           case 49: break;
-          case 16: 
-            { return symbol(CodesLexicaux.ET);
+          case 15: 
+            { return symbol(CodesLexicaux.PAR_FERMANTE);
             }
           case 50: break;
-          case 17: 
-            { return symbol(CodesLexicaux.SI);
+          case 16: 
+            { return symbol(CodesLexicaux.OU);
             }
           case 51: break;
-          case 18: 
-            { return symbol(CodesLexicaux.EGALITE);
+          case 17: 
+            { return symbol(CodesLexicaux.ET);
             }
           case 52: break;
-          case 19: 
-            { return symbol(CodesLexicaux.DIFFERENCE);
+          case 18: 
+            { return symbol(CodesLexicaux.SI);
             }
           case 53: break;
-          case 20: 
-            { return symbol(CodesLexicaux.FIN);
+          case 19: 
+            { return symbol(CodesLexicaux.EGALITE);
             }
           case 54: break;
-          case 21: 
-            { return symbol(CodesLexicaux.NON);
+          case 20: 
+            { return symbol(CodesLexicaux.DIFFERENCE);
             }
           case 55: break;
-          case 22: 
-            { return symbol(CodesLexicaux.LIRE);
+          case 21: 
+            { return symbol(CodesLexicaux.FIN);
             }
           case 56: break;
-          case 23: 
-            { return symbol(CodesLexicaux.ALORS);
+          case 22: 
+            { return symbol(CodesLexicaux.NON);
             }
           case 57: break;
-          case 24: 
-            { return symbol(CodesLexicaux.DEBUT);
+          case 23: 
+            { return symbol(CodesLexicaux.LIRE);
             }
           case 58: break;
-          case 25: 
-            { return symbol(CodesLexicaux.FINSI);
+          case 24: 
+            { return symbol(CodesLexicaux.ALORS);
             }
           case 59: break;
-          case 26: 
-            { return symbol(CodesLexicaux.SINON);
+          case 25: 
+            { return symbol(CodesLexicaux.DEBUT);
             }
           case 60: break;
-          case 27: 
-            { return symbol(CodesLexicaux.ENTIER);
+          case 26: 
+            { return symbol(CodesLexicaux.FINSI);
             }
           case 61: break;
-          case 28: 
-            { return symbol(CodesLexicaux.ECRIRE);
+          case 27: 
+            { return symbol(CodesLexicaux.SINON);
             }
           case 62: break;
-          case 29: 
-            { return symbol(CodesLexicaux.REPETER);
+          case 28: 
+            { return symbol(CodesLexicaux.ENTIER);
             }
           case 63: break;
-          case 30: 
-            { return symbol(CodesLexicaux.TANTQUE);
+          case 29: 
+            { return symbol(CodesLexicaux.ECRIRE);
             }
           case 64: break;
-          case 31: 
-            { return symbol(CodesLexicaux.RETOURNE);
+          case 30: 
+            { return symbol(CodesLexicaux.REPETER);
             }
           case 65: break;
-          case 32: 
-            { return symbol(CodesLexicaux.FONCTION);
+          case 31: 
+            { return symbol(CodesLexicaux.TANTQUE);
             }
           case 66: break;
-          case 33: 
-            { return symbol(CodesLexicaux.PROGRAMME);
+          case 32: 
+            { return symbol(CodesLexicaux.RETOURNE);
             }
           case 67: break;
-          case 34: 
-            { return symbol(CodesLexicaux.FINTANTQUE);
+          case 33: 
+            { return symbol(CodesLexicaux.FONCTION);
             }
           case 68: break;
+          case 34: 
+            { return symbol(CodesLexicaux.PROGRAMME);
+            }
+          case 69: break;
+          case 35: 
+            { return symbol(CodesLexicaux.FINTANTQUE);
+            }
+          case 70: break;
           default:
             zzScanError(ZZ_NO_MATCH);
         }

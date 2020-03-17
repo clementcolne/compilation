@@ -16,8 +16,8 @@ public class Tds {
     public int blocCourant;
     public int cptBloc;    // pour ne pas avoir 2x le même bloc -> problème de déclarations dans le même bloc
     public ArrayList<Integer> pile;
-    private static Tds tds = new Tds();
 
+    private static Tds tds = new Tds();
     public static Tds getInstance() {
         return tds;
     }

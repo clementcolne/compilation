@@ -79,6 +79,10 @@ public class AppelFonction extends Expression{
     public String toMIPS() {
         StringBuilder res = new StringBuilder();
         res.append("\tjal " + Tds.getInstance().identifier(idf.getNom(), noLig,"fonction").getEtq() + "\n"); // jump à la fonction
+        if(arbre != null) {
+            // On fait appel aux toMIPS de paramètre
+            res.append(arbre.toMIPS());
+        }
         return res.toString();
     }
 }

@@ -1,10 +1,12 @@
 programme prog debut
 entier a;
-entier b;
     fonction fct () debut
-        entier c;
-        c = 17;
-        retourne c;
+        a = 17;
+        ecrire a;
+        a = 0;
+        retourne 0;
     fin
+a = 3;
 ecrire fct();
+ecrire a;
 fin

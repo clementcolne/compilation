@@ -31,6 +31,8 @@ public class Parametre extends Instruction {
 
     @Override
     public String toMIPS() {
+        // on empile le paramètre, faire passer par $v0, afin qu'il devienne une variable locale
+        // comment on fait avec s2 ??? on décalle s2 où ? à chaque variable ou tout d'un coup ??
         return null;
     }
 }
