@@ -143,7 +143,6 @@ public class Tds {
      * @return le symbole correspondant à l'entrée dans la hashmap des variables
      */
     public Symbole identifier(String e, int n, String type, int nbParam)  {
-        System.out.println(nbParam);
         Symbole s = new Symbole("",-1, blocCourant,"");
         boolean dedans = false;
         boolean bonBloc = false;
@@ -221,13 +220,11 @@ public class Tds {
                 // alors on incrémente le compteur
                 if(s.isParametre() && Gestionnaire.getInstance().getFonctionCourante() == idfFonction) {
                     s.setDeplacement(cptVariablesLocale);
-                    System.out.println("Ajout paramètre déplacement : " + cptVariablesLocale);
                     cptVariablesLocale -= 4;
                 }
             }
         }
         cptVariablesLocale -= 8;
-        System.out.println("-8");
         for(Map.Entry<Entree, ArrayList<Symbole>> k : variables.entrySet()) {
             for(Symbole s : k.getValue()) {
                 // pour chaque entrée, je parcours son arraylist de symboles
@@ -235,8 +232,6 @@ public class Tds {
                 // alors on incrémente le compteur
                 if(s.isVariableLocale() && Gestionnaire.getInstance().getFonctionCourante() == idfFonction) {
                     s.setDeplacement(cptVariablesLocale);
-
-                    System.out.println("Ajout variable locale déplacement : " + cptVariablesLocale);
                     cptVariablesLocale -= 4;
                 }
             }
