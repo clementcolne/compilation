@@ -224,7 +224,7 @@ public class Tds {
                 }
             }
         }
-        cptVariablesLocale -= 8;
+        cptVariablesLocale -= 4;
         for(Map.Entry<Entree, ArrayList<Symbole>> k : variables.entrySet()) {
             for(Symbole s : k.getValue()) {
                 // pour chaque entrée, je parcours son arraylist de symboles

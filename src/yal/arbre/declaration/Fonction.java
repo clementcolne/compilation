@@ -1,5 +1,6 @@
 package yal.arbre.declaration;
 
+import sun.jvm.hotspot.debugger.cdbg.Sym;
 import yal.arbre.ArbreAbstrait;
 import yal.exceptions.AnalyseSemantiqueException;
 import yal.outils.Gestionnaire;
@@ -62,14 +63,26 @@ public class Fonction {
         Tds.getInstance().setDeplacementVarLoc(idf);
         StringBuilder res = new StringBuilder();
         res.append(etq + ":\n");
-        res.append("\tlw $s2, ($sp)\n"); // $s2 = $sp
-        // on empile les paramètres selon $sp
-
+        res.append("\t# Sauvegarde $sp dans $s2\n");
+        res.append("\tmove $s2, $sp\n"); // $s2 = $sp
+        res.append("\t# Empile les paramètres\n");
+        // pour tous les paramètres de la fonction
+        for(Symbole p : parametres) {
+            System.out.println(p.getDeplacement());
+        }
+        /*for(Symbole p : parametres) {
+            // on charge la valeur du paramètre dans $v0
+            res.append("\tlw $v0, " + p.getDeplacement() + "($7)\n");
+            // on empile $v0 dans la pile dédiée à la fonction
+            res.append("\t\n");
+        }*/
+        res.append("\t\n");
         res.append("\t# Sauvegarde de l'adresse de retour\n");
         res.append("\tsw $ra, ($sp)\n"); // on empile l'adresse de retour de la fonction dans la pile
         res.append("\tadd, $sp, $sp, -4\n\n");
-        res.append("\tsw $s7, ($sp)\n"); // chainage dynamique -> contraire dans le retour
-        res.append("\tadd, $sp, $sp, -4\n\n");
+        //res.append("\t# chainage dynamique\n");
+        //res.append("\tsw $s7, ($sp)\n"); // chainage dynamique -> contraire dans le retour
+        //res.append("\tadd, $sp, $sp, -4\n\n");
         Gestionnaire.getInstance().setCptProg();
         res.append(arbre.toMIPS());
         res.append("\tj erreurRetour\n\n");
