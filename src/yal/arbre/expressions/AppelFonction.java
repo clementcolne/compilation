@@ -34,6 +34,7 @@ public class AppelFonction extends Expression{
         this.noLig = n;
         this.arbre = a;
         this.exp = p;
+        nbParam = Gestionnaire.getInstance().getNbParam();
     }
 
     /**
@@ -45,6 +46,7 @@ public class AppelFonction extends Expression{
         this.idf = idf;
         this.noLig = n;
         this.exp = p;
+        nbParam = Gestionnaire.getInstance().getNbParam();
     }
 
 

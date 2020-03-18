@@ -143,6 +143,7 @@ public class Tds {
      * @return le symbole correspondant à l'entrée dans la hashmap des variables
      */
     public Symbole identifier(String e, int n, String type, int nbParam)  {
+        System.out.println(nbParam);
         Symbole s = new Symbole("",-1, blocCourant,"");
         boolean dedans = false;
         boolean bonBloc = false;

@@ -69,7 +69,7 @@ terminal String    IDF, CSTENTIERE;
 /* Non terminals used in the grammar section.  */
 
 non terminal ArbreAbstrait PROG , PARAM, LINST, INST, LDECL, LDECL_VAR_LOC, LDECL_PARAM, DECL, DECL_VAR_LOC, DECL_PARAM, FONC, LEXP ;
-non terminal Expression EXP ;
+non terminal Expression EXP, EXP_PARAM ;
 
 
 /* Precedence */
@@ -176,11 +176,11 @@ LINST   ::=     LINST:li  INST:i
                    RESULT = b ; :}
                 ;
 
-LEXP   ::=     LEXP:le  EXP:e
+LEXP   ::=     LEXP:le  EXP_PARAM:e
                 {: ((BlocDInstructions)le).ajouter(e) ;
                    RESULT = le ; :}
         |
-                VIRGULE EXP:e
+                EXP_PARAM:e
                 {: BlocDInstructions b = new BlocDInstructions(eleft + 1) ;
                    b.ajouter(e) ;
                    RESULT = b ; :}
@@ -272,3 +272,36 @@ EXP    ::=     CSTENTIERE:c
               {: RESULT = new ExpressionParenthese(e,eleft + 1) ; :}
               ;
 
+EXP_PARAM ::=                VIRGULE CSTENTIERE:c
+                             {: RESULT = new ConstanteEntiere(c, cleft + 1) ; :}
+                      |
+                             VIRGULE IDF:i PAR_OUVRANTE PAR_FERMANTE
+                             {: RESULT = new AppelFonction(new Idf(i, ileft + 1 ),ileft+1) ; :}
+                      |
+                             VIRGULE IDF:i PAR_OUVRANTE EXP:p LEXP:lp PAR_FERMANTE
+                             {: RESULT = new AppelFonction(new Idf(i, ileft + 1 ),ileft+1,p,lp) ; :}
+                      |
+                             VIRGULE IDF:i PAR_OUVRANTE EXP:p PAR_FERMANTE
+                             {: RESULT = new AppelFonction(new Idf(i, ileft + 1 ),ileft+1, p) ; :}
+                      |
+                             VIRGULE IDF:i
+                             {: RESULT = new Idf(i, ileft + 1 ) ; :}
+                      |
+                             VIRGULE EXP:g MULT EXP:d
+                             {: RESULT = new Multiplication(g,d,gleft + 1) ; :}
+                      |
+                             VIRGULE EXP:g DIVISE EXP:d
+                             {: RESULT = new Division(g,d,gleft + 1) ; :}
+                      |
+                             VIRGULE EXP:g PLUS EXP:d
+                             {: RESULT = new Addition(g,d,gleft + 1) ; :}
+                      |
+                             VIRGULE EXP:g MOINS EXP:d
+                             {: RESULT = new Soustraction(g,d,gleft + 1) ; :}
+                      |
+                             VIRGULE MOINS EXP:e
+                             {: RESULT = new ExpressionInverse(e,eleft + 1) ; :}
+                      |
+                            VIRGULE PAR_OUVRANTE EXP:e PAR_FERMANTE
+                            {: RESULT = new ExpressionParenthese(e,eleft + 1) ; :}
+                            ;
