@@ -63,18 +63,16 @@ public class Tds {
     public void ajouter(Entree e, Symbole s) throws AnalyseSemantiqueException {
         boolean dedans = false;
         Entree entree=new Entree("");
-        ArrayList<Symbole> listSymb = new ArrayList<>();
+        //ArrayList<Symbole> listSymb = new ArrayList<>();
         for(Map.Entry<Entree, ArrayList<Symbole>> k : variables.entrySet()) {
             if(k.getKey().getNom().equals(e.getNom())) {
                 dedans = true;
-                listSymb = k.getValue();
+                //listSymb = k.getValue();
                 entree = k.getKey();  // pour gérer le get(Object) -> trouver une façon plus légère
             }
         }
         // la variable n'est pas dedans -> on l'ajoute
         if(!dedans) {
-            if (s.getType().equals("entier")) {
-                // le symbole est une variable entière non locale à une fonction
                 if (s.isVariable()) {
                     s.setDeplacement(cptVariables);
                     cptVariables -= 4;
@@ -82,11 +80,6 @@ public class Tds {
                 ArrayList<Symbole> al = new ArrayList<>();
                 al.add(s);
                 variables.put(new Entree(e.getNom()), al);
-            } else {
-                ArrayList<Symbole> al = new ArrayList<>();
-                al.add(s);
-                variables.put(new Entree(e.getNom()), al);
-            }
         }else {
             String type = "";
             // on vérifie si les numéros de blocs sont différents
@@ -105,9 +98,9 @@ public class Tds {
             // la variable est déjà déclarée dans le même bloc -> on vérifie son type
             if (sameBloc) {
                 if (s.getType().equals(type)) {  // c'est exactement la même variable
-                    cptErreur++;
                     if(s.getType().equals("fonction")) {
                         if(s.getNbParametres() == nbParam) {
+                            cptErreur++;
                             AnalyseSemantiqueException a = new AnalyseSemantiqueException(s.getNoLig(), ": multiples déclarations de fonction " + e.getNom());
                             erreurs.add(a.getMessage());
                         }else{
@@ -115,9 +108,11 @@ public class Tds {
                             variables.get(entree).add(s);
                         }
                     }else if(s.isParametre()){
+                        cptErreur++;
                         AnalyseSemantiqueException a = new AnalyseSemantiqueException(s.getNoLig(), ": multiples déclarations du paramètre "+e.getNom());
                         erreurs.add(a.getMessage());
                     }else{
+                        cptErreur++;
                         AnalyseSemantiqueException a = new AnalyseSemantiqueException(s.getNoLig(), ": multiples déclarations de la variable "+e.getNom());
                         erreurs.add(a.getMessage());
                     }
@@ -132,18 +127,13 @@ public class Tds {
                     variables.get(entree).add(s);
                 }
             }else{ // blocs différents
-                if(type.equals("entier")){
-                    s.setDeplacement(cptVariables);
                     if(s.isVariable()) {
                         s.setDeplacement(cptVariables);
                         cptVariables -= 4;
                     }
-                }
                 variables.get(entree).add(s);
             }
         }
-        //System.out.println("Pile:");
-        //afficherTds();
     }
 
 

@@ -1,7 +1,9 @@
 package yal.outils;
 
 import yal.arbre.declaration.Fonction;
-import yal.arbre.expressions.Parametre;
+import yal.arbre.declaration.Tds;
+import yal.arbre.expressions.Expression;
+import yal.exceptions.AnalyseSemantiqueException;
 
 import java.util.ArrayList;
 
@@ -15,7 +17,7 @@ public class Gestionnaire {
     private int fonctionCourante;
     private String nomFoncCourante;
     private int ligFoncCourante;
-    private ArrayList<Parametre> param;
+    private ArrayList<Expression> exp;
     private ArrayList<Fonction> declFonc;
     private static Gestionnaire gestionnaire = new Gestionnaire();
 
@@ -37,7 +39,7 @@ public class Gestionnaire {
         inFonction = false;
         finProg = false;
         fonctionCourante = 0;
-        param = new ArrayList<>();
+        exp = new ArrayList<>();
         declFonc = new ArrayList<>();
     }
 
@@ -203,8 +205,8 @@ public class Gestionnaire {
      * Ajoute un paramètre dans la liste des paramètres lors de l'appel d'une fonction
      * @param p
      */
-    public void addParam(Parametre p){
-        param.add(p);
+    public void addParam(Expression p){
+        exp.add(p);
     }
 
     /**
@@ -213,8 +215,22 @@ public class Gestionnaire {
      * @return
      */
     public int getNbParam(){
-        int res = param.size();
-        param.clear();
+        int res = exp.size();
+        exp.clear();
         return res;
+    }
+
+    /**
+     *
+     */
+    public void verifParam(){
+        for(Expression e: exp){
+            if(!e.isBool()){
+                AnalyseSemantiqueException a = new AnalyseSemantiqueException(e.getNoLigne(), ": le type doit être entier");
+                Tds.getInstance().add(a.getMessage());
+            }else{
+                e.verifier();
+            }
+        }
     }
 }
