@@ -1,7 +1,5 @@
 package yal.arbre.declaration;
 
-import yal.outils.Gestionnaire;
-
 public class SymboleVarLoc extends Symbole {
 
     private int idfFonction;
@@ -14,9 +12,9 @@ public class SymboleVarLoc extends Symbole {
      * @param bloc
      * @param etq
      */
-    public SymboleVarLoc(String type, int n, int bloc, String etq) {
+    public SymboleVarLoc(String type, int n, int bloc, String etq, int idf) {
         super(type, n, bloc, etq);
-        this.idfFonction = Gestionnaire.getInstance().getFonctionCourante();
+        this.idfFonction = idf;
     }
 
     /**

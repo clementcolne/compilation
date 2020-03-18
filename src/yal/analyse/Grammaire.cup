@@ -115,7 +115,7 @@ LDECL_VAR_LOC   ::=     LDECL_VAR_LOC:ld  DECL_VAR_LOC:d
 
 DECL_VAR_LOC ::=    ENTIER IDF:i POINTVIRGULE
                 {:
-                Tds.getInstance().ajouter(new Entree(i), new SymboleVarLoc("entier", ileft + 1, Tds.getInstance().getCptBloc()+1,"")) ;
+                Tds.getInstance().ajouter(new Entree(i), new SymboleVarLoc("entier", ileft + 1, Tds.getInstance().getCptBloc()+1,"",Gestionnaire.getInstance().getFonctionCourante())) ;
                 :}
                 ;
 

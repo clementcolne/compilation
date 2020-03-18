@@ -11,6 +11,7 @@ public class SymboleVariable extends Symbole {
      */
     public SymboleVariable(String type, int n, int bloc, String etq) {
         super(type, n, bloc, etq);
+        idfFonction =-1;
     }
 
     /**

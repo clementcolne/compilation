@@ -2,7 +2,7 @@ package yal.arbre.declaration;
 
 public class SymboleParametre extends Symbole {
 
-    private int idfFonction;
+
 
     /**
      * Constructeur d'un symbole défini par son type et son déplacement

@@ -15,6 +15,7 @@ public class SymboleFonction extends Symbole {
     public SymboleFonction(String type, int n, int bloc, String etq) {
         super(type, n, bloc, etq);
         nbParametres = Tds.getInstance().getNbParametres(Gestionnaire.getInstance().getFonctionCourante());
+        idfFonction =-1;
     }
 
     /**

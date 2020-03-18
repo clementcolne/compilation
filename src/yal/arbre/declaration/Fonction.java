@@ -29,6 +29,7 @@ public class Fonction {
         this.idf = idf;
         this.etq = etq;
         this.bloc = bloc;
+        Tds.getInstance().setDeplacementVarLoc(idf);
         parametres = Tds.getInstance().getParametres(idf);
         varLoc = Tds.getInstance().getVarLoc(idf);
     }
@@ -59,16 +60,22 @@ public class Fonction {
      */
     public String toMIPS() {
         Tds.getInstance().ajoutBloc(bloc);
-        Tds.getInstance().setDeplacementVarLoc(idf);
         StringBuilder res = new StringBuilder();
         res.append(etq + ":\n");
         res.append("\t# Sauvegarde $sp dans $s2\n");
         res.append("\tmove $s2, $sp\n"); // $s2 = $sp
         res.append("\t# Empile les paramètres\n");
         // pour tous les paramètres de la fonction
+        System.out.println(idf);
+        System.out.println("Paramètres:");
         for(Symbole p : parametres) {
             System.out.println(p.getDeplacement());
         }
+        System.out.println("VarLoc:");
+        for(Symbole p : varLoc) {
+            System.out.println(p.getDeplacement());
+        }
+        System.out.println();
         /*for(Symbole p : parametres) {
             // on charge la valeur du paramètre dans $v0
             res.append("\tlw $v0, " + p.getDeplacement() + "($7)\n");

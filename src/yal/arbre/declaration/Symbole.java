@@ -10,6 +10,7 @@ public class Symbole {
     private int noBloc;
     private String etq;
     protected int nbParametres;
+    protected int idfFonction;
 
     /**
      * Constructeur d'un symbole défini par son type et son déplacement
