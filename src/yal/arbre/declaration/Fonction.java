@@ -1,6 +1,5 @@
 package yal.arbre.declaration;
 
-import sun.jvm.hotspot.debugger.cdbg.Sym;
 import yal.arbre.ArbreAbstrait;
 import yal.exceptions.AnalyseSemantiqueException;
 import yal.outils.Gestionnaire;
