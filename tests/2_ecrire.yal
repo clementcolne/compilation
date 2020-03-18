@@ -1,7 +1,7 @@
 programme prog debut
 entier a;
-    fonction fct (entier a) debut
-        ecrire a;
+    fonction fct(entier b) debut
+        ecrire b;
         retourne 0;
     fin
 a = 10;

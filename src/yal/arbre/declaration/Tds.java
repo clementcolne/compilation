@@ -236,7 +236,6 @@ public class Tds {
             }
         }
         cptVariablesLocale -= 4;
-        System.out.println("-8");
         for(Map.Entry<Entree, ArrayList<Symbole>> k : variables.entrySet()) {
             for(Symbole s : k.getValue()) {
                 // pour chaque entrée, je parcours son arraylist de symboles
