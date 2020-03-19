@@ -63,8 +63,6 @@ public class Fonction {
         StringBuilder res = new StringBuilder();
         res.append(etq + ":\n");
 
-        afficherInformations();
-
         res.append("\t# Sauvegarde $sp dans $s2\n");
         // on place $s2 pour marquer le début de la fonction dans la pile
         res.append("\tmove $s2, $sp\n"); // $s2 = $sp

@@ -109,12 +109,13 @@ public class AppelFonction extends Expression{
         StringBuilder res = new StringBuilder();
 
         if(expList.size() > 0) {
-            expList.get(expList.size() - 1).toMIPS();
+
             res.append("\t# On empile les paramètres\n");
+            res.append("\t"+expList.get(expList.size() - 1).toMIPS()+"\n");
             res.append("\tsw $v0, ($sp)\n");
             res.append("\tadd $sp, $sp, -4\n");
             for (int i = 0; i < expList.size() - 1; i++) {
-                expList.get(i).toMIPS();
+                res.append("\t"+expList.get(i).toMIPS()+"\n");
                 res.append("\tsw $v0, ($sp)\n");
                 res.append("\tadd $sp, $sp, -4\n");
             }
