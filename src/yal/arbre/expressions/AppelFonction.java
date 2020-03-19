@@ -108,14 +108,20 @@ public class AppelFonction extends Expression{
     public String toMIPS() {
         StringBuilder res = new StringBuilder();
 
-        //mettre s2
+        res.append("\t# Sauvegarde $sp dans $s2\n");
+        // on place $s2 pour marquer le début de la fonction dans la pile
+        res.append("\tmove $s2, $sp\n\n"); // $s2 = $sp
 
-        /*expList.get(expList.size()-1).toMIPS();
-        // empiler $v0
+        expList.get(expList.size()-1).toMIPS();
+        res.append("\t# On empile les paramètres\n");
+        res.append("\tsw $v0, ($sp)\n");
+        res.append("\tadd $sp, $sp, -4\n");
         for(int i=0; i<expList.size()-1; i++){
             expList.get(i).toMIPS();
-            // empiler $v0
-        }*/
+            res.append("\tsw $v0, ($sp)\n");
+            res.append("\tadd $sp, $sp, -4\n");
+        }
+        res.append("\n");
 
         res.append("\tjal " + Tds.getInstance().identifier(idf.getNom(), noLig,"fonction",nbParam).getEtq() + "\n"); // jump à la fonction
         return res.toString();

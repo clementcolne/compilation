@@ -10,14 +10,22 @@ main:
 
 	#allocation mémoire pour les variables
 	move $s7, $sp
-	add $sp, $sp, -8
+	add $sp, $sp, -16
 
-	# a = 10
-	li $v0, 10
-	sw $v0, 0($s2)
+	#ecrire fct(b,c,d,a)
+	# Sauvegarde $sp dans $s2
+	move $s2, $sp
 
-	#ecrire fct(b,a)
-	lw $v0, -4($s2)
+	# On empile les paramètres
+	sw $v0, ($sp)
+	add $sp, $sp, -4
+	sw $v0, ($sp)
+	add $sp, $sp, -4
+	sw $v0, ($sp)
+	add $sp, $sp, -4
+	sw $v0, ($sp)
+	add $sp, $sp, -4
+
 	jal fonction1
 
 	move $a0, $v0
@@ -51,27 +59,48 @@ erreurRetour:
 	syscall
 
 fonction1:
-	# Sauvegarde $sp dans $s2
-	move $s2, $sp
-
-	# Allocation mémoire pour 2 paramètres
-	add, $sp, $sp, -8
-
-	# Empile les 2 paramètres
-	lw $v0, 0($7)
-	sw $v0, 0($s2)
-	lw $v0, -4($7)
-	sw $v0, -4($s2)
-
-	# Allocation mémoire pour les 2 variables locaux
-	add, $sp, $sp, -8
+	# Allocation mémoire pour les 0 variables locales
+	add, $sp, $sp, 0
 
 	# Sauvegarde de l'adresse de retour
 	sw $ra, ($sp)
 	add, $sp, $sp, -4
 
+	#ecrire a
+	lw $v0, -12($s2)
+	move $a0, $v0
+	li $v0, 1
+	syscall
+
+	#retour à la ligne
+	li $v0, 4 
+	la $a0, BackSlachN
+	syscall
+
 	#ecrire b
 	lw $v0, 0($s2)
+	move $a0, $v0
+	li $v0, 1
+	syscall
+
+	#retour à la ligne
+	li $v0, 4 
+	la $a0, BackSlachN
+	syscall
+
+	#ecrire c
+	lw $v0, -8($s2)
+	move $a0, $v0
+	li $v0, 1
+	syscall
+
+	#retour à la ligne
+	li $v0, 4 
+	la $a0, BackSlachN
+	syscall
+
+	#ecrire d
+	lw $v0, -4($s2)
 	move $a0, $v0
 	li $v0, 1
 	syscall
