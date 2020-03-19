@@ -173,6 +173,35 @@ public class Tds {
         }
     }
 
+    public String identifierSymb(String e, int nbParam){
+        String typeSymb = "";
+        for(Map.Entry<Entree, ArrayList<Symbole>> k : variables.entrySet()) {
+            if(k.getKey().getNom().equals(e)) {
+                for(Symbole s: k.getValue()) {
+                    for(int i=pile.size()-1; i>=0; i--) {   // on prend le dernier bloc ouvert
+                        if(s.getNoBloc()==pile.get(i)) {
+                            if(s.isFonction()){
+                                if(s.getNbParametres() == nbParam){
+                                    typeSymb = "fonction";
+                                }
+                            }
+                            if(s.isVariable()){
+                                typeSymb = "variable";
+                            }
+                            if(s.isVariableLocale()){
+                                typeSymb = "variableLocale";
+                            }
+                            if(s.isParametre()){
+                                typeSymb = "parametre";
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return typeSymb;
+    }
+
     /**
      * Retourne la taille de la zone allouée aux variables dans la pile
      * @return la taille de la zone allouée aux variables dans la pile

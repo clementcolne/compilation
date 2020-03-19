@@ -34,11 +34,10 @@ public class Idf extends Expression{
      */
     @Override
     public String toMIPS() {
-        Tds.getInstance().afficherTds();
         // différencier entre variable locale et globale, et donc utiliser soit $s7 ou $s2
         int deplacement = Tds.getInstance().getDeplacement(nom);
         StringBuilder res = new StringBuilder();
-        if(Tds.getInstance().identifier(nom,noLigne,"entier",0).isVariable()) {
+        if(Tds.getInstance().identifierSymb(nom,0).equals("variable")) {
             res.append("\tlw $v0, " + deplacement + "($s7)");
         }else{
             res.append("\tlw $v0, " + deplacement + "($s2)");
