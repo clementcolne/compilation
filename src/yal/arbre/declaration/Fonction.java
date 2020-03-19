@@ -63,36 +63,51 @@ public class Fonction {
         StringBuilder res = new StringBuilder();
         res.append(etq + ":\n");
         res.append("\t# Sauvegarde $sp dans $s2\n");
-        res.append("\tmove $s2, $sp\n"); // $s2 = $sp
-        res.append("\t# Empile les paramètres\n");
+        // on place $s2 pour marquer le début de la fonction dans la pile
+        res.append("\tmove $s2, $sp\n\n"); // $s2 = $sp
+
+        afficherInformations();
+
+        res.append("\t# Empile les " + parametres.size()  + " paramètres\n");
         // pour tous les paramètres de la fonction
-        System.out.println(idf);
-        System.out.println("Paramètres:");
-        for(Symbole p : parametres) {
-            System.out.println(p.getDeplacement());
-        }
-        System.out.println("VarLoc:");
-        for(Symbole p : varLoc) {
-            System.out.println(p.getDeplacement());
-        }
-        System.out.println();
-        /*for(Symbole p : parametres) {
+        for(Symbole s : parametres) {
             // on charge la valeur du paramètre dans $v0
-            res.append("\tlw $v0, " + p.getDeplacement() + "($7)\n");
+            res.append("\tlw $v0, " + s.getDeplacement() + "($7)\n"); // TODO ici il me faut le déplacement dans le programme global pas la fonction
             // on empile $v0 dans la pile dédiée à la fonction
-            res.append("\t\n");
-        }*/
-        res.append("\t\n");
+            res.append("\tsw $v0, " + s.getDeplacement() + "($s2)\n");
+        }
+        res.append("\n");
+
         res.append("\t# Sauvegarde de l'adresse de retour\n");
         res.append("\tsw $ra, ($sp)\n"); // on empile l'adresse de retour de la fonction dans la pile
         res.append("\tadd, $sp, $sp, -4\n\n");
+
+        // on alloue la mémoire pour les paramètres locaux
+        res.append("\t# Allocation mémoire pour les " + varLoc.size() + " paramètres locaux\n");
+        int cpt = varLoc.size()*-4;
+        res.append("\tadd, $sp, $sp, " + cpt + "\n\n");
+
         //res.append("\t# chainage dynamique\n");
         //res.append("\tsw $s7, ($sp)\n"); // chainage dynamique -> contraire dans le retour
         //res.append("\tadd, $sp, $sp, -4\n\n");
+
         Gestionnaire.getInstance().setCptProg();
         res.append(arbre.toMIPS());
         res.append("\tj erreurRetour\n\n");
         Tds.getInstance().suppBloc(bloc);
         return res.toString();
+    }
+
+    public void afficherInformations() {
+        System.out.println("Paramètres : " + parametres.size());
+        System.out.println("Déplacements : ");
+        for(Symbole p : parametres) {
+            System.out.println("* " + p.getDeplacement());
+        }
+        System.out.println("VarLoc : " + varLoc.size());
+        System.out.println("Déplacements : ");
+        for(Symbole p : varLoc) {
+            System.out.println("* " + p.getDeplacement());
+        }
     }
 }

@@ -10,13 +10,14 @@ main:
 
 	#allocation mémoire pour les variables
 	move $s7, $sp
-	add $sp, $sp, -4
+	add $sp, $sp, -8
 
 	# a = 10
 	li $v0, 10
 	sw $v0, 0($s7)
 
 	#ecrire fct()
+	lw $v0, -4($s7)
 	jal fonction1
 
 	move $a0, $v0
@@ -52,13 +53,21 @@ erreurRetour:
 fonction1:
 	# Sauvegarde $sp dans $s2
 	move $s2, $sp
+
 	# Empile les paramètres
-	
+	lw $v0, 0($7)
+	sw $v0, 0($s2)
+	lw $v0, -4($7)
+	sw $v0, -4($s2)
+
 	# Sauvegarde de l'adresse de retour
 	sw $ra, ($sp)
 	add, $sp, $sp, -4
 
-	#ecrire a
+	# Allocation mémoire pour les 2 paramètres locaux
+	add, $sp, $sp, -8
+
+	#ecrire b
 	lw $v0, 0($s7)
 	move $a0, $v0
 	li $v0, 1
