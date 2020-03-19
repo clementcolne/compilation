@@ -59,6 +59,7 @@ public class Fonction {
      * @return le code MIPS de la fonction
      */
     public String toMIPS() {
+        Gestionnaire.getInstance().setNbParamCourant(parametres.size() + varLoc.size());
         Tds.getInstance().ajoutBloc(bloc);
         StringBuilder res = new StringBuilder();
         res.append(etq + ":\n");

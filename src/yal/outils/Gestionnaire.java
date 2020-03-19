@@ -15,6 +15,7 @@ public class Gestionnaire {
     private int fonctionCourante;
     private String nomFoncCourante;
     private int ligFoncCourante;
+    private int nbParamCourant;
     private ArrayList<Expression> exp;
     private ArrayList<Fonction> declFonc;
     private static Gestionnaire gestionnaire = new Gestionnaire();
@@ -37,6 +38,7 @@ public class Gestionnaire {
         inFonction = false;
         finProg = false;
         fonctionCourante = 0;
+        nbParamCourant = 0;
         exp = new ArrayList<>();
         declFonc = new ArrayList<>();
     }
@@ -230,5 +232,13 @@ public class Gestionnaire {
             copie.add(e);
         }
         return copie;
+    }
+
+    public void setNbParamCourant(int x){
+        nbParamCourant = x;
+    }
+
+    public int getNbParamCourant(){
+        return nbParamCourant;
     }
 }

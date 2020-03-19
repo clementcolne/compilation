@@ -51,6 +51,7 @@ public class Retourne extends Instruction {
         res.append(exp.toMIPS() + "\n"); // stocké dans $v0
         res.append("\tadd, $sp, $sp, 4\n"); // on libère l'espace mémoire de la pile
         res.append("\tlw $ra, ($sp)\n"); // on récupère l'adresse retour
+        res.append("\tadd $sp, $sp, "+Gestionnaire.getInstance().getNbParamCourant()*4+"\n"); // $sp = $s2
         res.append("\tjr $ra\n");
         return res.toString();
     }
