@@ -64,10 +64,9 @@ public class Fonction {
         res.append(etq + ":\n");
 
 
-        // on alloue la mémoire pour les paramètres locaux
-        res.append("\t# Allocation mémoire pour les " + varLoc.size() + " paramètres locaux\n");
-        int cpt = varLoc.size()*-4;
-        res.append("\tadd, $sp, $sp, " + cpt + "\n\n");
+        // on alloue la mémoire pour les variables locales
+        res.append("\t# Allocation mémoire pour les " + varLoc.size() + " variables locales\n");
+        res.append("\tadd, $sp, $sp, " + varLoc.size()*-4 + "\n\n");
 
         //res.append("\t# chainage dynamique\n");
         //res.append("\tsw $s7, ($sp)\n"); // chainage dynamique -> contraire dans le retour

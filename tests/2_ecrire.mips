@@ -14,10 +14,10 @@ main:
 
 	# a = 10
 	li $v0, 10
-	sw $v0, 0($s7)
+	sw $v0, 0($s2)
 
-	#ecrire fct()
-	lw $v0, -4($s7)
+	#ecrire fct(b,a)
+	lw $v0, -4($s2)
 	jal fonction1
 
 	move $a0, $v0
@@ -54,21 +54,24 @@ fonction1:
 	# Sauvegarde $sp dans $s2
 	move $s2, $sp
 
+	# Allocation mémoire pour 2 paramètres
+	add, $sp, $sp, -8
+
 	# Empile les 2 paramètres
 	lw $v0, 0($7)
 	sw $v0, 0($s2)
 	lw $v0, -4($7)
 	sw $v0, -4($s2)
 
+	# Allocation mémoire pour les 2 variables locaux
+	add, $sp, $sp, -8
+
 	# Sauvegarde de l'adresse de retour
 	sw $ra, ($sp)
 	add, $sp, $sp, -4
 
-	# Allocation mémoire pour les 2 paramètres locaux
-	add, $sp, $sp, -8
-
 	#ecrire b
-	lw $v0, 0($s7)
+	lw $v0, 0($s2)
 	move $a0, $v0
 	li $v0, 1
 	syscall

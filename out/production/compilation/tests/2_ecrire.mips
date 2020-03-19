@@ -54,7 +54,7 @@ fonction1:
 	# Sauvegarde $sp dans $s2
 	move $s2, $sp
 
-	# Empile les paramètres
+	# Empile les 2 paramètres
 	lw $v0, 0($7)
 	sw $v0, 0($s2)
 	lw $v0, -4($7)
