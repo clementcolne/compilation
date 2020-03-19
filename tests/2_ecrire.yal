@@ -4,10 +4,16 @@ entier b;
 entier c;
 entier d;
     fonction fct(entier a; entier b; entier c; entier d) debut
+        entier e;
+        entier f;
+        entier g;
+        entier h;
+
         ecrire a;
         ecrire b;
         ecrire c;
         ecrire d;
+
         retourne 0;
     fin
 ecrire fct(a, b, c, d);

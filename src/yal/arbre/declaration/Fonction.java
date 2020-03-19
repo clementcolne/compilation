@@ -63,6 +63,8 @@ public class Fonction {
         StringBuilder res = new StringBuilder();
         res.append(etq + ":\n");
 
+        afficherInformations();
+
         // on alloue la mémoire pour les variables locales
         res.append("\t# Allocation mémoire pour les " + varLoc.size() + " variables locales\n");
         res.append("\tadd, $sp, $sp, " + varLoc.size()*-4 + "\n\n");

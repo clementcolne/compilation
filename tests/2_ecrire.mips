@@ -59,8 +59,8 @@ erreurRetour:
 	syscall
 
 fonction1:
-	# Allocation mémoire pour les 0 variables locales
-	add, $sp, $sp, 0
+	# Allocation mémoire pour les 4 variables locales
+	add, $sp, $sp, -16
 
 	# Sauvegarde de l'adresse de retour
 	sw $ra, ($sp)
