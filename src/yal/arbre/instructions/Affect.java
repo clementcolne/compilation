@@ -46,7 +46,7 @@ public class Affect extends Instruction {
         res.append("\t# " + partieG.getNom() + " = " + partieD.getNom() + "\n");
         res.append(partieD.toMIPS()+"\n");
 
-        if(Tds.getInstance().identifier(partieG.getNom(),noLigne,"entier",0).isVariable()) {
+        if(Tds.getInstance().identifierSymb(partieG.getNom(),0).equals("variable")) {
             res.append("\tsw $v0, " + Tds.getInstance().getDeplacement(partieG.getNom()) + "($s7)\n");
         }else{
             res.append("\tsw $v0, " + Tds.getInstance().getDeplacement(partieG.getNom()) + "($s2)\n");
