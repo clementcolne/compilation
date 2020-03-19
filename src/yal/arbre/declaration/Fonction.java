@@ -65,9 +65,10 @@ public class Fonction {
 
         afficherInformations();
 
-        // on alloue la mémoire pour les variables locales
-        res.append("\t# Allocation mémoire pour les " + varLoc.size() + " variables locales\n");
-        res.append("\tadd, $sp, $sp, " + varLoc.size()*-4 + "\n\n");
+        res.append("\t# Sauvegarde $sp dans $s2\n");
+        // on place $s2 pour marquer le début de la fonction dans la pile
+        res.append("\tmove $s2, $sp\n"); // $s2 = $sp
+        res.append("\tadd, $s2, $s2, " + 4*parametres.size() + "\n\n");
 
         //res.append("\t# chainage dynamique\n");
         //res.append("\tsw $s7, ($sp)\n"); // chainage dynamique -> contraire dans le retour

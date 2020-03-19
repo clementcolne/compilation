@@ -108,10 +108,6 @@ public class AppelFonction extends Expression{
     public String toMIPS() {
         StringBuilder res = new StringBuilder();
 
-        res.append("\t# Sauvegarde $sp dans $s2\n");
-        // on place $s2 pour marquer le début de la fonction dans la pile
-        res.append("\tmove $s2, $sp\n\n"); // $s2 = $sp
-
         expList.get(expList.size()-1).toMIPS();
         res.append("\t# On empile les paramètres\n");
         res.append("\tsw $v0, ($sp)\n");
