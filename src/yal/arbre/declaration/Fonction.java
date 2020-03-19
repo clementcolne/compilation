@@ -76,7 +76,7 @@ public class Fonction {
         // pour tous les paramètres de la fonction
         for(Symbole s : parametres) {
             // on charge la valeur du paramètre dans $v0
-            res.append("\tlw $v0, " + s.getDeplacement() + "($7)\n");
+            res.append("\tlw $v0, " + s.getDeplacement() + "($7)\n"); // TODO ici il me faut le déplacement dans le programme global pas la fonction
             // on empile $v0 dans la pile dédiée à la fonction
             res.append("\tsw $v0, " + s.getDeplacement() + "($s2)\n");
         }

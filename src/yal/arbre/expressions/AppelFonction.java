@@ -107,11 +107,14 @@ public class AppelFonction extends Expression{
     @Override
     public String toMIPS() {
         StringBuilder res = new StringBuilder();
-        if(arbre != null) {
-            Gestionnaire.getInstance().setCptProg();
-            // On fait appel aux toMIPS de paramètre
-            res.append(arbre.toMIPS());
-        }
+        Gestionnaire.getInstance().setCptProg();
+        // On fait appel aux toMIPS de paramètre
+        res.append(arbre.toMIPS());
+
+        res.append("\t# Sauvegarde $sp dans $s2\n");
+        // on place $s2 pour marquer le début de la fonction dans la pile
+        res.append("\tmove $s2, $sp\n\n"); // $s2 = $sp
+
         res.append("\tjal " + Tds.getInstance().identifier(idf.getNom(), noLig,"fonction",nbParam).getEtq() + "\n"); // jump à la fonction
         return res.toString();
     }
