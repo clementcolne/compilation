@@ -9,6 +9,7 @@ import java.util.Map;
 public class Tds {
 
     private HashMap<Entree, ArrayList<Symbole>> variables;
+    private ArrayList<Symbole> param;
     private ArrayList<Integer> parametres;
     private ArrayList<String> erreurs;
     private int cptVariables;
@@ -28,6 +29,7 @@ public class Tds {
      */
     private Tds() {
         variables = new HashMap<>();
+        param = new ArrayList<>();
         parametres = new ArrayList<>();
         erreurs = new ArrayList<>();
         pile = new ArrayList<>();
@@ -63,6 +65,9 @@ public class Tds {
      * @throws Exception Lève une exception si l'entrée e est déjà présente dans la hashmap des variables
      */
     public void ajouter(Entree e, Symbole s) throws AnalyseSemantiqueException {
+        if(s.isVariableLocale() || s.isParametre()){
+                param.add(s);
+        }
         boolean dedans = false;
         Entree entree=new Entree("");
         //ArrayList<Symbole> listSymb = new ArrayList<>();
@@ -245,8 +250,7 @@ public class Tds {
      */
     public void setDeplacementVarLoc(int idfFonction){
         cptVariablesLocale = 0;
-        for(Map.Entry<Entree, ArrayList<Symbole>> k : variables.entrySet()) {
-            for(Symbole s : k.getValue()) {
+            for(Symbole s : param) {
                 // pour chaque entrée, je parcours son arraylist de symboles
                 // si le symbole est un paramètre et que il est lié à la fonction qui nous intéresse
                 // alors on incrémente le compteur
@@ -255,9 +259,7 @@ public class Tds {
                     cptVariablesLocale -= 4;
                 }
             }
-        }
-        for(Map.Entry<Entree, ArrayList<Symbole>> k : variables.entrySet()) {
-            for(Symbole s : k.getValue()) {
+            for(Symbole s : param) {
                 // pour chaque entrée, je parcours son arraylist de symboles
                 // si le symbole est un paramètre et que il est lié à la fonction qui nous intéresse
                 // alors on incrémente le compteur
@@ -266,8 +268,8 @@ public class Tds {
                     cptVariablesLocale -= 4;
                 }
             }
-        }
         cptVariablesLocale -= 4;
+            param.clear();
     }
 
     /**
