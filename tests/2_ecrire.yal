@@ -1,13 +1,19 @@
 programme prog debut
 entier a;
-    fonction fct() debut
-        entier b;
-        b = 123;
+entier b;
+entier c;
+entier d;
+    fonction fct(entier a; entier b; entier c; entier d) debut
+        ecrire a;
         ecrire b;
+        ecrire c;
+        ecrire d;
 
         retourne 0;
     fin
-a = 1;
-ecrire a;
-a = fct();
+a = 666;
+b = 111;
+c = 333;
+d = 444;
+ecrire fct(a, b, c, d);
 fin

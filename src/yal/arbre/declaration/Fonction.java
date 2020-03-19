@@ -70,6 +70,10 @@ public class Fonction {
         res.append("\tmove $s2, $sp\n"); // $s2 = $sp
         res.append("\tadd, $s2, $s2, " + 4*parametres.size() + "\n\n");
 
+        // on alloue la mémoire pour les variables locales
+        res.append("\t# Allocation mémoire pour les " + varLoc.size() + " variables locales\n");
+        res.append("\tadd, $sp, $sp, " + varLoc.size()*-4 + "\n\n");
+
         //res.append("\t# chainage dynamique\n");
         //res.append("\tsw $s7, ($sp)\n"); // chainage dynamique -> contraire dans le retour
         //res.append("\tadd, $sp, $sp, -4\n\n");

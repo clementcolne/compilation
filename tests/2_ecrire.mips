@@ -10,14 +10,37 @@ main:
 
 	#allocation mémoire pour les variables
 	move $s7, $sp
-	add $sp, $sp, -4
+	add $sp, $sp, -16
 
-	# a = 1
-	li $v0, 1
+	# a = 666
+	li $v0, 666
 	sw $v0, 0($s7)
 
-	#ecrire a
-	lw $v0, 0($s7)
+	# b = 111
+	li $v0, 111
+	sw $v0, -4($s7)
+
+	# c = 333
+	li $v0, 333
+	sw $v0, -8($s7)
+
+	# d = 444
+	li $v0, 444
+	sw $v0, -12($s7)
+
+	#ecrire fct(b,c,d,a)
+	# On empile les paramètres
+	sw $v0, ($sp)
+	add $sp, $sp, -4
+	sw $v0, ($sp)
+	add $sp, $sp, -4
+	sw $v0, ($sp)
+	add $sp, $sp, -4
+	sw $v0, ($sp)
+	add $sp, $sp, -4
+
+	jal fonction1
+
 	move $a0, $v0
 	li $v0, 1
 	syscall
@@ -26,15 +49,6 @@ main:
 	li $v0, 4 
 	la $a0, BackSlachN
 	syscall
-
-	# a = fct()
-	# On empile les paramètres
-	sw $v0, ($sp)
-	add $sp, $sp, -4
-
-	jal fonction1
-
-	sw $v0, 0($s7)
 
 
 end:
@@ -60,18 +74,50 @@ erreurRetour:
 fonction1:
 	# Sauvegarde $sp dans $s2
 	move $s2, $sp
-	add, $s2, $s2, 0
+	add, $s2, $s2, 16
+
+	# Allocation mémoire pour les 0 variables locales
+	add, $sp, $sp, 0
 
 	# Sauvegarde de l'adresse de retour
 	sw $ra, ($sp)
 	add, $sp, $sp, -4
 
-	# b = 123
-	li $v0, 123
-	sw $v0, 0($s2)
+	#ecrire a
+	lw $v0, 0($s2)
+	move $a0, $v0
+	li $v0, 1
+	syscall
+
+	#retour à la ligne
+	li $v0, 4 
+	la $a0, BackSlachN
+	syscall
 
 	#ecrire b
-	lw $v0, 0($s2)
+	lw $v0, -4($s2)
+	move $a0, $v0
+	li $v0, 1
+	syscall
+
+	#retour à la ligne
+	li $v0, 4 
+	la $a0, BackSlachN
+	syscall
+
+	#ecrire c
+	lw $v0, -8($s2)
+	move $a0, $v0
+	li $v0, 1
+	syscall
+
+	#retour à la ligne
+	li $v0, 4 
+	la $a0, BackSlachN
+	syscall
+
+	#ecrire d
+	lw $v0, -12($s2)
 	move $a0, $v0
 	li $v0, 1
 	syscall
