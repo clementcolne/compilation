@@ -130,17 +130,20 @@ LDECL_PARAM   ::=  LDECL_PARAM:ld  DECL_PARAM:d
                 ;
 
 DECL_PARAM  ::=  ENTIER IDF:i POINTVIRGULE
-                 {: Tds.getInstance().ajouter(new Entree(i), new SymboleParametre("entier", ileft + 1, Tds.getInstance().getCptBloc()+1,"",Gestionnaire.getInstance().getFonctionCourante())) ; :}
+                 {: Tds.getInstance().ajouter(new Entree(i), new SymboleParametre("entier", ileft + 1, Tds.getInstance().getCptBloc()+1,"",Gestionnaire.getInstance().getFonctionCourante())) ;
+                    Tds.getInstance().ajoutParam(Gestionnaire.getInstance().getFonctionCourante()) ; :}
                  ;
 
 PARAM ::=     PAR_OUVRANTE PAR_FERMANTE
               {: :}
         |
               PAR_OUVRANTE LDECL_PARAM ENTIER IDF:i PAR_FERMANTE
-              {: Tds.getInstance().ajouter(new Entree(i), new SymboleParametre("entier", ileft + 1, Tds.getInstance().getCptBloc()+1,"",Gestionnaire.getInstance().getFonctionCourante())) ; :}
+              {: Tds.getInstance().ajouter(new Entree(i), new SymboleParametre("entier", ileft + 1, Tds.getInstance().getCptBloc()+1,"",Gestionnaire.getInstance().getFonctionCourante())) ;
+                Tds.getInstance().ajoutParam(Gestionnaire.getInstance().getFonctionCourante()) ; :}
         |
               PAR_OUVRANTE ENTIER IDF:i PAR_FERMANTE
-              {: Tds.getInstance().ajouter(new Entree(i), new SymboleParametre("entier", ileft + 1, Tds.getInstance().getCptBloc()+1,"",Gestionnaire.getInstance().getFonctionCourante())) ; :}
+              {: Tds.getInstance().ajouter(new Entree(i), new SymboleParametre("entier", ileft + 1, Tds.getInstance().getCptBloc()+1,"",Gestionnaire.getInstance().getFonctionCourante())) ;
+                Tds.getInstance().ajoutParam(Gestionnaire.getInstance().getFonctionCourante()) ; :}
               ;
 
 DECL    ::=     ENTIER IDF:i POINTVIRGULE
@@ -178,11 +181,13 @@ LINST   ::=     LINST:li  INST:i
 
 LEXP   ::=     LEXP:le  EXP_PARAM:e
                 {: ((BlocDInstructions)le).ajouter(e) ;
+                Gestionnaire.getInstance().addParam(e);
                    RESULT = le ; :}
         |
                 EXP_PARAM:e
                 {: BlocDInstructions b = new BlocDInstructions(eleft + 1) ;
                    b.ajouter(e) ;
+                   Gestionnaire.getInstance().addParam(e);
                    RESULT = b ; :}
                 ;
 
@@ -276,56 +281,77 @@ EXP    ::=     CSTENTIERE:c
 
 EXP_PARAM ::=                VIRGULE CSTENTIERE:c
                              {: Expression p = new ConstanteEntiere(c, cleft + 1) ;
-                                Gestionnaire.getInstance().addParam(p);
+                                //Gestionnaire.getInstance().addParam(p);
                                 RESULT = p ;  :}
                       |
                              VIRGULE IDF:i PAR_OUVRANTE PAR_FERMANTE
                              {: Expression p = new AppelFonction(new Idf(i, ileft + 1 ),ileft+1) ;
-                                Gestionnaire.getInstance().addParam(p);
+                               // Gestionnaire.getInstance().addParam(p);
                                 RESULT =  p ; :}
                       |
                              VIRGULE IDF:i PAR_OUVRANTE EXP:p LEXP:lp PAR_FERMANTE
                              {:  Expression e = new AppelFonction(new Idf(i, ileft + 1 ),ileft+1,p,lp) ;
-                                 Gestionnaire.getInstance().addParam(e);
+                                 //Gestionnaire.getInstance().addParam(e);
                                  RESULT =  e ; :}
                       |
                              VIRGULE IDF:i PAR_OUVRANTE EXP:p PAR_FERMANTE
                              {:  Expression e = new AppelFonction(new Idf(i, ileft + 1 ),ileft+1, p) ;
-                                 Gestionnaire.getInstance().addParam(e);
+                                 //Gestionnaire.getInstance().addParam(e);
                                  RESULT =  e ; :}
                       |
                              VIRGULE IDF:i
                              {: Expression p = new Idf(i, ileft + 1 ) ;
-                                Gestionnaire.getInstance().addParam(p);
+                               // Gestionnaire.getInstance().addParam(p);
                                 RESULT =  p ; :}
                       |
                              VIRGULE EXP:g MULT EXP:d
                              {: Expression p = new Multiplication(g,d,gleft + 1) ;
-                                Gestionnaire.getInstance().addParam(p);
+                                //Gestionnaire.getInstance().addParam(p);
                                 RESULT =  p ; :}
                       |
                              VIRGULE EXP:g DIVISE EXP:d
                              {: Expression p = new Division(g,d,gleft + 1) ;
-                                Gestionnaire.getInstance().addParam(p);
+                               // Gestionnaire.getInstance().addParam(p);
                                 RESULT = p ; :}
                       |
                              VIRGULE EXP:g PLUS EXP:d
                              {: Expression p = new Addition(g,d,gleft + 1) ;
-                                Gestionnaire.getInstance().addParam(p);
+                               // Gestionnaire.getInstance().addParam(p);
                                 RESULT = p ; :}
                       |
                              VIRGULE EXP:g MOINS EXP:d
                              {: Expression p = new Soustraction(g,d,gleft + 1) ;
-                                Gestionnaire.getInstance().addParam(p);
+                               // Gestionnaire.getInstance().addParam(p);
                                 RESULT = p ; :}
                       |
                              VIRGULE MOINS EXP:e
                              {: Expression p = new ExpressionInverse(e,eleft + 1) ;
-                                Gestionnaire.getInstance().addParam(p);
+                               // Gestionnaire.getInstance().addParam(p);
                                 RESULT = p ; :}
                       |
                             VIRGULE PAR_OUVRANTE EXP:e PAR_FERMANTE
                             {: Expression p = new ExpressionParenthese(e,eleft + 1) ;
-                               Gestionnaire.getInstance().addParam(p);
+                              // Gestionnaire.getInstance().addParam(p);
                                RESULT = p ; :}
+                     |
+                            VIRGULE EXP:g INF EXP:d
+                            {: RESULT = new Inferieur(g,d,gleft + 1) ; :}
+                     |
+                            VIRGULE EXP:g SUP EXP:d
+                            {: RESULT = new Superieur(g,d,gleft + 1) ; :}
+                     |
+                            VIRGULE EXP:g EGALITE EXP:d
+                            {: RESULT = new Egalite(g,d,gleft + 1) ; :}
+                     |
+                            VIRGULE EXP:g DIFFERENCE EXP:d
+                            {: RESULT = new Difference(g,d,gleft + 1) ; :}
+                     |
+                            VIRGULE EXP:g ET EXP:d
+                            {: RESULT = new BoolEt(g,d,gleft + 1) ; :}
+                     |
+                            VIRGULE EXP:g OU EXP:d
+                            {: RESULT = new BoolOu(g,d,gleft + 1) ; :}
+                     |
+                            VIRGULE NON EXP:e
+                            {: RESULT = new NonExpression(e,eleft + 1) ; :}
                             ;
