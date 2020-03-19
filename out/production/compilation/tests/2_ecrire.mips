@@ -1,0 +1,88 @@
+.data
+BackSlachN: .asciiz "\n"
+Vrai: .asciiz "vrai"
+Faux: .asciiz "faux"
+ErreurDivisionZero: .asciiz "Erreur : Division par zéro"
+ErreurRetour: .asciiz "Erreur : Pas de retour dans la fonction"
+.text
+
+main:
+
+	#allocation mémoire pour les variables
+	move $s7, $sp
+	add $sp, $sp, -4
+
+	# a = 1
+	li $v0, 1
+	sw $v0, 0($s7)
+
+	#ecrire fct()
+	# On empile les paramètres
+	sw $v0, ($sp)
+	add $sp, $sp, -4
+
+	jal fonction1
+
+	move $a0, $v0
+	li $v0, 1
+	syscall
+
+	#retour à la ligne
+	li $v0, 4 
+	la $a0, BackSlachN
+	syscall
+
+
+end:
+	#Sortie de programme
+	li $v0, 10
+	syscall
+erreurDivisionZero:
+	li $v0, 4 
+	la $a0, ErreurDivisionZero
+	syscall
+	#Sortie de programme
+	li $v0, 10
+	syscall
+
+erreurRetour:
+	li $v0, 4 
+	la $a0, ErreurRetour
+	syscall
+	#Sortie de programme
+	li $v0, 10
+	syscall
+
+fonction1:
+	# Sauvegarde $sp dans $s2
+	move $s2, $sp
+	add, $s2, $s2, 0
+
+	# Sauvegarde de l'adresse de retour
+	sw $ra, ($sp)
+	add, $sp, $sp, -4
+
+	# b = 123
+	li $v0, 123
+	sw $v0, 0($s2)
+
+	#ecrire b
+	lw $v0, 0($s2)
+	move $a0, $v0
+	li $v0, 1
+	syscall
+
+	#retour à la ligne
+	li $v0, 4 
+	la $a0, BackSlachN
+	syscall
+
+	# retourne 0
+	li $v0, 0
+	add, $sp, $sp, 4
+	lw $ra, ($sp)
+	jr $ra
+
+	j erreurRetour
+
+

@@ -12,13 +12,12 @@ main:
 	move $s7, $sp
 	add $sp, $sp, -4
 
-	#ecrire fct(a)
-	# On empile les paramètres
-	sw $v0, ($sp)
-	add $sp, $sp, -4
+	# a = 1
+	li $v0, 1
+	sw $v0, 0($s7)
 
-	jal fonction1
-
+	#ecrire a
+	lw $v0, 0($s7)
 	move $a0, $v0
 	li $v0, 1
 	syscall
@@ -27,6 +26,15 @@ main:
 	li $v0, 4 
 	la $a0, BackSlachN
 	syscall
+
+	# a = fct()
+	# On empile les paramètres
+	sw $v0, ($sp)
+	add $sp, $sp, -4
+
+	jal fonction1
+
+	sw $v0, 0($s7)
 
 
 end:
@@ -52,14 +60,18 @@ erreurRetour:
 fonction1:
 	# Sauvegarde $sp dans $s2
 	move $s2, $sp
-	add, $s2, $s2, 4
+	add, $s2, $s2, 0
 
 	# Sauvegarde de l'adresse de retour
 	sw $ra, ($sp)
 	add, $sp, $sp, -4
 
-	#ecrire 0
-	li $v0, 0
+	# b = 123
+	li $v0, 123
+	sw $v0, 0($s2)
+
+	#ecrire b
+	lw $v0, 0($s2)
 	move $a0, $v0
 	li $v0, 1
 	syscall

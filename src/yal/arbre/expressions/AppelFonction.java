@@ -107,8 +107,9 @@ public class AppelFonction extends Expression{
     @Override
     public String toMIPS() {
         StringBuilder res = new StringBuilder();
-
-        expList.get(expList.size()-1).toMIPS();
+        if(expList.size() > 0) {
+            expList.get(expList.size()-1).toMIPS();
+        }
         res.append("\t# On empile les paramètres\n");
         res.append("\tsw $v0, ($sp)\n");
         res.append("\tadd $sp, $sp, -4\n");
