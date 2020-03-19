@@ -62,26 +62,6 @@ public class Fonction {
         Tds.getInstance().ajoutBloc(bloc);
         StringBuilder res = new StringBuilder();
         res.append(etq + ":\n");
-        res.append("\t# Sauvegarde $sp dans $s2\n");
-        // on place $s2 pour marquer le début de la fonction dans la pile
-        res.append("\tmove $s2, $sp\n\n"); // $s2 = $sp
-
-        afficherInformations();
-
-        // allocation mémoire pour les paramètres
-        res.append("\t# Allocation mémoire pour " + parametres.size()  + " paramètres\n");
-        res.append("\tadd, $sp, $sp, " + parametres.size()*-4 + "\n\n");
-
-        res.append("\t# Empile les " + parametres.size()  + " paramètres\n");
-        // pour tous les paramètres de la fonction
-        for(Symbole s : parametres) {
-            // on charge la valeur du paramètre dans $v0
-            res.append("\tlw $v0, " + s.getDeplacement() + "($7)\n"); // TODO ici il me faut le déplacement dans le programme global pas la fonction
-            // on empile $v0 dans la pile dédiée à la fonction
-            res.append("\tsw $v0, " + s.getDeplacement() + "($s2)\n");
-        }
-        res.append("\n");
-
 
         // on alloue la mémoire pour les variables locales
         res.append("\t# Allocation mémoire pour les " + varLoc.size() + " variables locales\n");
