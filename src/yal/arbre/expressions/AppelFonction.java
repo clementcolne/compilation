@@ -5,13 +5,18 @@ import yal.arbre.declaration.Tds;
 import yal.exceptions.AnalyseSemantiqueException;
 import yal.outils.Gestionnaire;
 
+import java.util.ArrayList;
+
 public class AppelFonction extends Expression{
+
+    // ATTENTION: le 1er param se trouve en dernier dans l'AL !
 
     private Idf idf;
     private int noLig;
     private int nbParam;
     private Expression exp;
     private ArbreAbstrait arbre;
+    private ArrayList<Expression> expList;
 
     /**
      * Constructeur d'une expression
@@ -21,7 +26,9 @@ public class AppelFonction extends Expression{
         super(n);
         this.idf = idf;
         this.noLig = n;
-        nbParam = Gestionnaire.getInstance().getNbParam();
+        expList = Gestionnaire.getInstance().getExp();
+        nbParam = expList.size();
+        Gestionnaire.getInstance().resetParam();
     }
 
     /**
@@ -34,7 +41,9 @@ public class AppelFonction extends Expression{
         this.noLig = n;
         this.arbre = a;
         this.exp = p;
-        nbParam = Gestionnaire.getInstance().getNbParam();
+        expList = Gestionnaire.getInstance().getExp();
+        nbParam = expList.size();
+        Gestionnaire.getInstance().resetParam();
     }
 
     /**
@@ -46,7 +55,9 @@ public class AppelFonction extends Expression{
         this.idf = idf;
         this.noLig = n;
         this.exp = p;
-        nbParam = Gestionnaire.getInstance().getNbParam();
+        expList = Gestionnaire.getInstance().getExp();
+        nbParam = expList.size();
+        Gestionnaire.getInstance().resetParam();
     }
 
 
@@ -56,7 +67,18 @@ public class AppelFonction extends Expression{
      */
     @Override
     public String getNom() {
-        return idf.getNom()+"()";
+        StringBuilder res = new StringBuilder(idf.getNom());
+        res.append("(");
+        if(expList.size()>0) {
+            res.append(expList.get(0).getNom());
+        }
+        if(expList.size()>=1) {
+            for (int i = 1; i < expList.size(); i++) {
+                res.append("," + expList.get(i).getNom());
+            }
+        }
+        res.append(")");
+        return res.toString();
     }
 
     /**
@@ -68,11 +90,13 @@ public class AppelFonction extends Expression{
             AnalyseSemantiqueException a = new AnalyseSemantiqueException(noLigne, ": fonction "+idf.getNom()+" non déclarée");
             Tds.getInstance().add(a.getMessage());
         }
-        if(exp != null){
-            exp.verifier();
-        }
-        if(arbre != null){
-            arbre.verifier();
+        for(Expression e: expList){
+            if(e.isBool()){
+                AnalyseSemantiqueException a = new AnalyseSemantiqueException(e.getNoLigne(), ": le type doit être entier dans : "+e.getNom());
+                Tds.getInstance().add(a.getMessage());
+            }else{
+                e.verifier();
+            }
         }
     }
 

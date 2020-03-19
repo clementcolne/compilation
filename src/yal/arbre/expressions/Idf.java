@@ -37,10 +37,10 @@ public class Idf extends Expression{
         // différencier entre variable locale et globale, et donc utiliser soit $s7 ou $s2
         int deplacement = Tds.getInstance().getDeplacement(nom);
         StringBuilder res = new StringBuilder();
-        if(Tds.getInstance().identifier(nom,noLigne,"entier",0).isVariableLocale() || Tds.getInstance().identifier(nom,noLigne,"entier",0).isParametre()) {
-            res.append("\tlw $v0, " + deplacement + "($s2)");
-        }else{
+        if(Tds.getInstance().identifier(nom,noLigne,"entier",0).isVariable()) {
             res.append("\tlw $v0, " + deplacement + "($s7)");
+        }else{
+            res.append("\tlw $v0, " + deplacement + "($s2)");
         }
         return res.toString();
     }

@@ -45,11 +45,12 @@ public class Affect extends Instruction {
         StringBuilder res = new StringBuilder();
         res.append("\t# " + partieG.getNom() + " = " + partieD.getNom() + "\n");
         res.append(partieD.toMIPS()+"\n");
-       /* if(partieD.isConstante()) {  //TODO vérifier la condition
+
+        if(Tds.getInstance().identifier(partieG.getNom(),noLigne,"entier",0).isVariable()) {
             res.append("\tsw $v0, " + Tds.getInstance().getDeplacement(partieG.getNom()) + "($s7)\n");
-        }else{*/
-            res.append("\tsw $v0, " + Tds.getInstance().getDeplacement(partieG.getNom()) + "($s7)\n");
-       // }
+        }else{
+            res.append("\tsw $v0, " + Tds.getInstance().getDeplacement(partieG.getNom()) + "($s2)\n");
+        }
         return res.toString();
     }
 }

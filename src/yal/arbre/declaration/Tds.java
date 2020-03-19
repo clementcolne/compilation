@@ -8,14 +8,15 @@ import java.util.Map;
 
 public class Tds {
 
-    public HashMap<Entree, ArrayList<Symbole>> variables;
-    public ArrayList<String> erreurs;
-    public int cptVariables;
-    public int cptVariablesLocale;
-    public int cptErreur;
-    public int blocCourant;
-    public int cptBloc;    // pour ne pas avoir 2x le même bloc -> problème de déclarations dans le même bloc
-    public ArrayList<Integer> pile;
+    private HashMap<Entree, ArrayList<Symbole>> variables;
+    private ArrayList<Integer> parametres;
+    private ArrayList<String> erreurs;
+    private int cptVariables;
+    private int cptVariablesLocale;
+    private int cptErreur;
+    private int blocCourant;
+    private int cptBloc;    // pour ne pas avoir 2x le même bloc -> problème de déclarations dans le même bloc
+    private ArrayList<Integer> pile;
 
     private static Tds tds = new Tds();
     public static Tds getInstance() {
@@ -27,6 +28,7 @@ public class Tds {
      */
     private Tds() {
         variables = new HashMap<>();
+        parametres = new ArrayList<>();
         erreurs = new ArrayList<>();
         pile = new ArrayList<>();
         cptErreur = 0;
@@ -225,7 +227,6 @@ public class Tds {
                 }
             }
         }
-        cptVariablesLocale -= 4;
         for(Map.Entry<Entree, ArrayList<Symbole>> k : variables.entrySet()) {
             for(Symbole s : k.getValue()) {
                 // pour chaque entrée, je parcours son arraylist de symboles
@@ -237,6 +238,7 @@ public class Tds {
                 }
             }
         }
+        cptVariablesLocale -= 4;
     }
 
     /**
@@ -329,7 +331,7 @@ public class Tds {
      * @param idfFonction identifiant de la fonction
      * @return le nombre de paramètres d'une fonction
      */
-    public int getNbParametres(int idfFonction) {
+   /* public int getNbParametres(int idfFonction) {
         //System.out.println("Pile");
         //afficherTds();
         int cptParametre = 0;
@@ -344,7 +346,7 @@ public class Tds {
             }
         }
         return cptParametre;
-    }
+    }*/
 
     /**
      * Retourne la liste des paramètres d'une fonction
@@ -384,6 +386,29 @@ public class Tds {
             }
         }
         return list;
+    }
+
+    /**
+     * Ajoute l'idf de la fonction dès qu'on trouve un paramètre à elle dans la grammaire
+     * @param i
+     */
+    public void ajoutParam(Integer i) {
+       parametres.add(i);
+    }
+
+    /**
+     * Renvoie le nombre de paramètres de la fonction
+     * @param idfFonction
+     * @return
+     */
+    public int getNbParametres(Integer idfFonction){
+        int cpt = 0;
+        for(Integer i : parametres){
+            if(i == idfFonction){
+                cpt++;
+            }
+        }
+        return cpt;
     }
 
 }

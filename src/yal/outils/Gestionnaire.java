@@ -1,9 +1,7 @@
 package yal.outils;
 
 import yal.arbre.declaration.Fonction;
-import yal.arbre.declaration.Tds;
 import yal.arbre.expressions.Expression;
-import yal.exceptions.AnalyseSemantiqueException;
 
 import java.util.ArrayList;
 
@@ -206,6 +204,7 @@ public class Gestionnaire {
      * @param p
      */
     public void addParam(Expression p){
+        //System.out.println(p.getNom());
         exp.add(p);
     }
 
@@ -220,17 +219,16 @@ public class Gestionnaire {
         return res;
     }
 
-    /**
-     *
-     */
-    public void verifParam(){
+    public void resetParam(){
+        exp.clear();
+    }
+
+
+    public ArrayList<Expression> getExp(){
+        ArrayList<Expression> copie = new ArrayList<>();
         for(Expression e: exp){
-            if(!e.isBool()){
-                AnalyseSemantiqueException a = new AnalyseSemantiqueException(e.getNoLigne(), ": le type doit être entier");
-                Tds.getInstance().add(a.getMessage());
-            }else{
-                e.verifier();
-            }
+            copie.add(e);
         }
+        return copie;
     }
 }

@@ -78,9 +78,6 @@ public class Fonction {
         }
         res.append("\n");
 
-        res.append("\t# Sauvegarde de l'adresse de retour\n");
-        res.append("\tsw $ra, ($sp)\n"); // on empile l'adresse de retour de la fonction dans la pile
-        res.append("\tadd, $sp, $sp, -4\n\n");
 
         // on alloue la mémoire pour les paramètres locaux
         res.append("\t# Allocation mémoire pour les " + varLoc.size() + " paramètres locaux\n");
@@ -91,8 +88,13 @@ public class Fonction {
         //res.append("\tsw $s7, ($sp)\n"); // chainage dynamique -> contraire dans le retour
         //res.append("\tadd, $sp, $sp, -4\n\n");
 
+        res.append("\t# Sauvegarde de l'adresse de retour\n");
+        res.append("\tsw $ra, ($sp)\n"); // on empile l'adresse de retour de la fonction dans la pile
+        res.append("\tadd, $sp, $sp, -4\n\n");
+
         Gestionnaire.getInstance().setCptProg();
         res.append(arbre.toMIPS());
+
         res.append("\tj erreurRetour\n\n");
         Tds.getInstance().suppBloc(bloc);
         return res.toString();
