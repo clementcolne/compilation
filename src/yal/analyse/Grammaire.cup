@@ -114,12 +114,10 @@ LDECL_VAR_LOC   ::=     LDECL_VAR_LOC:ld  DECL_VAR_LOC:d
                 ;
 
 DECL_VAR_LOC ::=    ENTIER IDF:i POINTVIRGULE
-                {:
-                Tds.getInstance().ajouter(new Entree(i), new SymboleVarLoc("entier", ileft + 1, Tds.getInstance().getCptBloc()+1,"",Gestionnaire.getInstance().getFonctionCourante())) ;
-                :}
+                {: Tds.getInstance().ajouter(new Entree(i), new SymboleVarLoc("entier", ileft + 1, Tds.getInstance().getCptBloc()+1,"",Gestionnaire.getInstance().getFonctionCourante())) ; :}
         |
                 ENTIER CROCHET_OUVRANT EXP:e CROCHET_FERMANT IDF:i POINTVIRGULE
-                {: Tds.getInstance().ajouter(new Entree(i), new SymboleTableau("tableau", ileft + 1,Tds.getInstance().getBlocCourant(), "", e, true)) ; :}
+                {: Tds.getInstance().ajouter(new Entree(i), new SymboleTableau("tableau", ileft + 1,Tds.getInstance().getBlocCourant(), "", e, true, Gestionnaire.getInstance().getFonctionCourante())) ; :}
                 ;
 
 LDECL_PARAM   ::=  LDECL_PARAM:ld  DECL_PARAM:d
@@ -167,7 +165,7 @@ DECL    ::=     ENTIER IDF:i POINTVIRGULE
                 :}
         |
                 ENTIER CROCHET_OUVRANT EXP:e CROCHET_FERMANT IDF:i POINTVIRGULE
-                {: Tds.getInstance().ajouter(new Entree(i), new SymboleTableau("tableau", ileft + 1,Tds.getInstance().getBlocCourant(), "", e, false)) ; :}
+                {: Tds.getInstance().ajouter(new Entree(i), new SymboleTableau("tableau", ileft + 1,Tds.getInstance().getBlocCourant(), "", e, false, -5)) ; :}
                 ;
 
 FONC    ::=     FONCTION IDF:i

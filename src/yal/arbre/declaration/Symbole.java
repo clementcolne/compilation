@@ -1,5 +1,7 @@
 package yal.arbre.declaration;
 
+import yal.arbre.expressions.Expression;
+
 import java.util.Objects;
 
 public class Symbole {
@@ -11,6 +13,9 @@ public class Symbole {
     private String etq;
     protected int nbParametres;
     protected int idfFonction;
+
+    protected boolean estDansFonction;
+    protected Expression tailleTab;
 
     /**
      * Constructeur d'un symbole défini par son type et son déplacement
@@ -113,6 +118,14 @@ public class Symbole {
     }
 
     /**
+     * Retourne vrai si le symbole est un tableau, faux sinon
+     * @return vrai si le symbole est un tableau, faux sinon
+     */
+    public boolean isTableau() {
+        return false;
+    }
+
+    /**
      * Retourne l'identifiant de la fonction associée au symbole paramètre
      * @return l'identifiant de la fonction associée au symbole paramètre
      */
@@ -126,6 +139,22 @@ public class Symbole {
      */
     public int getNbParametres(){
         return nbParametres;
+    }
+
+    /**
+     * Renvoie l'expression qui donne la taille du tableau
+     * @return
+     */
+    public Expression getTailleTableau(){
+        return tailleTab;
+    }
+
+    /**
+     * Renvoie vrai si le tableau est dans une fonction, faux sinon
+     * @return
+     */
+    public boolean isEstDansFonction(){
+        return estDansFonction;
     }
 
     @Override

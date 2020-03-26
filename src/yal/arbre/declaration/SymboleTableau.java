@@ -12,7 +12,14 @@ public class SymboleTableau extends Symbole {
      * @param e
      * @param estDansFonction
      */
-    public SymboleTableau(String type, int n, int bloc, String etq, Expression e, Boolean estDansFonction) {
+    public SymboleTableau(String type, int n, int bloc, String etq, Expression e, Boolean estDansFonction, int idf) {
         super(type, n, bloc, etq);
+        this.estDansFonction = estDansFonction;
+        this.tailleTab = e;
+    }
+
+    @Override
+    public boolean isTableau() {
+        return true;
     }
 }
