@@ -43,7 +43,6 @@ public class Tds {
 
     public void afficherTds(){
         for(Map.Entry<Entree, ArrayList<Symbole>> k : variables.entrySet()) {
-            System.out.print(k.getKey().getNom());
             for(Symbole s: k.getValue()) {
                 if(s.isVariableLocale() || s.isParametre()) {
                     System.out.println(" -> " + s.getNoBloc() + "(bloc) " + s.getIdfFonction() + "(idfFonc)");
@@ -440,6 +439,22 @@ public class Tds {
             }
         }
         return cpt;
+    }
+
+    /**
+     * Génère le code Mips pour libérer la place mémoire de chaque tableau du bloc
+     * @param bloc
+     */
+    public String memoireTabMips(int bloc){
+        StringBuilder res = new StringBuilder();
+        for(Map.Entry<Entree, ArrayList<Symbole>> k : variables.entrySet()){
+            for(Symbole s: k.getValue()){
+                if(s.isTableau() && s.getNoBloc()==bloc){
+                    res.append(s.toMips());
+                }
+            }
+        }
+        return res.toString();
     }
 
 }

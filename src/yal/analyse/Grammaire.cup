@@ -62,7 +62,7 @@ parser code {:
 
 /* Terminals (tokens returned by the scanner).  */
 
-terminal Symbol    PROGRAMME, FONCTION, DEBUT, FIN, POINTVIRGULE, VIRGULE, ECRIRE, LIRE, ENTIER, EGAL, SI, ALORS, SINON, FINSI, TANTQUE, REPETER, FINTANTQUE, NON, ET, EGALITE, DIFFERENCE, INF,SUP,PLUS,MOINS,DIVISE,MULT,OU, PAR_OUVRANTE, PAR_FERMANTE, RETOURNE ;
+terminal Symbol    PROGRAMME, FONCTION, DEBUT, FIN, POINTVIRGULE, VIRGULE, POINT, ECRIRE, LIRE, ENTIER, EGAL, SI, ALORS, SINON, FINSI, TANTQUE, REPETER, FINTANTQUE, NON, ET, EGALITE, DIFFERENCE, INF,SUP,PLUS,MOINS,DIVISE,MULT,OU, PAR_OUVRANTE, PAR_FERMANTE, RETOURNE, CROCHET_OUVRANT, CROCHET_FERMANT, LONGUEUR ;
 terminal String    IDF, CSTENTIERE;
 
 
@@ -114,9 +114,10 @@ LDECL_VAR_LOC   ::=     LDECL_VAR_LOC:ld  DECL_VAR_LOC:d
                 ;
 
 DECL_VAR_LOC ::=    ENTIER IDF:i POINTVIRGULE
-                {:
-                Tds.getInstance().ajouter(new Entree(i), new SymboleVarLoc("entier", ileft + 1, Tds.getInstance().getCptBloc()+1,"",Gestionnaire.getInstance().getFonctionCourante())) ;
-                :}
+                {: Tds.getInstance().ajouter(new Entree(i), new SymboleVarLoc("entier", ileft + 1, Tds.getInstance().getCptBloc()+1,"",Gestionnaire.getInstance().getFonctionCourante())) ; :}
+        |
+                ENTIER CROCHET_OUVRANT EXP:e CROCHET_FERMANT IDF:i POINTVIRGULE
+                {: Tds.getInstance().ajouter(new Entree(i), new SymboleTableau("tableau", ileft + 1,Tds.getInstance().getBlocCourant(), "", e, true, Gestionnaire.getInstance().getFonctionCourante())) ; :}
                 ;
 
 LDECL_PARAM   ::=  LDECL_PARAM:ld  DECL_PARAM:d
@@ -162,6 +163,9 @@ DECL    ::=     ENTIER IDF:i POINTVIRGULE
                 Gestionnaire.getInstance().addFonc(new Fonction(li, Gestionnaire.getInstance().getLigFoncCourante(), Gestionnaire.getInstance().getFonctionCourante(),etq,Tds.getInstance().getCptBloc()+1)) ;
                 Tds.getInstance().setCptBloc();
                 :}
+        |
+                ENTIER CROCHET_OUVRANT EXP:e CROCHET_FERMANT IDF:i POINTVIRGULE
+                {: Tds.getInstance().ajouter(new Entree(i), new SymboleTableau("tableau", ileft + 1,Tds.getInstance().getBlocCourant(), "", e, false, -5)) ; :}
                 ;
 
 FONC    ::=     FONCTION IDF:i
@@ -277,6 +281,12 @@ EXP    ::=     CSTENTIERE:c
         |
               PAR_OUVRANTE EXP:e PAR_FERMANTE
               {: RESULT = new ExpressionParenthese(e,eleft + 1) ; :}
+        |
+              IDF:i CROCHET_OUVRANT EXP:e CROCHET_FERMANT
+              {: RESULT = new Tableau(new Idf(i, ileft + 1), ileft + 1, e); :}
+        |
+              IDF:i POINT LONGUEUR
+              {: RESULT = new TailleTableau(new Idf(i, ileft + 1), ileft + 1); :}
               ;
 
 EXP_PARAM ::=                VIRGULE CSTENTIERE:c
@@ -354,4 +364,10 @@ EXP_PARAM ::=                VIRGULE CSTENTIERE:c
                      |
                             VIRGULE NON EXP:e
                             {: RESULT = new NonExpression(e,eleft + 1) ; :}
+                     |
+                            VIRGULE IDF:i CROCHET_OUVRANT EXP:e CROCHET_FERMANT
+                            {: RESULT = new Tableau(new Idf(i, ileft + 1), ileft + 1, e); :}
+                     |
+                            VIRGULE IDF:i POINT LONGUEUR
+                            {: RESULT = new TailleTableau(new Idf(i, ileft + 1), ileft + 1); :}
                             ;

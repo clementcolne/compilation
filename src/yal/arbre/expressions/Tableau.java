@@ -6,12 +6,13 @@ import yal.exceptions.AnalyseSemantiqueException;
 public class Tableau extends Expression {
 
     private Expression exp;
+    private Idf nom;
 
     /**
      * Constructeur d'un tableau
      * @param n int
      */
-    protected Tableau(String nom, int n, Expression e) {
+    public Tableau(Idf nom, int n, Expression e) {
         super(n);
         this.nom = nom;
         noLigne = n;
@@ -24,7 +25,7 @@ public class Tableau extends Expression {
      */
     @Override
     public String getNom() {
-        return nom;
+        return nom.getNom();
     }
 
     /**
@@ -32,9 +33,13 @@ public class Tableau extends Expression {
      */
     @Override
     public void verifier() {
-        if(!Tds.getInstance().identifier(nom, noLigne,"tableau",0).getType().equals("tableau")){
+        if(!Tds.getInstance().identifier(nom.getNom(), noLigne,"tableau",0).getType().equals("tableau")){
             AnalyseSemantiqueException a = new AnalyseSemantiqueException(noLigne, ": tableau " + nom + " non déclarée");
             Tds.getInstance().add(a.getMessage());
+            if(!exp.isBool()){
+                AnalyseSemantiqueException as = new AnalyseSemantiqueException(noLigne, ": l'expression doit être entière dans le tableau " + nom);
+                Tds.getInstance().add(as.getMessage());
+            }
         }
     }
 
