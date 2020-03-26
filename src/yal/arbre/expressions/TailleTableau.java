@@ -1,7 +1,9 @@
 package yal.arbre.expressions;
 
-public class TailleTableau extends Expression {
 import yal.arbre.declaration.Tds;
+import yal.exceptions.AnalyseSemantiqueException;
+
+public class TailleTableau extends Expression {
 
 
     private Idf nom;
@@ -29,6 +31,6 @@ import yal.arbre.declaration.Tds;
 
     @Override
     public String toMIPS() {
-        return "\tli $v0, " + Tds.getInstance().identifier(nom, noLigne, "tableau", 0).getTailleTableau() + "\n";
+        return "\tli $v0, " + Tds.getInstance().identifier(nom.getNom(), noLigne, "tableau", 0).getTailleTableau() + "\n";
     }
 }
