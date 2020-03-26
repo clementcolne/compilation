@@ -5,7 +5,7 @@ public class TailleTableau extends Expression {
      * Constructeur d'une taille de tableau
      * @param n int
      */
-    protected TailleTableau(int n) {
+    public TailleTableau(Idf nom, int n) {
         super(n);
     }
 

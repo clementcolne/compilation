@@ -43,7 +43,6 @@ public class Tds {
 
     public void afficherTds(){
         for(Map.Entry<Entree, ArrayList<Symbole>> k : variables.entrySet()) {
-            System.out.print(k.getKey().getNom());
             for(Symbole s: k.getValue()) {
                 if(s.isVariableLocale() || s.isParametre()) {
                     System.out.println(" -> " + s.getNoBloc() + "(bloc) " + s.getIdfFonction() + "(idfFonc)");
