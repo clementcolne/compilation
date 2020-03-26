@@ -115,7 +115,7 @@ public class AppelFonction extends Expression{
             res.append("\tsw $v0, ($sp)\n");
             res.append("\tadd $sp, $sp, -4\n");
             for (int i = 0; i < expList.size() - 1; i++) {
-                res.append("\t"+expList.get(i).toMIPS()+"\n");
+                res.append("\t" + expList.get(i).toMIPS()+"\n");
                 res.append("\tsw $v0, ($sp)\n");
                 res.append("\tadd $sp, $sp, -4\n");
             }

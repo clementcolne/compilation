@@ -44,6 +44,15 @@ public class Tableau extends Expression {
      */
     @Override
     public String toMIPS() {
-        return null;
+        StringBuilder res = new StringBuilder();
+
+        // allocation mémoire pour l'adresse du tableau
+        res.append("\tadd $sp, $sp, -4\n");
+        // allocation mémoire pour la taille du tableau et affectation de la valeur
+        exp.toMIPS();
+        res.append("\tsw $v0, ($sp)\n");
+        res.append("\tadd $sp, $sp, -4\n");
+
+        return res.toString();
     }
 }
