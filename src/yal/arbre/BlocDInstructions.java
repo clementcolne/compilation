@@ -82,6 +82,9 @@ public class BlocDInstructions extends ArbreAbstrait {
                     "BackSlachN: .asciiz \"\\n\"\nVrai: .asciiz \"vrai\"\nFaux: .asciiz \"faux\"\nErreurDivisionZero: .asciiz \"ERREUR EXECUTION : Division par zéro\"\nErreurRetour: .asciiz \"ERREUR EXECUTION : Pas de retour dans la fonction\"\nErreurOutOfBound: .asciiz \"ERREUR EXECUTION : Demande d'accès hors des bornes du tableau\"\nErreurTailleTableau: .asciiz \"ERREUR EXECUTION : Déclaration d'un tableau de taille 0\"\n.text\n\nmain:\n\n");
             prog.append("\t#allocation mémoire pour les variables\n\tmove $s7, $sp\n" +
                     "\tadd $sp, $sp, " + Tds.getInstance().getTailleZoneVariable() + "\n\n");
+
+            // On alloue la mémoire pour la taille des tableaux
+            prog.append(Tds.getInstance().memoireTabMips(0));
             for (ArbreAbstrait a : programme) {
                 prog.append(a.toMIPS() + "\n");
             }

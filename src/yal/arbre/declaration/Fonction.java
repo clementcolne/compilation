@@ -73,6 +73,9 @@ public class Fonction {
         res.append("\t# Allocation mémoire pour les " + varLoc.size() + " variables locales\n");
         res.append("\tadd, $sp, $sp, " + varLoc.size()*-4 + "\n\n");
 
+        // On alloue la mémoire pour la taille des tableaux
+        res.append(Tds.getInstance().memoireTabMips(bloc));
+
         //res.append("\t# chainage dynamique\n");
         //res.append("\tsw $s7, ($sp)\n"); // chainage dynamique -> contraire dans le retour
         //res.append("\tadd, $sp, $sp, -4\n\n");

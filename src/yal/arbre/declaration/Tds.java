@@ -83,6 +83,12 @@ public class Tds {
                     s.setDeplacement(cptVariables);
                     cptVariables -= 4;
                 }
+                if(s.isTableau()){
+                    if(verifExpTab(s, e.getNom())) {
+                        s.setDeplacement(cptVariables);
+                        cptVariables -= 8;
+                    }
+                }
                 ArrayList<Symbole> al = new ArrayList<>();
                 al.add(s);
                 variables.put(new Entree(e.getNom()), al);
@@ -130,6 +136,12 @@ public class Tds {
                             cptVariables -= 4;
                         }
                     }
+                    if(s.isTableau()){
+                        if(verifExpTab(s, e.getNom())) {
+                            s.setDeplacement(cptVariables);
+                            cptVariables -= 8;
+                        }
+                    }
                     variables.get(entree).add(s);
                 }
             }else{ // blocs différents
@@ -137,6 +149,12 @@ public class Tds {
                         s.setDeplacement(cptVariables);
                         cptVariables -= 4;
                     }
+                if(s.isTableau()){
+                    if(verifExpTab(s, e.getNom())) {
+                        s.setDeplacement(cptVariables);
+                        cptVariables -= 8;
+                    }
+                }
                 variables.get(entree).add(s);
             }
         }
@@ -450,11 +468,47 @@ public class Tds {
         for(Map.Entry<Entree, ArrayList<Symbole>> k : variables.entrySet()){
             for(Symbole s: k.getValue()){
                 if(s.isTableau() && s.getNoBloc()==bloc){
-                    res.append(s.toMips());
+                    res.append(s.toMIPS());
                 }
             }
         }
         return res.toString();
+    }
+
+    /**
+     * Vérifie si la taille du tableau est correcte
+     * @param stab
+     * @param nom
+     * @return
+     */
+    public boolean verifExpTab(Symbole stab, String nom){
+        boolean res = true;
+        if(!stab.estDansFonction){
+            if(!stab.getTailleTableau().isConstante()){
+                AnalyseSemantiqueException a = new AnalyseSemantiqueException(stab.getNoLig(), ": la taille du tableau " + nom + " doit être une constante hors d'une fonction");
+                Tds.getInstance().add(a.getMessage());
+                res = false;
+            }else{
+                if(stab.getTailleTableau().getNom().equals("0")){
+                    AnalyseSemantiqueException a = new AnalyseSemantiqueException(stab.getNoLig(), ": la taille du tableau " + nom + " ne doit pas être égale à 0");
+                    Tds.getInstance().add(a.getMessage());
+                    res = false;
+                }
+            }
+        }else{
+            if(stab.getTailleTableau().isBool()){
+                AnalyseSemantiqueException a = new AnalyseSemantiqueException(stab.getNoLig(), ": la taille du tableau " + nom + " doit être entière dans une fonction");
+                Tds.getInstance().add(a.getMessage());
+                res = false;
+            }else{
+                if(stab.getTailleTableau().getNom().equals("0")){
+                    AnalyseSemantiqueException a = new AnalyseSemantiqueException(stab.getNoLig(), ": la taille du tableau " + nom + " ne doit pas être égale à 0");
+                    Tds.getInstance().add(a.getMessage());
+                    res = false;
+                }
+            }
+        }
+        return res;
     }
 
 }

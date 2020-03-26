@@ -157,6 +157,10 @@ public class Symbole {
         return estDansFonction;
     }
 
+    public String toMIPS(){
+        return "";
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

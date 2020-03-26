@@ -36,10 +36,13 @@ public class Tableau extends Expression {
         if(!Tds.getInstance().identifier(nom.getNom(), noLigne,"tableau",0).getType().equals("tableau")){
             AnalyseSemantiqueException a = new AnalyseSemantiqueException(noLigne, ": tableau " + nom + " non déclarée");
             Tds.getInstance().add(a.getMessage());
-            if(!exp.isBool()){
-                AnalyseSemantiqueException as = new AnalyseSemantiqueException(noLigne, ": l'expression doit être entière dans le tableau " + nom);
-                Tds.getInstance().add(as.getMessage());
-            }
+
+        }
+        if(exp.isBool()){
+            AnalyseSemantiqueException as = new AnalyseSemantiqueException(noLigne, ": l'expression doit être entière dans le tableau " + nom);
+            Tds.getInstance().add(as.getMessage());
+        }else{
+            exp.verifier();
         }
     }
 
