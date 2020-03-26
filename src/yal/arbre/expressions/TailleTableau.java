@@ -1,5 +1,7 @@
 package yal.arbre.expressions;
 
+import yal.arbre.declaration.Tds;
+
 public class TailleTableau extends Expression {
     /**
      * Constructeur d'une taille de tableau
@@ -21,6 +23,6 @@ public class TailleTableau extends Expression {
 
     @Override
     public String toMIPS() {
-        return null;
+        return "\tli $v0, " + Tds.getInstance().identifier(nom, noLigne, "tableau", 0).getTailleTableau() + "\n";
     }
 }

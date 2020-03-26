@@ -450,7 +450,7 @@ public class Tds {
         for(Map.Entry<Entree, ArrayList<Symbole>> k : variables.entrySet()){
             for(Symbole s: k.getValue()){
                 if(s.isTableau() && s.getNoBloc()==bloc){
-                    res.append(s.toMips());
+                    res.append(s.toMIPS());
                 }
             }
         }
