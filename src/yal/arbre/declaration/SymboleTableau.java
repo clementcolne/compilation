@@ -35,13 +35,10 @@ public class SymboleTableau extends Symbole {
 
     public String toMIPS() {
         StringBuilder res = new StringBuilder();
-
-        // allocation mémoire pour l'adresse du tableau
-        res.append("\tadd $sp, $sp, -4\n");
-        // allocation mémoire pour la taille du tableau et affectation de la valeur
         tailleTab.toMIPS();
         res.append("\tsw $v0, ($sp)\n");
-        res.append("\tadd $sp, $sp, -4\n");
+        res.append("\tadd, $sp, $sp, -4");
+        res.append("\taddu $sp, $sp, $v0\n");
 
         return res.toString();
     }
