@@ -15,6 +15,7 @@ public class Fonction {
     private int bloc;
     private ArrayList<Symbole> parametres;
     private ArrayList<Symbole> varLoc;
+    private int cptDep;
 
     /**
      * Constructeur d'une fonction
@@ -32,6 +33,7 @@ public class Fonction {
         Tds.getInstance().setDeplacementVarLoc(idf);
         parametres = Tds.getInstance().getParametres(idf);
         varLoc = Tds.getInstance().getVarLoc(idf);
+        cptDep = varLoc.size() * -4;
     }
 
     /**
@@ -72,6 +74,8 @@ public class Fonction {
         // on alloue la mémoire pour les variables locales
         res.append("\t# Allocation mémoire pour les " + varLoc.size() + " variables locales\n");
         res.append("\tadd, $sp, $sp, " + varLoc.size()*-4 + "\n\n");
+
+
 
         // On alloue la mémoire pour la taille des tableaux
         res.append(Tds.getInstance().memoireTabMips(bloc));

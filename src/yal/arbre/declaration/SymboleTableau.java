@@ -16,6 +16,16 @@ public class SymboleTableau extends Symbole {
         super(type, n, bloc, etq);
         this.estDansFonction = estDansFonction;
         this.tailleTab = e;
+        this.idfFonction = idf;
+    }
+
+    /**
+     * Retourne l'identifiant de la fonction associée au symbole paramètre
+     * @return l'identifiant de la fonction associée au symbole paramètre
+     */
+    @Override
+    public int getIdfFonction() {
+        return idfFonction;
     }
 
     @Override

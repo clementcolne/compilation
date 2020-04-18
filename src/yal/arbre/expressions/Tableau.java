@@ -52,6 +52,7 @@ public class Tableau extends Expression {
      */
     @Override
     public String toMIPS() {
+        // condition pour vérifier l'indice et la taille du tableau
         return null;
     }
 }

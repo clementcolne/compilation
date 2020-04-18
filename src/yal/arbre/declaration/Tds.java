@@ -12,6 +12,7 @@ public class Tds {
     private ArrayList<Symbole> param;
     private ArrayList<Integer> parametres;
     private ArrayList<String> erreurs;
+    private ArrayList<Symbole> tabTemp;
     private int cptVariables;
     private int cptVariablesLocale;
     private int cptErreur;
@@ -33,6 +34,7 @@ public class Tds {
         parametres = new ArrayList<>();
         erreurs = new ArrayList<>();
         pile = new ArrayList<>();
+        tabTemp = new ArrayList<>();
         cptErreur = 0;
         cptVariables = 0;
         cptVariablesLocale = 0;
@@ -44,7 +46,8 @@ public class Tds {
     public void afficherTds(){
         for(Map.Entry<Entree, ArrayList<Symbole>> k : variables.entrySet()) {
             for(Symbole s: k.getValue()) {
-                if(s.isVariableLocale() || s.isParametre()) {
+                System.out.println(k.getKey().getNom()+" -> "+s.getDeplacement());
+                /*if(s.isVariableLocale() || s.isParametre()) {
                     System.out.println(" -> " + s.getNoBloc() + "(bloc) " + s.getIdfFonction() + "(idfFonc)");
                 }
                 if(s.isFonction()){
@@ -52,7 +55,7 @@ public class Tds {
                 }
                 if(s.isVariable()){
                     System.out.println(" -> " + s.getNoBloc() + "(bloc) ");
-                }
+                }*/
             }
         }
     }
@@ -85,8 +88,9 @@ public class Tds {
                 }
                 if(s.isTableau()){
                     if(verifExpTab(s, e.getNom())) {
-                        s.setDeplacement(cptVariables);
-                        cptVariables -= 8;
+                        //s.setDeplacement(cptVariables);
+                        //cptVariables -= 8;
+                        tabTemp.add(s);
                     }
                 }
                 ArrayList<Symbole> al = new ArrayList<>();
@@ -138,8 +142,9 @@ public class Tds {
                     }
                     if(s.isTableau()){
                         if(verifExpTab(s, e.getNom())) {
-                            s.setDeplacement(cptVariables);
-                            cptVariables -= 8;
+                            //s.setDeplacement(cptVariables);
+                            //cptVariables -= 8;
+                            tabTemp.add(s);
                         }
                     }
                     variables.get(entree).add(s);
@@ -151,11 +156,26 @@ public class Tds {
                     }
                 if(s.isTableau()){
                     if(verifExpTab(s, e.getNom())) {
-                        s.setDeplacement(cptVariables);
-                        cptVariables -= 8;
+                        //s.setDeplacement(cptVariables);
+                        //cptVariables -= 8;
+                        tabTemp.add(s);
                     }
                 }
                 variables.get(entree).add(s);
+            }
+        }
+    }
+
+    /**
+     * Met à jour le déplacement des fonctions dans le bloc principal
+     * @param bloc
+     */
+    public void setDeplacementTab(int bloc){
+        for(Symbole s : tabTemp){
+            if(s.getNoBloc() == bloc) {
+                s.setDeplacement(cptVariables);
+                cptVariables -= 8;
+                // s.toMips
             }
         }
     }
@@ -269,7 +289,7 @@ public class Tds {
         cptVariablesLocale = 0;
             for(Symbole s : param) {
                 // pour chaque entrée, je parcours son arraylist de symboles
-                // si le symbole est un paramètre et que il est lié à la fonction qui nous intéresse
+                // si le symbole est un paramètre et qu'il est lié à la fonction qui nous intéresse
                 // alors on incrémente le compteur
                 if(s.isParametre() && s.getIdfFonction() == idfFonction) {
                     s.setDeplacement(cptVariablesLocale);
@@ -278,11 +298,20 @@ public class Tds {
             }
             for(Symbole s : param) {
                 // pour chaque entrée, je parcours son arraylist de symboles
-                // si le symbole est un paramètre et que il est lié à la fonction qui nous intéresse
+                // si le symbole est une variable locale et qu'elle est liée à la fonction qui nous intéresse
                 // alors on incrémente le compteur
                 if(s.isVariableLocale() && s.getIdfFonction() == idfFonction) {
                     s.setDeplacement(cptVariablesLocale);
                     cptVariablesLocale -= 4;
+                }
+            }
+            for(Symbole s : tabTemp){
+                // pour chaque entrée, je parcours son arraylist de symboles
+                // si le symbole est un tableau et qu'il est lié à la fonction qui nous intéresse
+                // alors on incrémente le compteur
+                if(s.isTableau() && s.getIdfFonction() == idfFonction) {
+                    s.setDeplacement(cptVariablesLocale);
+                    cptVariablesLocale -= 8;
                 }
             }
         cptVariablesLocale -= 4;

@@ -79,12 +79,22 @@ public class BlocDInstructions extends ArbreAbstrait {
         if(!Gestionnaire.getInstance().getCptProg()) {
             StringBuilder prog = new StringBuilder();
             prog.append(".data\n" +
-                    "BackSlachN: .asciiz \"\\n\"\nVrai: .asciiz \"vrai\"\nFaux: .asciiz \"faux\"\nErreurDivisionZero: .asciiz \"ERREUR EXECUTION : Division par zéro\"\nErreurRetour: .asciiz \"ERREUR EXECUTION : Pas de retour dans la fonction\"\nErreurOutOfBound: .asciiz \"ERREUR EXECUTION : Demande d'accès hors des bornes du tableau\"\nErreurTailleTableau: .asciiz \"ERREUR EXECUTION : Déclaration d'un tableau de taille 0\"\n.text\n\nmain:\n\n");
+                    "BackSlachN: .asciiz \"\\n\"\nVrai: .asciiz \"vrai\"\nFaux: .asciiz \"faux\"\n" +
+                    "ErreurDivisionZero: .asciiz \"ERREUR EXECUTION : Division par zéro\"\n" +
+                    "ErreurRetour: .asciiz \"ERREUR EXECUTION : Pas de retour dans la fonction\"\n" +
+                    "ErreurOutOfBound: .asciiz \"ERREUR EXECUTION : Demande d'accès hors des bornes du tableau\"\n" +
+                    "ErreurTailleTableau: .asciiz \"ERREUR EXECUTION : Déclaration d'un tableau de taille 0\"\n" +
+                    ".text\n\n" +
+                    "main:\n\n");
             prog.append("\t#allocation mémoire pour les variables\n\tmove $s7, $sp\n" +
                     "\tadd $sp, $sp, " + Tds.getInstance().getTailleZoneVariable() + "\n\n");
 
-            // On alloue la mémoire pour la taille des tableaux
+            // Met à jour les déplacements des tableaux
+            Tds.getInstance().setDeplacementTab(0);
+            // On alloue la mémoire pour les tableaux
             prog.append(Tds.getInstance().memoireTabMips(0));
+
+            Tds.getInstance().afficherTds();
 
             for (ArbreAbstrait a : programme) {
                 prog.append(a.toMIPS() + "\n");
