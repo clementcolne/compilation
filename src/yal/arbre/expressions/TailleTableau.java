@@ -18,7 +18,7 @@ public class TailleTableau extends Expression {
 
     @Override
     public String getNom() {
-        return null;
+        return nom.getNom()+".longueur";
     }
 
     @Override

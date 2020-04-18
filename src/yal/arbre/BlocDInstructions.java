@@ -85,6 +85,7 @@ public class BlocDInstructions extends ArbreAbstrait {
 
             // On alloue la mémoire pour la taille des tableaux
             prog.append(Tds.getInstance().memoireTabMips(0));
+
             for (ArbreAbstrait a : programme) {
                 prog.append(a.toMIPS() + "\n");
             }
