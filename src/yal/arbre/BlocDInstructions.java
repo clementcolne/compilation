@@ -84,6 +84,7 @@ public class BlocDInstructions extends ArbreAbstrait {
                     "ErreurRetour: .asciiz \"ERREUR EXECUTION : Pas de retour dans la fonction\"\n" +
                     "ErreurOutOfBound: .asciiz \"ERREUR EXECUTION : Demande d'accès hors des bornes du tableau\"\n" +
                     "ErreurTailleTableau: .asciiz \"ERREUR EXECUTION : Déclaration d'un tableau de taille 0\"\n" +
+                    "ErreurAffectationTableau: .asciiz \"ERREUR EXECUTION : Affectation de tableaux de taille différentes\"\n" +
                     ".text\n\n" +
                     "main:\n\n");
             prog.append("\t#allocation mémoire pour les variables\n\tmove $s7, $sp\n" +
@@ -103,6 +104,7 @@ public class BlocDInstructions extends ArbreAbstrait {
             prog.append("erreurRetour:\n\tli $v0, 4 \n\tla $a0, ErreurRetour\n\tsyscall\n\t#Sortie de programme\n\tli $v0, 10\n\tsyscall\n\n");
             prog.append("erreurOutOfBound:\n\tli $v0, 4 \n\tla $a0, ErreurOutOfBound\n\tsyscall\n\t#Sortie de programme\n\tli $v0, 10\n\tsyscall\n\n");
             prog.append("erreurTailleTableau:\n\tli $v0, 4 \n\tla $a0, ErreurTailleTableau\n\tsyscall\n\t#Sortie de programme\n\tli $v0, 10\n\tsyscall\n\n");
+            prog.append("erreurAffectationTableau:\n\tli $v0, 4 \n\tla $a0, ErreurAffectationTableau\n\tsyscall\n\t#Sortie de programme\n\tli $v0, 10\n\tsyscall\n\n");
             prog.append(Gestionnaire.getInstance().afficheFonction());
             return prog.toString();
         }else{

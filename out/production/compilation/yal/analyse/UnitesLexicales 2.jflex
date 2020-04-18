@@ -66,6 +66,7 @@ espace = {finDeLigne}  | [ \t\f]
 "ou"                   { return symbol(CodesLexicaux.OU); }
 
 ";"                    { return symbol(CodesLexicaux.POINTVIRGULE); }
+","                    { return symbol(CodesLexicaux.VIRGULE); }
 
 "="                    { return symbol(CodesLexicaux.EGAL); }
 

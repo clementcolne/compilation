@@ -2,8 +2,10 @@
 BackSlachN: .asciiz "\n"
 Vrai: .asciiz "vrai"
 Faux: .asciiz "faux"
-ErreurDivisionZero: .asciiz "Erreur : Division par zéro"
-ErreurRetour: .asciiz "Erreur : Pas de retour dans la fonction"
+ErreurDivisionZero: .asciiz "ERREUR EXECUTION : Division par zéro"
+ErreurRetour: .asciiz "ERREUR EXECUTION : Pas de retour dans la fonction"
+ErreurOutOfBound: .asciiz "ERREUR EXECUTION : Demande d'accès hors des bornes du tableau"
+ErreurTailleTableau: .asciiz "ERREUR EXECUTION : Déclaration d'un tableau de taille 0"
 .text
 
 main:
@@ -40,6 +42,22 @@ erreurDivisionZero:
 erreurRetour:
 	li $v0, 4 
 	la $a0, ErreurRetour
+	syscall
+	#Sortie de programme
+	li $v0, 10
+	syscall
+
+erreurOutOfBound:
+	li $v0, 4 
+	la $a0, ErreurOutOfBound
+	syscall
+	#Sortie de programme
+	li $v0, 10
+	syscall
+
+erreurTailleTableau:
+	li $v0, 4 
+	la $a0, ErreurTailleTableau
 	syscall
 	#Sortie de programme
 	li $v0, 10
