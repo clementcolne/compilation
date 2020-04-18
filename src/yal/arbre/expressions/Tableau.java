@@ -25,7 +25,7 @@ public class Tableau extends Expression {
      */
     @Override
     public String getNom() {
-        return nom.getNom()+"[indice]";
+        return nom.getNom()+"["+ exp.getNom()+"]";
     }
 
     /**
