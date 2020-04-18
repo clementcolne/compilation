@@ -53,6 +53,19 @@ public class Tableau extends Expression {
     @Override
     public String toMIPS() {
         // condition pour vérifier l'indice et la taille du tableau
-        return null;
+        StringBuilder res = new StringBuilder();
+        res.append(exp.toMIPS());
+        res.append("\t# Calcul du déplacement de l'indice\n");
+        res.append("\tadd $v0, $v0, 1\n");
+        res.append("\tmul $v0, $v0, -4\n");
+        res.append("\tmflo $v0\n");
+        res.append("\t# On récupère ce qu'il y a dans la case\n");
+        // Dans $t8 il y a le déplacement du tableau
+        // Dans $v0 il y a le déplacement dans le tableau, à soustraire à $t8
+        res.append("\tlw $t8, " + Tds.getInstance().identifier(nom.getNom(), noLigne,"tableau",0).getDeplacement() + "($s7)");
+        res.append("\tadd $t8, $t8, $v0\n");
+        res.append("\tlw $v0, $t8($s7)");
+
+        return res.toString();
     }
 }

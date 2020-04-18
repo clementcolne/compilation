@@ -65,6 +65,9 @@ public class Affect extends Instruction {
      */
     @Override
     public String toMIPS() {
+        // Si tab1 = tab2 alors affectation par valeur
+        // Si partieG tab[indice] alors récupérer le déplacement
+        // Sinon, on garde ce qui est déjà écrit
         StringBuilder res = new StringBuilder();
         res.append("\t# " + partieG.getNom() + " = " + partieD.getNom() + "\n");
         res.append(partieD.toMIPS()+"\n");
