@@ -206,6 +206,9 @@ INST    ::=     ECRIRE EXP:e POINTVIRGULE
                 IDF:i EGAL EXP:e POINTVIRGULE
                 {: RESULT = new Affect(e,new Idf(i, ileft + 1), eleft + 1) ; :}
         |
+                IDF:i CROCHET_OUVRANT EXP:ex CROCHET_FERMANT EGAL EXP:e POINTVIRGULE
+                {: RESULT = new Affect(e, ex, new Idf(i, ileft + 1), eleft + 1) ; :}
+        |
                 TANTQUE EXP:e REPETER LINST:li FINTANTQUE
                 {: RESULT = new Boucle(e,li,eleft + 1 ) ; :}
        |
@@ -225,7 +228,7 @@ INST    ::=     ECRIRE EXP:e POINTVIRGULE
                 {: RESULT = new Retourne(e, eleft+1); :}
                 ;
 
-    
+
 EXP    ::=     CSTENTIERE:c
                {: RESULT = new ConstanteEntiere(c, cleft + 1) ; :}
         |

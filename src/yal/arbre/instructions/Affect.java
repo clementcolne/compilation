@@ -8,6 +8,7 @@ import yal.exceptions.AnalyseSemantiqueException;
 public class Affect extends Instruction {
 
     protected Expression partieD ;
+    protected Expression partieTab;
     protected Idf partieG ;
 
     /**
@@ -22,18 +23,40 @@ public class Affect extends Instruction {
         partieG = id;
     }
 
+    public Affect(Expression e, Expression e2, Idf id, int n){
+        super(n);
+        partieD = e;
+        partieG = id;
+        partieTab = e2;
+    }
+
     /**
      * Vérifie s'il n'y a pas d'erreurs sémantiques
      */
     @Override
     public void verifier() {
-        if(!partieD.isBool() && !partieG.isBool()) {
-            partieD.verifier();
-            partieG.verifier();
-        }else{
-            AnalyseSemantiqueException a = new AnalyseSemantiqueException(noLigne, ": le type attendu est un entier");
-            Tds.getInstance().add(a.getMessage());
+        // On a un tableau à gauche
+        if(partieTab != null){
+            if(!Tds.getInstance().identifier(partieG.getNom(), noLigne,"tableau",0).getType().equals("tableau")){
+                AnalyseSemantiqueException a = new AnalyseSemantiqueException(noLigne, ": tableau " + partieG.getNom() + " non déclarée");
+                Tds.getInstance().add(a.getMessage());
+            }
+            if (!partieD.isBool()) {
+                partieD.verifier();
+            } else {
+                AnalyseSemantiqueException a = new AnalyseSemantiqueException(noLigne, ": le type attendu est un entier");
+                Tds.getInstance().add(a.getMessage());
+            }
+        }else {
+            if (!partieD.isBool() && !partieG.isBool()) {
+                partieD.verifier();
+                partieG.verifier();
+            } else {
+                AnalyseSemantiqueException a = new AnalyseSemantiqueException(noLigne, ": le type attendu est un entier");
+                Tds.getInstance().add(a.getMessage());
+            }
         }
+
     }
 
     /**
