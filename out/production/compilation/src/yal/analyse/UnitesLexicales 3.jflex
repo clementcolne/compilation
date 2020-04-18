@@ -84,13 +84,6 @@ espace = {finDeLigne}  | [ \t\f]
 "("                    { return symbol(CodesLexicaux.PAR_OUVRANTE); }
 ")"                    { return symbol(CodesLexicaux.PAR_FERMANTE); }
 
-"["                    { return symbol(CodesLexicaux.CROCHET_OUVRANT); }
-"]"                    { return symbol(CodesLexicaux.CROCHET_FERMANT); }
-
-"."                    { return symbol(CodesLexicaux.POINT); }
-
-"longueur"             { return symbol(CodesLexicaux.LONGUEUR); }
-
 "fonction"             { return symbol(CodesLexicaux.FONCTION); }
 "retourne"             { return symbol(CodesLexicaux.RETOURNE); }
 

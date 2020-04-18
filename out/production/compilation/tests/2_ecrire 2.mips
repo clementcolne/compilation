@@ -12,6 +12,10 @@ main:
 	move $s7, $sp
 	add $sp, $sp, -4
 
+	# a = 50
+	li $v0, 50
+	sw $v0, 0($s7)
+
 	#ecrire fct()
 	jal fonction1
 
