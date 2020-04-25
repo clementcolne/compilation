@@ -7,13 +7,12 @@ import java.util.Objects;
 public class Symbole {
 
     private String type;
-    private int deplacement;
-    private int noLig;
-    private int noBloc;
-    private String etq;
+    protected int deplacement;
+    protected int noLig;
+    protected int noBloc;
+    protected String etq;
     protected int nbParametres;
     protected int idfFonction;
-
     protected boolean estDansFonction;
     protected Expression tailleTab;
 

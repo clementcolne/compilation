@@ -92,7 +92,6 @@ public class BlocDInstructions extends ArbreAbstrait {
 
             // Met à jour les déplacements des tableaux
             Tds.getInstance().setDeplacementTab(0);
-            Tds.getInstance().afficherTds();
             // On alloue la mémoire pour les tableaux
             prog.append("\t#allocation mémoire pour les tableaux\n");
             prog.append("\tadd $sp, $sp, " + Tds.getInstance().getTailleZoneTableau(0) + "\n");

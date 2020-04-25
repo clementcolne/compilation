@@ -1,7 +1,5 @@
 programme prog debut
 entier a;
-entier c;
-entier d;
 entier[7] b;
-ecrire 3;
+ecrire b.longueur;
 fin
