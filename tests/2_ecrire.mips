@@ -15,6 +15,7 @@ main:
 	move $s7, $sp
 	add $sp, $sp, -12
 
+	li $v0, 7
 	sw $v0, ($sp)
 	add, $sp, $sp, -4
 	addu $sp, $sp, $v0
