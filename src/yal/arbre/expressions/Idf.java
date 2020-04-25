@@ -16,13 +16,18 @@ public class Idf extends Expression{
         this.noLigne = n;
     }
 
+    @Override
+    public boolean isIdf() {
+        return true;
+    }
+
     /**
      * Vérifie si la variable est déjà déclarée ou pas
      * @throws AnalyseSemantiqueException
      */
     @Override
     public void verifier() {
-        if(!Tds.getInstance().identifier(nom,noLigne,"entier",0).getType().equals("entier")){
+        if(!Tds.getInstance().identifier(nom,noLigne,"entier",0).getType().equals("entier") && !Tds.getInstance().identifier(nom,noLigne,"tableau",0).getType().equals("tableau")){
             AnalyseSemantiqueException a = new AnalyseSemantiqueException(noLigne, ": variable "+nom+" non déclarée");
             Tds.getInstance().add(a.getMessage());
         }

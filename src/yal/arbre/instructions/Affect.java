@@ -35,26 +35,47 @@ public class Affect extends Instruction {
      */
     @Override
     public void verifier() {
-        // On a un tableau à gauche
+        // On a un tableau à gauche avec un indice
         if(partieTab != null){
+            if(!partieTab.isBool()) {
+                partieTab.verifier();
+            }else{
+                AnalyseSemantiqueException a = new AnalyseSemantiqueException(noLigne, ": il faut un indice de type entier pour "+partieG.getNom());
+                Tds.getInstance().add(a.getMessage());
+            }
             if(!Tds.getInstance().identifier(partieG.getNom(), noLigne,"tableau",0).getType().equals("tableau")){
                 AnalyseSemantiqueException a = new AnalyseSemantiqueException(noLigne, ": tableau " + partieG.getNom() + " non déclarée");
                 Tds.getInstance().add(a.getMessage());
             }
+            // La partieD ne doit être ni un booléen ni un Idf d'un tableau
             if (!partieD.isBool()) {
                 partieD.verifier();
             } else {
-                AnalyseSemantiqueException a = new AnalyseSemantiqueException(noLigne, ": le type attendu est un entier");
+                AnalyseSemantiqueException a = new AnalyseSemantiqueException(noLigne, ": le type attendu est un entier pour "+partieD.getNom());
                 Tds.getInstance().add(a.getMessage());
             }
         }else {
-            if (!partieD.isBool() && !partieG.isBool()) {
-                partieD.verifier();
-                partieG.verifier();
-            } else {
+            // On a un simple idf à gauche
+            // C'est un idf de tableau
+            if(Tds.getInstance().identifier(partieG.getNom(), noLigne,"tableau",0).getType().equals("tableau")){
+                if((!Tds.getInstance().identifier(partieD.getNom(), noLigne,"tableau",0).getType().equals("tableau") && partieD.isIdf()) || !partieD.isIdf()){
+                    AnalyseSemantiqueException a = new AnalyseSemantiqueException(noLigne, ": "+partieD.getNom()+" doit être un tableau");
+                    Tds.getInstance().add(a.getMessage());
+                }
+            }
+            else if (!partieD.isBool() && !partieG.isBool()) {
+                if(Tds.getInstance().identifier(partieD.getNom(), noLigne,"tableau",0).getType().equals("tableau") && partieD.isIdf()){
+                    AnalyseSemantiqueException a = new AnalyseSemantiqueException(noLigne, ": il faut un indice pour le tableau "+partieD.getNom());
+                    Tds.getInstance().add(a.getMessage());
+                }else {
+                    partieD.verifier();
+                    partieG.verifier();
+                }
+            }else{
                 AnalyseSemantiqueException a = new AnalyseSemantiqueException(noLigne, ": le type attendu est un entier");
                 Tds.getInstance().add(a.getMessage());
             }
+
         }
 
     }
@@ -65,8 +86,12 @@ public class Affect extends Instruction {
      */
     @Override
     public String toMIPS() {
-        // Si tab1 = tab2 alors affectation par valeur
-        // Si partieG tab[indice] alors récupérer le déplacement
+        // Si tab1 = tab2 alors
+            // vérification mips
+            // affectation par valeur
+        // Sinon si partieG tab[indice] alors
+            // vérification pas hors bornes
+            // récupérer le déplacement
         // Sinon, on garde ce qui est déjà écrit
         StringBuilder res = new StringBuilder();
         res.append("\t# " + partieG.getNom() + " = " + partieD.getNom() + "\n");
