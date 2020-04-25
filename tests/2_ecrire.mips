@@ -6,17 +6,21 @@ ErreurDivisionZero: .asciiz "ERREUR EXECUTION : Division par zéro"
 ErreurRetour: .asciiz "ERREUR EXECUTION : Pas de retour dans la fonction"
 ErreurOutOfBound: .asciiz "ERREUR EXECUTION : Demande d'accès hors des bornes du tableau"
 ErreurTailleTableau: .asciiz "ERREUR EXECUTION : Déclaration d'un tableau de taille 0"
+ErreurAffectationTableau: .asciiz "ERREUR EXECUTION : Affectation de tableaux de taille différentes"
 .text
 
 main:
 
 	#allocation mémoire pour les variables
 	move $s7, $sp
-	add $sp, $sp, -4
+	add $sp, $sp, -12
 
-	#ecrire fct()
-	jal fonction1
+	sw $v0, ($sp)
+	add, $sp, $sp, -4
+	addu $sp, $sp, $v0
 
+	#ecrire 3
+	li $v0, 3
 	move $a0, $v0
 	li $v0, 1
 	syscall
@@ -63,84 +67,12 @@ erreurTailleTableau:
 	li $v0, 10
 	syscall
 
-fonction1:
-	# Sauvegarde $sp dans $s2
-	move $s2, $sp
-	add, $s2, $s2, 0
-
-	# Allocation mémoire pour les 0 variables locales
-	add, $sp, $sp, 0
-
-	# Sauvegarde de l'adresse de retour
-	sw $ra, ($sp)
-	add, $sp, $sp, -4
-
-	# Condition
-	lw $v0, 0($s7)
-	# Empiler $v0
-	sw $v0,($sp)
-	add $sp,$sp,-4
-	li $v0, 3
-	# Dépiler $v0
-	add $sp,$sp,4
-	lw $t8,($sp)
-	# Affectation de la valeur booléenne
-	ble $v0,$t8,si3
-	la $v0, Vrai
-	j suite3
-si3:
-	la $v0, Faux
-	j suite3
-suite3:
-
-	la $t8, Vrai
-	beq $v0,$t8,si2
-	# retourne a
-	lw $v0, 0($s7)
-	add, $sp, $sp, 4
-	lw $ra, ($sp)
-	add $sp, $sp, 0
-	jr $ra
-
-
-	j suite2
-si2:
-	#ecrire a
-	lw $v0, 0($s7)
-	move $a0, $v0
-	li $v0, 1
-	syscall
-
-	#retour à la ligne
+erreurAffectationTableau:
 	li $v0, 4 
-	la $a0, BackSlachN
+	la $a0, ErreurAffectationTableau
 	syscall
-
-	# a = a + 1
-	lw $v0, 0($s7)
-	# Empiler $v0
-	sw $v0,($sp)
-	add $sp,$sp,-4
-	li $v0, 1
-	# Dépiler $v0
-	add $sp,$sp,4
-	lw $t8,($sp)
-	add $v0, $t8, $v0
-
-	sw $v0, 0($s7)
-
-	# retourne fct()
-	jal fonction1
-
-	add, $sp, $sp, 4
-	lw $ra, ($sp)
-	add $sp, $sp, 0
-	jr $ra
-
-
-	j suite2
-suite2:
-
-	j erreurRetour
+	#Sortie de programme
+	li $v0, 10
+	syscall
 
 

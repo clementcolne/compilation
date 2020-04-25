@@ -37,8 +37,8 @@ public class SymboleTableau extends Symbole {
         StringBuilder res = new StringBuilder();
         tailleTab.toMIPS();
         res.append("\tsw $v0, ($sp)\n");
-        res.append("\tadd, $sp, $sp, -4");
-        res.append("\taddu $sp, $sp, $v0\n");
+        res.append("\tadd, $sp, $sp, -4\n");
+        res.append("\taddu $sp, $sp, $v0\n\n");
 
         return res.toString();
     }
