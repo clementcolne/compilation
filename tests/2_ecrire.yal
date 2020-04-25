@@ -1,13 +1,7 @@
 programme prog debut
 entier a;
-    fonction fct() debut
-        si a<3 alors
-            ecrire a;
-            a = a + 1;
-            retourne fct();
-        sinon
-            retourne a;
-        finsi
-    fin
-ecrire fct();
+entier c;
+entier d;
+entier[7] b;
+ecrire 3;
 fin

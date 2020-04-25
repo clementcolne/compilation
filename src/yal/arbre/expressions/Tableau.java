@@ -50,7 +50,6 @@ public class Tableau extends Expression {
      * Retourne le toMIPS du tableau
      * @return le toMIPS du tableau
      */
-    @Override
     public String toMIPS() {
         // condition pour vérifier l'indice et la taille du tableau
         StringBuilder res = new StringBuilder();
