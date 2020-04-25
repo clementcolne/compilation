@@ -32,7 +32,23 @@ public abstract class Expression extends ArbreAbstrait {
      * Retourne faux
      * @return faux
      */
+    public boolean isIdf(){
+        return false;
+    }
+
+    /**
+     * Retourne faux
+     * @return faux
+     */
     public boolean isConstante(){
+        return false;
+    }
+
+    /**
+     * Retourne faux
+     * @return faux
+     */
+    public boolean isTableau(){
         return false;
     }
 

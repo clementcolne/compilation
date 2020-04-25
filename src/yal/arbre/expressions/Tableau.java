@@ -28,6 +28,11 @@ public class Tableau extends Expression {
         return nom.getNom()+"["+ exp.getNom()+"]";
     }
 
+    @Override
+    public boolean isTableau() {
+        return true;
+    }
+
     /**
      * Vérifie
      */
