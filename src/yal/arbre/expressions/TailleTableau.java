@@ -31,6 +31,12 @@ public class TailleTableau extends Expression {
 
     @Override
     public String toMIPS() {
-        return "\tlw $v0, " + Tds.getInstance().identifier(nom.getNom(), noLigne,"tableau",0).getDeplacement() + "($s7)\n";
+        String res;
+        if(Tds.getInstance().identifier(nom.getNom(), noLigne,"tableau",0).getNoBloc() == 0){
+            res = "\tlw $v0, " + Tds.getInstance().identifier(nom.getNom(), noLigne,"tableau",0).getDeplacement() + "($s7)\n";
+        }else{
+            res = "\tlw $v0, " + Tds.getInstance().identifier(nom.getNom(), noLigne,"tableau",0).getDeplacement() + "($s2)\n";
+        }
+        return res;
     }
 }

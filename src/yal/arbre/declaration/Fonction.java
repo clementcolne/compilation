@@ -78,6 +78,7 @@ public class Fonction {
 
 
         // On alloue la mémoire pour la taille des tableaux
+        res.append("\tadd $sp, $sp, " + Tds.getInstance().getTailleZoneTableau(bloc) + "\n");
         res.append(Tds.getInstance().memoireTabMips(bloc));
 
         //res.append("\t# chainage dynamique\n");
