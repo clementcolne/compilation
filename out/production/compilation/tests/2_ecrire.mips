@@ -20,8 +20,8 @@ main:
 	# toMips constante entière
 	li $v0, 7
 	sw $v0, -4($s7)
-
-move $sp, -4($s7)		addu $sp, $sp, $v0
+	move $sp, -4($s7)
+	addu $sp, $sp, $v0
 
 	#ecrire b.longueur
 	lw $v0, -4($s7)

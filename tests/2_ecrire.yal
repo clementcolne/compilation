@@ -1,5 +1,8 @@
-programme prog debut
+programme prog1 debut
+
 entier a;
-entier[7] b;
+entier[3] b;
+
 ecrire b.longueur;
+
 fin

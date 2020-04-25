@@ -39,10 +39,10 @@ public class SymboleTableau extends Symbole {
         res.append(tailleTab.toMIPS() + "\n");
         if(Tds.getInstance().identifier(etq, noLig,"tableau",0).getNoBloc() == 0) {
             res.append("\tsw $v0, " + deplacement + "($s7)\n");
-            res.append("\tmove $sp, " + deplacement + "($s7)\n");
+            res.append("\tsw $sp, " + (deplacement - 4) + "($s7)\n");
         }else{
             res.append("\tsw $v0, " + deplacement + "($s2)\n");
-            res.append("\tmove $sp, " + deplacement + "($s2)\n");
+            res.append("\tsw $sp, " + (deplacement - 4) + "($s2)\n");
         }
         res.append("\taddu $sp, $sp, $v0\n\n");
 
