@@ -35,10 +35,11 @@ public class SymboleTableau extends Symbole {
 
     public String toMIPS() {
         StringBuilder res = new StringBuilder();
-        tailleTab.toMIPS();
-        res.append("\tsw $v0, ($sp)\n");
-        res.append("\tadd, $sp, $sp, -4");
-        res.append("\taddu $sp, $sp, $v0\n");
+        res.append(("\t# Tableau\n"));
+        res.append(tailleTab.toMIPS());
+        res.append("\n\tsw $v0, ($sp)\n");
+        res.append("\tadd, $sp, $sp, -8\n");
+        //res.append("\taddu $sp, $sp, $v0\n");
 
         return res.toString();
     }

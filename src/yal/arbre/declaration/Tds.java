@@ -208,11 +208,11 @@ public class Tds {
                 dedans = true;
             }
         }
-        if(dedans && bonBloc) {
+       /* if(dedans && bonBloc) {
             return new Symbole(s.getType(), s.getNoLig(), blocCourant,s.getEtq());
-        }else{
+        }else{*/
             return s;
-        }
+       // }
     }
 
     public String identifierSymb(String e, int nbParam){
@@ -486,6 +486,18 @@ public class Tds {
             }
         }
         return cpt;
+    }
+
+    public String getTailleZoneTableau(int bloc){
+        int res = 0;
+        for(Map.Entry<Entree, ArrayList<Symbole>> k : variables.entrySet()){
+            for(Symbole s: k.getValue()){
+                if(s.isTableau() && s.getNoBloc()==bloc){
+                    res -= 8;
+                }
+            }
+        }
+        return Integer.toString(res);
     }
 
     /**
