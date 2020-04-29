@@ -60,7 +60,6 @@ public class Tableau extends Expression {
         StringBuilder res = new StringBuilder();
         res.append(exp.toMIPS());
         res.append("\n\t# Calcul du déplacement de l'indice\n");
-        res.append("\tadd $v0, $v0, 1\n");
         res.append("\tmul $v0, $v0, -4\n");
         res.append("\tmflo $v0\n");
         res.append("\t# On récupère ce qu'il y a dans la case\n");
@@ -69,8 +68,7 @@ public class Tableau extends Expression {
         int deplacement = Tds.getInstance().identifier(nom.getNom(), noLigne,"tableau",0).getDeplacement() -4;
         res.append("\tlw $t8, " + deplacement + "($s7)\n");
         // se déplacer jusqu'au pointeur
-        res.append("\tlw $v0, ($t8)\n");
-        res.append("\tadd $t8, $t8, $s7\n");
+        res.append("\tadd $t8, $t8, $v0\n");
         res.append("\tlw $v0, ($t8)");
 
         return res.toString();

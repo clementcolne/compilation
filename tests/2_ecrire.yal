@@ -1,8 +1,13 @@
 programme prog1 debut
 
 entier a;
-entier[3] b;
+entier[10] b;
 
-ecrire b.longueur;
+b[0] = 1;
+b[1] = 11;
+b[2] = 111;
+ecrire b[0];
+ecrire b[1];
+ecrire b[2];
 
 fin
