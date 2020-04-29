@@ -2,6 +2,7 @@ package yal.arbre.instructions;
 
 import yal.arbre.declaration.Tds;
 import yal.arbre.expressions.Idf;
+import yal.exceptions.AnalyseSemantiqueException;
 
 public class Lire extends Instruction {
 
@@ -22,7 +23,11 @@ public class Lire extends Instruction {
      */
     @Override
     public void verifier() {
-         idf.verifier();
+        idf.verifier();
+        if(Tds.getInstance().identifier(idf.getNom(), noLigne,"entier",0).getType().equals("entier")){
+            AnalyseSemantiqueException a = new AnalyseSemantiqueException(noLigne, ": "+idf.getNom()+" doit être un entier");
+            Tds.getInstance().add(a.getMessage());
+        }
     }
 
     /**
