@@ -95,12 +95,30 @@ public class Affect extends Instruction {
         // Sinon, on garde ce qui est déjà écrit
         StringBuilder res = new StringBuilder();
         res.append("\t# " + partieG.getNom() + " = " + partieD.getNom() + "\n");
-        res.append(partieD.toMIPS()+"\n");
 
-        if(Tds.getInstance().identifierSymb(partieG.getNom(),0).equals("variable")) {
-            res.append("\tsw $v0, " + Tds.getInstance().getDeplacement(partieG.getNom()) + "($s7)\n");
-        }else{
-            res.append("\tsw $v0, " + Tds.getInstance().getDeplacement(partieG.getNom()) + "($s2)\n");
+
+        // On a un appel de tableau à gauche
+        if(partieTab != null){
+            res.append(partieTab.toMIPS());
+            res.append("\n\t# Tableau à gauche\n");
+            res.append("\tmul $v0, $v0, -4\n");
+            res.append("\tmflo $v0\n");
+            // Dans $t8 il y a le déplacement du tableau
+            // Dans $v0 il y a le déplacement dans le tableau, par rapport à la case d'indice 0
+            int deplacement = Tds.getInstance().identifier(partieG.getNom(), noLigne,"tableau",0).getDeplacement() -4;
+            res.append("\tlw $t8, " + deplacement + "($s7)\n");
+            // se déplacer jusqu'au pointeur
+            res.append("\tadd $t8, $t8, $v0\n");
+            res.append(partieD.toMIPS()+"\n");
+            res.append("\tsw $v0, ($t8)\n");
+        }else {
+            res.append("\n\t# Idf seul à gauche\n");
+            res.append(partieD.toMIPS() + "\n");
+            if (Tds.getInstance().identifierSymb(partieG.getNom(), 0).equals("variable")) {
+                res.append("\tsw $v0, " + Tds.getInstance().getDeplacement(partieG.getNom()) + "($s7)\n");
+            } else {
+                res.append("\tsw $v0, " + Tds.getInstance().getDeplacement(partieG.getNom()) + "($s2)\n");
+            }
         }
         return res.toString();
     }

@@ -64,7 +64,7 @@ public class Tableau extends Expression {
         res.append("\tmflo $v0\n");
         res.append("\t# On récupère ce qu'il y a dans la case\n");
         // Dans $t8 il y a le déplacement du tableau
-        // Dans $v0 il y a le déplacement dans le tableau, à soustraire à $t8
+        // Dans $v0 il y a le déplacement dans le tableau, par rapport à la case d'indice 0
         int deplacement = Tds.getInstance().identifier(nom.getNom(), noLigne,"tableau",0).getDeplacement() -4;
         res.append("\tlw $t8, " + deplacement + "($s7)\n");
         // se déplacer jusqu'au pointeur
