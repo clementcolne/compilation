@@ -25,7 +25,7 @@ public class Tableau extends Expression {
      */
     @Override
     public String getNom() {
-        return nom.getNom()+"["+ exp.getNom()+"]";
+        return nom.getNom();
     }
 
     @Override
@@ -58,8 +58,23 @@ public class Tableau extends Expression {
     public String toMIPS() {
         // condition pour vérifier l'indice et la taille du tableau
         StringBuilder res = new StringBuilder();
-        res.append(exp.toMIPS());
-        res.append("\n\t# Calcul du déplacement de l'indice\n");
+        res.append(exp.toMIPS()+"\n");
+
+        // La taille du tableau se trouve dans $t8, son indice dans $v0
+        if(Tds.getInstance().identifier(nom.getNom(), noLigne,"tableau",0).getNoBloc() == 0){
+            res.append("\tlw $t8, " + Tds.getInstance().identifier(nom.getNom(), noLigne,"tableau",0).getDeplacement() + "($s7)\n");
+        }else{
+            res.append("\tlw $t8, " + Tds.getInstance().identifier(nom.getNom(), noLigne,"tableau",0).getDeplacement() + "($s2)\n");
+        }
+
+        // Test si l'indice est inférieur à 0
+        res.append("\tbltz $v0, erreurOutOfBound\n");
+        // Test si l'indice est supérieur ou égal à la taille du tableau
+        res.append("\tsub $t8, $t8, $v0\n");
+        res.append("\tblez $t8, erreurOutOfBound\n");
+
+         res.append("\n\t# Calcul du déplacement de l'indice\n");
+        res.append(exp.toMIPS()+"\n");
         res.append("\tmul $v0, $v0, -4\n");
         res.append("\tmflo $v0\n");
         res.append("\t# On récupère ce qu'il y a dans la case\n");

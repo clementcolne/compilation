@@ -37,6 +37,7 @@ public class SymboleTableau extends Symbole {
         StringBuilder res = new StringBuilder();
 
         res.append(tailleTab.toMIPS() + "\n");
+        res.append("\tblez $v0, erreurTailleTableau\n\n");
         if(Tds.getInstance().identifier(etq, noLig,"tableau",0).getNoBloc() == 0) {
             res.append("\tsw $v0, " + deplacement + "($s7)\n");
             res.append("\tsw $sp, " + (deplacement - 4) + "($s7)\n");

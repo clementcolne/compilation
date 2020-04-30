@@ -1,6 +1,8 @@
 package yal.arbre.instructions;
 
+import yal.arbre.declaration.Tds;
 import yal.arbre.expressions.Expression;
+import yal.exceptions.AnalyseSemantiqueException;
 
 public class Ecrire extends Instruction {
 
@@ -22,6 +24,10 @@ public class Ecrire extends Instruction {
     @Override
     public void verifier() {
         exp.verifier();
+        if(Tds.getInstance().identifier(exp.getNom(), noLigne,"tableau",0).getType().equals("tableau")){
+            AnalyseSemantiqueException a = new AnalyseSemantiqueException(noLigne, ": "+exp.getNom()+" doit être un entier ou un booléen");
+            Tds.getInstance().add(a.getMessage());
+        }
     }
 
     /**
