@@ -106,7 +106,11 @@ public class Affect extends Instruction {
             // Dans $t8 il y a le déplacement du tableau
             // Dans $v0 il y a le déplacement dans le tableau, par rapport à la case d'indice 0
             int deplacement = Tds.getInstance().identifier(partieG.getNom(), noLigne,"tableau",0).getDeplacement() -4;
-            res.append("\tlw $t8, " + deplacement + "($s7)\n");
+            if(Tds.getInstance().identifier(partieG.getNom(), noLigne,"tableau",0).getNoBloc() == 0){
+                res.append("\tlw $t8, " + deplacement + "($s7)\n");
+            }else{
+                res.append("\tlw $t8, " + deplacement + "($s2)\n");
+            }
             // se déplacer jusqu'au pointeur
             res.append("\tadd $t8, $t8, $v0\n");
             res.append(partieD.toMIPS()+"\n");
@@ -141,7 +145,11 @@ public class Affect extends Instruction {
                 res.append("\tmflo $t0\n");
                 res.append("\t# On récupère ce qu'il y a dans la case\n");
                 int deplacement = Tds.getInstance().identifier(partieD.getNom(), noLigne,"tableau",0).getDeplacement() -4;
-                res.append("\tlw $t8, " + deplacement + "($s7)\n");
+                if(Tds.getInstance().identifier(partieD.getNom(), noLigne,"tableau",0).getNoBloc() == 0){
+                    res.append("\tlw $t8, " + deplacement + "($s7)\n");
+                }else{
+                    res.append("\tlw $t8, " + deplacement + "($s2)\n");
+                }
                 // se déplacer jusqu'au pointeur
                 res.append("\tadd $t8, $t8, $t0\n");
                 res.append("\tlw $v0, ($t8)\n");
@@ -152,7 +160,11 @@ public class Affect extends Instruction {
                 // Dans $t8 il y a le déplacement du tableau
                 // Dans $v0 il y a le déplacement dans le tableau, par rapport à la case d'indice 0
                 int depl = Tds.getInstance().identifier(partieG.getNom(), noLigne,"tableau",0).getDeplacement() -4;
-                res.append("\tlw $t8, " + depl + "($s7)\n");
+                if(Tds.getInstance().identifier(partieG.getNom(), noLigne,"tableau",0).getNoBloc() == 0){
+                    res.append("\tlw $t8, " + depl + "($s7)\n");
+                }else{
+                    res.append("\tlw $t8, " + depl + "($s2)\n");
+                }
                 // se déplacer jusqu'au pointeur
                 res.append("\tadd $t8, $t8, $t0\n");
                 res.append(partieD.toMIPS()+"\n");
