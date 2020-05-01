@@ -16,76 +16,10 @@ main:
 	add $sp, $sp, -4
 
 	#allocation mémoire pour les tableaux
-	add $sp, $sp, -8
-	# toMips constante entière
-	li $v0, 3
-	sw $v0, -4($s7)
-	sw $sp, -8($s7)
-	addu $sp, $sp, $v0
+	add $sp, $sp, 0
+	#ecrire fonc()
+	jal fonction1
 
-	# b = 1
-	# toMips constante entière
-	li $v0, 1
-	sw $v0, -4($s2)
-
-	# b = 11
-	# toMips constante entière
-	li $v0, 11
-	sw $v0, -4($s2)
-
-	# b = 111
-	# toMips constante entière
-	li $v0, 111
-	sw $v0, -4($s2)
-
-	#ecrire b[0]
-	# toMips constante entière
-	li $v0, 0
-	# Calcul du déplacement de l'indice
-	mul $v0, $v0, -4
-	mflo $v0
-	# On récupère ce qu'il y a dans la case
-	lw $t8, -8($s7)
-	add $t8, $t8, $v0
-	lw $v0, ($t8)
-	move $a0, $v0
-	li $v0, 1
-	syscall
-
-	#retour à la ligne
-	li $v0, 4 
-	la $a0, BackSlachN
-	syscall
-
-	#ecrire b[1]
-	# toMips constante entière
-	li $v0, 1
-	# Calcul du déplacement de l'indice
-	mul $v0, $v0, -4
-	mflo $v0
-	# On récupère ce qu'il y a dans la case
-	lw $t8, -8($s7)
-	add $t8, $t8, $v0
-	lw $v0, ($t8)
-	move $a0, $v0
-	li $v0, 1
-	syscall
-
-	#retour à la ligne
-	li $v0, 4 
-	la $a0, BackSlachN
-	syscall
-
-	#ecrire b[2]
-	# toMips constante entière
-	li $v0, 2
-	# Calcul du déplacement de l'indice
-	mul $v0, $v0, -4
-	mflo $v0
-	# On récupère ce qu'il y a dans la case
-	lw $t8, -8($s7)
-	add $t8, $t8, $v0
-	lw $v0, ($t8)
 	move $a0, $v0
 	li $v0, 1
 	syscall
@@ -139,5 +73,33 @@ erreurAffectationTableau:
 	#Sortie de programme
 	li $v0, 10
 	syscall
+
+fonction1:
+	# Sauvegarde $sp dans $s2
+	move $s2, $sp
+	add, $s2, $s2, 0
+
+	# Allocation mémoire pour les 1 variables locales
+	add, $sp, $sp, -4
+
+	add $sp, $sp, 0
+	# Sauvegarde de l'adresse de retour
+	sw $ra, ($sp)
+	add, $sp, $sp, -4
+
+	# b = 4
+
+	# Idf seul à gauche
+	li $v0, 4
+	sw $v0, 0($s2)
+
+	# retourne b
+	lw $v0, 0($s2)
+	add, $sp, $sp, 4
+	lw $ra, ($sp)
+	add $sp, $sp, 4
+	jr $ra
+
+	j erreurRetour
 
 

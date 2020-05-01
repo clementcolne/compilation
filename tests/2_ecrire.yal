@@ -1,13 +1,13 @@
 programme prog1 debut
 
 entier a;
-entier[10] b;
 
-b[0] = 1;
-b[1] = 11;
-b[2] = 111;
-ecrire b[0];
-ecrire b[1];
-ecrire b[2];
+fonction fonc() debut
+  entier b;
+  b = 4;
+  retourne b;
+fin
+
+ecrire fonc();
 
 fin
