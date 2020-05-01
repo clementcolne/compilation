@@ -107,71 +107,71 @@ public class Affect extends Instruction {
             // Dans $v0 il y a le déplacement dans le tableau, par rapport à la case d'indice 0
             int deplacement = Tds.getInstance().identifier(partieG.getNom(), noLigne,"tableau",0).getDeplacement() -4;
             if(Tds.getInstance().identifier(partieG.getNom(), noLigne,"tableau",0).getNoBloc() == 0){
-                res.append("\tlw $t8, " + deplacement + "($s7)\n");
+                res.append("\tlb $t8, " + deplacement + "($s7)\n");
             }else{
-                res.append("\tlw $t8, " + deplacement + "($s2)\n");
+                res.append("\tlb $t8, " + deplacement + "($s2)\n");
             }
             // se déplacer jusqu'au pointeur
             res.append("\tadd $t8, $t8, $v0\n");
             res.append(partieD.toMIPS()+"\n");
-            res.append("\tsw $v0, ($t8)\n");
+            res.append("\tsb $v0, ($t8)\n");
         }else {
             // Copie par valeur
             if(Tds.getInstance().identifier(partieG.getNom(), noLigne,"tableau",0).getType().equals("tableau")){
                 res.append("\n\t# Copie par valeur\n");
                 // Taille du 1er tableau dans $v0, celle du 2ème dans $t8
                 if(Tds.getInstance().identifier(partieG.getNom(), noLigne,"tableau",0).getNoBloc() == 0){
-                    res.append("\tlw $v0, " + Tds.getInstance().identifier(partieG.getNom(), noLigne,"tableau",0).getDeplacement() + "($s7)\n");
+                    res.append("\tlb $v0, " + Tds.getInstance().identifier(partieG.getNom(), noLigne,"tableau",0).getDeplacement() + "($s7)\n");
                 }else{
-                    res.append("\tlw $v0, " + Tds.getInstance().identifier(partieG.getNom(), noLigne,"tableau",0).getDeplacement() + "($s2)\n");
+                    res.append("\tlb $v0, " + Tds.getInstance().identifier(partieG.getNom(), noLigne,"tableau",0).getDeplacement() + "($s2)\n");
                 }
                 if(Tds.getInstance().identifier(partieD.getNom(), noLigne,"tableau",0).getNoBloc() == 0){
-                    res.append("\tlw $t8, " + Tds.getInstance().identifier(partieD.getNom(), noLigne,"tableau",0).getDeplacement() + "($s7)\n");
+                    res.append("\tlb $t8, " + Tds.getInstance().identifier(partieD.getNom(), noLigne,"tableau",0).getDeplacement() + "($s7)\n");
                 }else{
-                    res.append("\tlw $t8, " + Tds.getInstance().identifier(partieD.getNom(), noLigne,"tableau",0).getDeplacement() + "($s2)\n");
+                    res.append("\tlb $t8, " + Tds.getInstance().identifier(partieD.getNom(), noLigne,"tableau",0).getDeplacement() + "($s2)\n");
                 }
 
                 // Si les tailles ne sont pas égales on va à l'étiquette de l'erreur, sinon
                 res.append("\tbne $v0, $t8, erreurAffectationTableau\n");
-                res.append("\tli $t0, 0\n");
+                res.append("\tli $t2, 0\n");
                 res.append("\tmove $t1, $v0\n");
 
                 res.append("\tcopie:\n");
-                res.append("\tbeq $t0, $t1, finCopie\n");
+                res.append("\tbeq $t2, $t1, finCopie\n");
 
-                // On récupère la valeur à l'indice $t0 dans le tableau de droite qu'on met dans $v0
+                // On récupère la valeur à l'indice $t2 dans le tableau de droite qu'on met dans $v0
                 res.append("\n\t# Calcul du déplacement de l'indice\n");
-                res.append("\tmul $t0, $t0, -4\n");
-                res.append("\tmflo $t0\n");
+                res.append("\tmul $t3, $t2, -4\n");
+                res.append("\tmflo $t3\n");
                 res.append("\t# On récupère ce qu'il y a dans la case\n");
                 int deplacement = Tds.getInstance().identifier(partieD.getNom(), noLigne,"tableau",0).getDeplacement() -4;
                 if(Tds.getInstance().identifier(partieD.getNom(), noLigne,"tableau",0).getNoBloc() == 0){
-                    res.append("\tlw $t8, " + deplacement + "($s7)\n");
+                    res.append("\tlb $t8, " + deplacement + "($s7)\n");
                 }else{
-                    res.append("\tlw $t8, " + deplacement + "($s2)\n");
+                    res.append("\tlb $t8, " + deplacement + "($s2)\n");
                 }
                 // se déplacer jusqu'au pointeur
-                res.append("\tadd $t8, $t8, $t0\n");
-                res.append("\tlw $v0, ($t8)\n");
+                res.append("\tadd $t8, $t8, $t3\n");
+                res.append("\tlb $v0, ($t8)\n");
 
-                // On récupère l'adresse de la case à l'indice $t0 dans le tableau de gauche
-                res.append("\tmul $t0, $t0, -4\n");
-                res.append("\tmflo $t0\n");
+                // On récupère l'adresse de la case à l'indice $t2 dans le tableau de gauche
+               // res.append("\tmul $t2, $t2, -4\n");
+               // res.append("\tmflo $t2\n");
                 // Dans $t8 il y a le déplacement du tableau
                 // Dans $v0 il y a le déplacement dans le tableau, par rapport à la case d'indice 0
                 int depl = Tds.getInstance().identifier(partieG.getNom(), noLigne,"tableau",0).getDeplacement() -4;
                 if(Tds.getInstance().identifier(partieG.getNom(), noLigne,"tableau",0).getNoBloc() == 0){
-                    res.append("\tlw $t8, " + depl + "($s7)\n");
+                    res.append("\tlb $t8, " + depl + "($s7)\n");
                 }else{
-                    res.append("\tlw $t8, " + depl + "($s2)\n");
+                    res.append("\tlb $t8, " + depl + "($s2)\n");
                 }
                 // se déplacer jusqu'au pointeur
-                res.append("\tadd $t8, $t8, $t0\n");
-                res.append(partieD.toMIPS()+"\n");
-                res.append("\tsw $v0, ($t8)\n");
+                res.append("\tadd $t8, $t8, $t3\n");
+                //res.append(partieD.toMIPS()+"\n");
+                res.append("\tsb $v0, ($t8)\n");
 
-                // On incrémente $t0
-                res.append("\tadd $t0, $t0, 1\n");
+                // On incrémente $t2
+                res.append("\tadd $t2, $t2, 1\n");
                 res.append("\tj copie\n");
                 res.append("\tfinCopie:\n");
             }else {
