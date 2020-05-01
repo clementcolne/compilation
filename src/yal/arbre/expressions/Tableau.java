@@ -56,8 +56,10 @@ public class Tableau extends Expression {
      * @return le toMIPS du tableau
      */
     public String toMIPS() {
+
         // condition pour vérifier l'indice et la taille du tableau
         StringBuilder res = new StringBuilder();
+        res.append("\t# toMIPS Tableau\n");
         res.append(exp.toMIPS()+"\n");
 
         // La taille du tableau se trouve dans $t8, son indice dans $v0

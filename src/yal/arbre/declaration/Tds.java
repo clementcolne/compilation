@@ -133,21 +133,27 @@ public class Tds {
                         erreurs.add(a.getMessage());
                     }
                 } else {  // types différents
-                    if(type.equals("entier")){
-                        // le symbole est une variable
-                        if(s.isVariable()) {
-                            s.setDeplacement(cptVariables);
-                            cptVariables -= 4;
+                    if((type.equals("entier") && s.getType().equals("tableau")) || (type.equals("tableau") && s.getType().equals("entier"))){
+                        cptErreur++;
+                        AnalyseSemantiqueException a = new AnalyseSemantiqueException(s.getNoLig(), ": multiples déclarations de la variable "+e.getNom());
+                        erreurs.add(a.getMessage());
+                    }else {
+                        if (type.equals("entier")) {
+                            // le symbole est une variable
+                            if (s.isVariable()) {
+                                s.setDeplacement(cptVariables);
+                                cptVariables -= 4;
+                            }
                         }
-                    }
-                    if(s.isTableau()){
-                        if(verifExpTab(s, e.getNom())) {
-                            //s.setDeplacement(cptVariables);
-                            //cptVariables -= 8;
-                            tabTemp.add(s);
+                        if (s.isTableau()) {
+                            if (verifExpTab(s, e.getNom())) {
+                                //s.setDeplacement(cptVariables);
+                                //cptVariables -= 8;
+                                tabTemp.add(s);
+                            }
                         }
+                        variables.get(entree).add(s);
                     }
-                    variables.get(entree).add(s);
                 }
             }else{ // blocs différents
                     if(s.isVariable()) {

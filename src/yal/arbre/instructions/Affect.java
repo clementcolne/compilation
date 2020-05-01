@@ -103,8 +103,7 @@ public class Affect extends Instruction {
             res.append("\n\t# Tableau à gauche\n");
             res.append("\tmul $v0, $v0, -4\n");
             res.append("\tmflo $v0\n");
-            // Dans $t8 il y a le déplacement du tableau
-            // Dans $v0 il y a le déplacement dans le tableau, par rapport à la case d'indice 0
+            // Dans $v0 il y a l'indice
             int deplacement = Tds.getInstance().identifier(partieG.getNom(), noLigne,"tableau",0).getDeplacement() -4;
             if(Tds.getInstance().identifier(partieG.getNom(), noLigne,"tableau",0).getNoBloc() == 0){
                 res.append("\tlb $t8, " + deplacement + "($s7)\n");
